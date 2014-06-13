@@ -1,5 +1,7 @@
 package rlib.ui.window;
 
+import java.awt.Point;
+
 import rlib.ui.page.UIPage;
 
 /**
@@ -15,4 +17,14 @@ public interface UIWindow {
 	 * @param pageClass класс нужной страницы.
 	 */
 	public void showPage(Class<? extends UIPage> pageClass);
+
+	public void setTitle(String title);
+
+	public String getTitle();
+
+	public void setSize(int width, int height);
+
+	public void setPosition(int x, int y);
+
+	public Point getPosition();
 }

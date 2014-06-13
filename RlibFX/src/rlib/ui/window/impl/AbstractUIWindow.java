@@ -1,5 +1,7 @@
 package rlib.ui.window.impl;
 
+import java.awt.Point;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -41,6 +43,9 @@ public class AbstractUIWindow implements UIWindow {
 		this.scene = createdScene();
 
 		configureRoot();
+
+		stage.setScene(scene);
+		stage.show();
 	}
 
 	@Override
@@ -63,6 +68,33 @@ public class AbstractUIWindow implements UIWindow {
 	}
 
 	protected Scene createdScene() {
-		return new Scene(rootNode, 400, 280, Color.LIGHTGRAY);
+		return new Scene(rootNode, 400, 400, Color.WHITE);
+	}
+
+	@Override
+	public void setTitle(String title) {
+		stage.setTitle(title);
+	}
+
+	@Override
+	public String getTitle() {
+		return stage.getTitle();
+	}
+
+	@Override
+	public void setSize(int width, int height) {
+		stage.setWidth(width);
+		stage.setHeight(height);
+	}
+
+	@Override
+	public void setPosition(int x, int y) {
+		stage.setX(x);
+		stage.setY(y);
+	}
+
+	@Override
+	public Point getPosition() {
+		return new Point((int) stage.getX(), (int) stage.getY());
 	}
 }
