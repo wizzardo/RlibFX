@@ -1,9 +1,7 @@
 package rlib.ui.page.impl;
 
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import rlib.ui.page.UIPage;
 import rlib.ui.window.UIWindow;
 
@@ -14,11 +12,10 @@ import rlib.ui.window.UIWindow;
  */
 public class AbstractUIPage implements UIPage {
 
-	/** рутовый узел страницы */
+	/** рутовый узел {@link UIPage} */
 	private final Pane rootNode;
 
 	public AbstractUIPage() {
-
 		this.rootNode = createRoot();
 	}
 
@@ -26,25 +23,46 @@ public class AbstractUIPage implements UIPage {
 		return new VBox();
 	}
 
-	protected Scene createdScene() {
-		return new Scene(rootNode, 400, 280, Color.LIGHTGRAY);
-	}
-
 	@Override
 	public Pane init(UIWindow window) {
-		// TODO Автоматически созданная заглушка метода
-		return null;
+		Pane rootNode = getRootNode();
+		initImpl(window, rootNode);
+		return rootNode;
 	}
 
 	@Override
-	public void preShow(UIWindow window) {
-		// TODO Автоматически созданная заглушка метода
+	public Pane getRootNode() {
+		return rootNode;
+	}
 
+	protected void initImpl(UIWindow window, Pane root) {
 	}
 
 	@Override
-	public void postShow(UIWindow window) {
-		// TODO Автоматически созданная заглушка метода
+	public void prePageShow(UIWindow window) {
+	}
 
+	@Override
+	public void postPageShow(UIWindow window) {
+	}
+
+	@Override
+	public void prePageHide(UIWindow window) {
+	}
+
+	@Override
+	public void postPageHide(UIWindow window) {
+	}
+
+	@Override
+	public void windowHided(UIWindow window) {
+	}
+
+	@Override
+	public void windowShowed(UIWindow window) {
+	}
+
+	@Override
+	public void windowClosed(UIWindow window) {
 	}
 }
