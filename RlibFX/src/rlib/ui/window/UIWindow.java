@@ -2,7 +2,12 @@ package rlib.ui.window;
 
 import java.awt.Point;
 
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.layout.Pane;
 import rlib.ui.page.UIPage;
+import rlib.ui.window.event.UIWindowEvent;
 
 /**
  * Интерфейс для реализации UI окна.
@@ -82,4 +87,39 @@ public interface UIWindow {
 	 * @param pageClass класс нужной страницы.
 	 */
 	public void showPage(Class<? extends UIPage> pageClass);
+
+	/**
+	 * Загрука и приминение CSS.
+	 * 
+	 * @param path путь к файлу CSS.
+	 */
+	public void loadStylesheets(String path);
+
+	/**
+	 * @return рутовый контейнер окна.
+	 */
+	public Pane getRootNode();
+
+	/**
+	 * Установка минимального размера окна.
+	 * 
+	 * @param width ширина окна.
+	 * @param height высота окна.
+	 */
+	public void setMinimalSize(int width, int height);
+
+	/**
+	 * Добавление обработчиков событий окна.
+	 * 
+	 * @param eventType тип события.
+	 * @param eventHandler обработчик события.
+	 */
+	public void addEventHandler(EventType<? extends Event> eventType, EventHandler<? super Event> eventHandler);
+
+	/**
+	 * Уведомление всех обработчиков о указнном событии.
+	 * 
+	 * @param event отправленное событие.
+	 */
+	public void notify(UIWindowEvent event);
 }

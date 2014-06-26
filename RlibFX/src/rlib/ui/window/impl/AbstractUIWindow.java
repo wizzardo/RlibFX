@@ -3,6 +3,9 @@ package rlib.ui.window.impl;
 import java.awt.Point;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -13,6 +16,7 @@ import rlib.logging.LoggerManager;
 import rlib.ui.page.UIPage;
 import rlib.ui.util.FXUtils;
 import rlib.ui.window.UIWindow;
+import rlib.ui.window.event.UIWindowEvent;
 import rlib.util.ClassUtils;
 import rlib.util.array.Array;
 import rlib.util.array.ArrayFactory;
@@ -27,6 +31,9 @@ import rlib.util.table.TableFactory;
 public class AbstractUIWindow implements UIWindow {
 
 	protected static final Logger LOGGER = LoggerManager.getLogger(UIWindow.class);
+
+	/** таблица обработчиков событий */
+	private final Table<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers;
 
 	/** список доступных {@link UIPage} в рамках этого {@link UIWindow} */
 	private final Array<Class<? extends UIPage>> availablePages;
@@ -49,6 +56,7 @@ public class AbstractUIWindow implements UIWindow {
 	private volatile UIPage currentPage;
 
 	public AbstractUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
+		this.eventHandlers = TableFactory.newObjectTable();
 		this.availablePages = ArrayFactory.newArray(Class.class);
 		this.availablePages.addAll(availablePages);
 		this.pages = TableFactory.newObjectTable();
@@ -61,6 +69,21 @@ public class AbstractUIWindow implements UIWindow {
 
 		stage.setScene(scene);
 		stage.show();
+	}
+
+	@Override
+	public void addEventHandler(final EventType<? extends Event> eventType, final EventHandler<? super Event> eventHandler) {
+
+		final Table<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers = getEventHandlers();
+
+		Array<EventHandler<? super Event>> handlers = eventHandlers.get(eventType);
+
+		if(handlers == null) {
+			handlers = ArrayFactory.newArray(EventHandler.class);
+			eventHandlers.put(eventType, handlers);
+		}
+
+		handlers.add(eventHandler);
 	}
 
 	@Override
@@ -102,7 +125,8 @@ public class AbstractUIWindow implements UIWindow {
 	 * Создание и определение сцены {@link UIWindow}.
 	 */
 	protected Scene createdScene() {
-		return new Scene(rootNode, 400, 400, Color.WHITE);
+		final Scene scene = new Scene(rootNode, 400, 400, Color.WHITE);
+		return scene;
 	}
 
 	/**
@@ -115,6 +139,13 @@ public class AbstractUIWindow implements UIWindow {
 	@Override
 	public UIPage getCurrentPage() {
 		return currentPage;
+	}
+
+	/**
+	 * @return таблица обработчиков событий.
+	 */
+	protected Table<EventType<? extends Event>, Array<EventHandler<? super Event>>> getEventHandlers() {
+		return eventHandlers;
 	}
 
 	/**
@@ -134,6 +165,11 @@ public class AbstractUIWindow implements UIWindow {
 	@Override
 	public Point getPosition() {
 		return new Point((int) stage.getX(), (int) stage.getY());
+	}
+
+	@Override
+	public Pane getRootNode() {
+		return rootNode;
 	}
 
 	/**
@@ -160,13 +196,48 @@ public class AbstractUIWindow implements UIWindow {
 	}
 
 	@Override
+	public void loadStylesheets(final String path) {
+		scene.getStylesheets().add(path);
+	}
+
+	@Override
 	public void moveToCenter() {
 		stage.centerOnScreen();
 	}
 
 	@Override
+	public void notify(final UIWindowEvent event) {
+
+		final Table<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers = getEventHandlers();
+
+		for(EventType<? extends Event> eventType = event.getEventType(); eventType != null; eventType = eventType.getSuperType()) {
+
+			final Array<EventHandler<? super Event>> handlers = eventHandlers.get(eventType);
+
+			if(handlers == null || handlers.isEmpty()) {
+				continue;
+			}
+
+			for(final EventHandler<? super Event> handler : handlers.array()) {
+
+				if(handler == null) {
+					break;
+				}
+
+				handler.handle(event);
+			}
+		}
+	}
+
+	@Override
 	public void setCurrentPage(final UIPage currentPage) {
 		this.currentPage = currentPage;
+	}
+
+	@Override
+	public void setMinimalSize(final int width, final int height) {
+		stage.setMinHeight(height);
+		stage.setMinWidth(width);
 	}
 
 	@Override
@@ -243,7 +314,7 @@ public class AbstractUIWindow implements UIWindow {
 
 			try {
 
-				final Pane currentRoot = pageRoots.get(page);
+				final Pane currentRoot = pageRoots.get(currentPage);
 
 				if(currentRoot != null) {
 
