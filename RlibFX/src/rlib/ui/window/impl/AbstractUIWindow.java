@@ -17,6 +17,8 @@ import rlib.ui.page.UIPage;
 import rlib.ui.util.FXUtils;
 import rlib.ui.window.UIWindow;
 import rlib.ui.window.event.UIWindowEvent;
+import rlib.ui.window.event.impl.SwitchPageUIWindowEvent;
+import rlib.ui.window.event.target.impl.SwitchPageEventTarget;
 import rlib.util.ClassUtils;
 import rlib.util.array.Array;
 import rlib.util.array.ArrayFactory;
@@ -361,5 +363,10 @@ public class AbstractUIWindow implements UIWindow {
 		}
 
 		setCurrentPage(page);
+
+		SwitchPageEventTarget eventTarget = new SwitchPageEventTarget(currentPage, page);
+		SwitchPageUIWindowEvent event = new SwitchPageUIWindowEvent(this, eventTarget, SwitchPageUIWindowEvent.EVENT_TYPE);
+
+		notify(event);
 	}
 }
