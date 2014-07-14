@@ -3,6 +3,8 @@ package rlib.ui.window.impl;
 import java.awt.Point;
 
 import javafx.beans.property.DoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -106,6 +108,7 @@ public class AbstractUIWindow implements UIWindow {
 	 * @return узел, в котором будут размещаться {@link UIPage}.
 	 */
 	protected Pane configurePageRoot(final Pane rootNode) {
+		rootNode.layout();
 		return rootNode;
 	}
 
@@ -115,10 +118,22 @@ public class AbstractUIWindow implements UIWindow {
 	protected void configureRoot() {
 
 		final DoubleProperty width = rootNode.prefWidthProperty();
-		width.bind(scene.widthProperty());
+		width.bind(stage.widthProperty());
+		width.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
+			if(LOGGER.isEnabledDebug()) {
+				LOGGER.debug("new root width value " + newValue);
+			}
+		});
 
-		final DoubleProperty heigh = rootNode.prefHeightProperty();
-		heigh.bind(scene.heightProperty());
+		width.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> System.out.println("new root width value " + newValue));
+
+		final DoubleProperty height = rootNode.prefHeightProperty();
+		height.bind(stage.heightProperty());
+		height.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
+			if(LOGGER.isEnabledDebug()) {
+				LOGGER.debug("new root height value " + newValue);
+			}
+		});
 
 		setRootPageNode(configurePageRoot(rootNode));
 	}
@@ -151,7 +166,7 @@ public class AbstractUIWindow implements UIWindow {
 	}
 
 	/**
-	 * @return таблица рутовых узлов {@link UIPage}.
+	 * @return таблица рутовых узлов {@link UIPage}. scene.
 	 */
 	protected Table<UIPage, Pane> getPageRoots() {
 		return pageRoots;
@@ -199,7 +214,11 @@ public class AbstractUIWindow implements UIWindow {
 
 	@Override
 	public void loadStylesheets(final String path) {
-		scene.getStylesheets().add(path);
+		final ObservableList<String> stylesheets = scene.getStylesheets();
+
+		System.out.println("styles " + stylesheets);
+
+		stylesheets.add(path);
 	}
 
 	@Override
@@ -298,6 +317,8 @@ public class AbstractUIWindow implements UIWindow {
 
 		Pane plane = pageRoots.get(page);
 
+		boolean created = false;
+
 		if(plane == null) {
 			synchronized(pageRoots) {
 
@@ -306,6 +327,7 @@ public class AbstractUIWindow implements UIWindow {
 				if(plane == null) {
 					plane = page.init(this);
 					pageRoots.put(page, plane);
+					created = true;
 				}
 			}
 		}
@@ -349,9 +371,27 @@ public class AbstractUIWindow implements UIWindow {
 		try {
 
 			final DoubleProperty height = plane.prefHeightProperty();
+
+			if(created) {
+				height.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
+					if(LOGGER.isEnabledDebug()) {
+						LOGGER.debug("new page height value " + newValue);
+					}
+				});
+			}
+
 			height.bind(rootPageNode.heightProperty());
 
 			final DoubleProperty width = plane.prefWidthProperty();
+
+			if(created) {
+				width.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
+					if(LOGGER.isEnabledDebug()) {
+						LOGGER.debug("new page width value " + newValue);
+					}
+				});
+			}
+
 			width.bind(rootPageNode.widthProperty());
 
 			FXUtils.addToPane(plane, rootPageNode);
