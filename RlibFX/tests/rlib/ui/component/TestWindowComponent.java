@@ -3,18 +3,15 @@ package rlib.ui.component;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import rlib.ui.component.impl.DraggablePanel;
+import rlib.ui.scene.input.InternalContent;
 import rlib.ui.util.FXUtils;
 
 /**
@@ -36,12 +33,6 @@ public class TestWindowComponent extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 
-		DraggablePanel graggablePanel = new DraggablePanel();
-		graggablePanel.setBackground(new Background(new BackgroundFill(Color.RED, null, null)));
-
-		FXUtils.setFixedSize(graggablePanel, 100, 100);
-		FXUtils.addToPane(graggablePanel, pane);
-
 		final Text source = new Text(50, 100, "DRAG ME");
 		final Text target = new Text(300, 100, "DROP HERE");
 
@@ -51,10 +42,10 @@ public class TestWindowComponent extends Application {
 			public void handle(MouseEvent event) {
 				/* drag was detected, start a drag-and-drop gesture */
 				/* allow any transfer mode */
-				Dragboard db = source.startDragAndDrop(TransferMode.ANY);
+				Dragboard db = source.startDragAndDrop(TransferMode.COPY);
 
 				/* Put a string on a dragboard */
-				ClipboardContent content = new ClipboardContent();
+				InternalContent content = new InternalContent();
 				content.putString(source.getText());
 				db.setContent(content);
 
@@ -73,9 +64,9 @@ public class TestWindowComponent extends Application {
 				 * accept it only if it is not dragged from the same node and if
 				 * it has a string data
 				 */
-				if(event.getGestureSource() != target && event.getDragboard().hasString()) {
+				if(event.getGestureSource() != target) {
 					/* allow for both copying and moving, whatever user chooses */
-					event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+					event.acceptTransferModes(TransferMode.COPY);
 				}
 
 				event.consume();
@@ -90,7 +81,7 @@ public class TestWindowComponent extends Application {
 			public void handle(DragEvent event) {
 				/* the drag-and-drop gesture entered the target */
 				/* show to the user that it is an actual gesture target */
-				if(event.getGestureSource() != target && event.getDragboard().hasString()) {
+				if(event.getGestureSource() != target) {
 					target.setFill(Color.GREEN);
 				}
 
@@ -118,9 +109,11 @@ public class TestWindowComponent extends Application {
 				/* data dropped */
 				/* if there is a string data on dragboard, read it and use it */
 				Dragboard db = event.getDragboard();
+				final String string = (String) db.getContent(InternalContent.DATA_STRING);
+
 				boolean success = false;
-				if(db.hasString()) {
-					target.setText(db.getString());
+				if(string != null) {
+					target.setText(string);
 					success = true;
 				}
 				/*

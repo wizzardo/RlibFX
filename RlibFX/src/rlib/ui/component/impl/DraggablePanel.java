@@ -30,8 +30,14 @@ public class DraggablePanel extends Pane {
 	 */
 	protected void processMove(MouseEvent event) {
 
+		final Point2D dragOffset = getDragOffset();
+
+		if(dragOffset == null) {
+			return;
+		}
+
 		double dragX = event.getSceneX() - dragOffset.getX();
-		double dragY = event.getSceneY() - dragOffset.getY();
+		double dragY = event.getSceneY() - getDragOffset().getY();
 
 		double newXPosition = initX + dragX;
 		double newYPosition = initY + dragY;
