@@ -27,6 +27,7 @@ public class TestWindowComponent extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		Pane pane = new Pane();
+		// pane.setCursor(Cursor.CLOSED_HAND);
 
 		Scene scene = new Scene(pane, 600, 400);
 
@@ -51,7 +52,22 @@ public class TestWindowComponent extends Application {
 
 				event.consume();
 
-				System.out.println("setOnDragDetected");
+				System.out.println("source: setOnDragDetected");
+			}
+		});
+
+		source.setOnDragDone(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				/* the drag and drop gesture ended */
+				/* if the data was successfully moved, clear it */
+				if(event.getTransferMode() == TransferMode.MOVE) {
+					source.setText("");
+				}
+				event.consume();
+
+				System.out.println("source: setOnDragDone");
 			}
 		});
 
@@ -124,19 +140,6 @@ public class TestWindowComponent extends Application {
 
 				event.consume();
 				System.out.println("setOnDragDropped");
-			}
-		});
-
-		source.setOnDragDone(new EventHandler<DragEvent>() {
-
-			@Override
-			public void handle(DragEvent event) {
-				/* the drag and drop gesture ended */
-				/* if the data was successfully moved, clear it */
-				if(event.getTransferMode() == TransferMode.MOVE) {
-					source.setText("");
-				}
-				event.consume();
 			}
 		});
 
