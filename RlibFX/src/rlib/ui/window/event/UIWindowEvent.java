@@ -16,11 +16,11 @@ public class UIWindowEvent extends Event {
 
 	public static final EventType<UIWindowEvent> EVENT_TYPE = new EventType<>(UIWindowEvent.class.getSimpleName());
 
-	public UIWindowEvent(EventType<? extends UIWindowEvent> eventType) {
+	public UIWindowEvent(final EventType<? extends UIWindowEvent> eventType) {
 		super(eventType);
 	}
 
-	public UIWindowEvent(Object source, EventTarget target, EventType<? extends UIWindowEvent> eventType) {
+	public UIWindowEvent(final Object source, final EventTarget target, final EventType<? extends UIWindowEvent> eventType) {
 		super(source, target, eventType);
 	}
 }

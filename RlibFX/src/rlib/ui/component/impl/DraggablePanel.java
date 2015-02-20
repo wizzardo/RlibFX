@@ -28,7 +28,7 @@ public class DraggablePanel extends Pane {
 	/**
 	 * Процесс перемещения.
 	 */
-	protected void processMove(MouseEvent event) {
+	protected void processMove(final MouseEvent event) {
 
 		final Point2D dragOffset = getDragOffset();
 
@@ -36,11 +36,11 @@ public class DraggablePanel extends Pane {
 			return;
 		}
 
-		double dragX = event.getSceneX() - dragOffset.getX();
-		double dragY = event.getSceneY() - getDragOffset().getY();
+		final double dragX = event.getSceneX() - dragOffset.getX();
+		final double dragY = event.getSceneY() - getDragOffset().getY();
 
-		double newXPosition = initX + dragX;
-		double newYPosition = initY + dragY;
+		final double newXPosition = initX + dragX;
+		final double newYPosition = initY + dragY;
 
 		setTranslateX(newXPosition);
 		setTranslateY(newYPosition);
@@ -49,7 +49,7 @@ public class DraggablePanel extends Pane {
 	/**
 	 * Подготовка к началу перемещения.
 	 */
-	protected void processStartDrag(MouseEvent event) {
+	protected void processStartDrag(final MouseEvent event) {
 		setInitX(getTranslateX());
 		setInitY(getTranslateY());
 		setDragOffset(new Point2D(event.getSceneX(), event.getSceneY()));
@@ -59,7 +59,7 @@ public class DraggablePanel extends Pane {
 	/**
 	 * Процесс завершения перемещения.
 	 */
-	protected void processStopDrag(MouseEvent event) {
+	protected void processStopDrag(final MouseEvent event) {
 		setInitX(0);
 		setInitY(0);
 		setDragOffset(null);
@@ -89,21 +89,21 @@ public class DraggablePanel extends Pane {
 	/**
 	 * @param initX положение перед началом перемещения по X.
 	 */
-	public void setInitX(double initX) {
+	public void setInitX(final double initX) {
 		this.initX = initX;
 	}
 
 	/**
 	 * @param initY положение перед началом перемещения по Y.
 	 */
-	public void setInitY(double initY) {
+	public void setInitY(final double initY) {
 		this.initY = initY;
 	}
 
 	/**
 	 * @param dragOffset место в котором был клик перед началом перемещения.
 	 */
-	public void setDragOffset(Point2D dragOffset) {
+	public void setDragOffset(final Point2D dragOffset) {
 		this.dragOffset = dragOffset;
 	}
 }

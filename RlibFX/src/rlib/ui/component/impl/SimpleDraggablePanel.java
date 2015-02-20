@@ -21,14 +21,14 @@ public class SimpleDraggablePanel extends Pane {
 	/**
 	 * Процесс завершения перемещения объекта.
 	 */
-	protected void processFinishDragAndDrop(DragEvent event) {
+	protected void processFinishDragAndDrop(final DragEvent event) {
 		event.consume();
 	}
 
 	/**
 	 * Процесс старта перемещения объекта.
 	 */
-	protected void processStartDragAndDrop(MouseEvent event) {
+	protected void processStartDragAndDrop(final MouseEvent event) {
 		prepareData(startDragAndDrop(getTransferMode()));
 		event.consume();
 	}

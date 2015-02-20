@@ -16,7 +16,7 @@ public class SwitchPageUIWindowEvent extends UIWindowEvent {
 
 	public static final EventType<SwitchPageUIWindowEvent> EVENT_TYPE = new EventType<>(UIWindowEvent.EVENT_TYPE, SwitchPageUIWindowEvent.class.getSimpleName());
 
-	public SwitchPageUIWindowEvent(Object source, SwitchPageEventTarget target, EventType<? extends SwitchPageUIWindowEvent> eventType) {
+	public SwitchPageUIWindowEvent(final Object source, final SwitchPageEventTarget target, final EventType<? extends SwitchPageUIWindowEvent> eventType) {
 		super(source, target, eventType);
 	}
 }

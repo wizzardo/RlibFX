@@ -24,8 +24,8 @@ public class AbstractUIPage implements UIPage {
 	}
 
 	@Override
-	public Pane init(UIWindow window) {
-		Pane rootNode = getRootNode();
+	public Pane init(final UIWindow window) {
+		final Pane rootNode = getRootNode();
 		initImpl(window, rootNode);
 		return rootNode;
 	}
@@ -35,34 +35,34 @@ public class AbstractUIPage implements UIPage {
 		return rootNode;
 	}
 
-	protected void initImpl(UIWindow window, Pane root) {
+	protected void initImpl(final UIWindow window, final Pane root) {
 	}
 
 	@Override
-	public void prePageShow(UIWindow window) {
+	public void prePageShow(final UIWindow window) {
 	}
 
 	@Override
-	public void postPageShow(UIWindow window) {
+	public void postPageShow(final UIWindow window) {
 	}
 
 	@Override
-	public void prePageHide(UIWindow window) {
+	public void prePageHide(final UIWindow window) {
 	}
 
 	@Override
-	public void postPageHide(UIWindow window) {
+	public void postPageHide(final UIWindow window) {
 	}
 
 	@Override
-	public void windowHided(UIWindow window) {
+	public void windowHided(final UIWindow window) {
 	}
 
 	@Override
-	public void windowShowed(UIWindow window) {
+	public void windowShowed(final UIWindow window) {
 	}
 
 	@Override
-	public void windowClosed(UIWindow window) {
+	public void windowClosed(final UIWindow window) {
 	}
 }

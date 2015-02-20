@@ -19,19 +19,19 @@ public class InternalContent extends HashMap<DataFormat, Object> {
 	public static final DataFormat DATA_NUMBER = new DataFormat("internal/number");
 	public static final DataFormat DATA_REFERENCE = new DataFormat("internal/reference");
 
-	public void putObject(Object object) {
+	public void putObject(final Object object) {
 		put(DATA_OBJECT, object);
 	}
 
-	public void putString(String string) {
+	public void putString(final String string) {
 		put(DATA_STRING, string);
 	}
 
-	public void putNumber(Number number) {
+	public void putNumber(final Number number) {
 		put(DATA_NUMBER, number);
 	}
 
-	public void putReference(Reference reference) {
+	public void putReference(final Reference reference) {
 		put(DATA_REFERENCE, reference);
 	}
 

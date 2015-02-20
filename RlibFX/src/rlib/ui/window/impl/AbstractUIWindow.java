@@ -65,14 +65,18 @@ public class AbstractUIWindow implements UIWindow {
 		this.availablePages.addAll(availablePages);
 		this.pages = TableFactory.newObjectTable();
 		this.pageRoots = TableFactory.newObjectTable();
-		this.stage = stage;
+		this.stage = configureStage(stage);
 		this.rootNode = createRoot();
 		this.scene = createdScene();
 
 		configureRoot();
 
-		stage.setScene(scene);
-		stage.show();
+		configureStage(stage).setScene(scene);
+		configureStage(stage).show();
+	}
+
+	protected Stage configureStage(final Stage stage) {
+		return stage;
 	}
 
 	@Override
@@ -215,9 +219,6 @@ public class AbstractUIWindow implements UIWindow {
 	@Override
 	public void loadStylesheets(final String path) {
 		final ObservableList<String> stylesheets = scene.getStylesheets();
-
-		System.out.println("styles " + stylesheets);
-
 		stylesheets.add(path);
 	}
 
@@ -404,8 +405,8 @@ public class AbstractUIWindow implements UIWindow {
 
 		setCurrentPage(page);
 
-		SwitchPageEventTarget eventTarget = new SwitchPageEventTarget(currentPage, page);
-		SwitchPageUIWindowEvent event = new SwitchPageUIWindowEvent(this, eventTarget, SwitchPageUIWindowEvent.EVENT_TYPE);
+		final SwitchPageEventTarget eventTarget = new SwitchPageEventTarget(currentPage, page);
+		final SwitchPageUIWindowEvent event = new SwitchPageUIWindowEvent(this, eventTarget, SwitchPageUIWindowEvent.EVENT_TYPE);
 
 		notify(event);
 	}

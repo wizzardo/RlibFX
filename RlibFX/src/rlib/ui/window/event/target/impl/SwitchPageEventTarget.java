@@ -19,13 +19,13 @@ public class SwitchPageEventTarget implements EventTarget {
 	/** новая страница */
 	private final UIPage newPage;
 
-	public SwitchPageEventTarget(UIPage prevPage, UIPage newPage) {
+	public SwitchPageEventTarget(final UIPage prevPage, final UIPage newPage) {
 		this.prevPage = prevPage;
 		this.newPage = newPage;
 	}
 
 	@Override
-	public EventDispatchChain buildEventDispatchChain(EventDispatchChain tail) {
+	public EventDispatchChain buildEventDispatchChain(final EventDispatchChain tail) {
 		return null;
 	}
 

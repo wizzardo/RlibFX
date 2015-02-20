@@ -16,7 +16,7 @@ public final class UIWindowFactory {
 		throw new RuntimeException();
 	}
 
-	public static final UIWindow create(Stage stage, Array<Class<? extends UIPage>> pages) {
+	public static final UIWindow create(final Stage stage, final Array<Class<? extends UIPage>> pages) {
 		return new DefaultUIWindow(stage, pages);
 	}
 }

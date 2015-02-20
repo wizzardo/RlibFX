@@ -11,7 +11,7 @@ import rlib.util.array.Array;
  */
 public class DefaultUIWindow extends AbstractUIWindow {
 
-	public DefaultUIWindow(Stage stage, Array<Class<? extends UIPage>> availablePages) {
+	public DefaultUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
 		super(stage, availablePages);
 	}
 
