@@ -122,4 +122,29 @@ public interface UIWindow {
 	 * @param event отправленное событие.
 	 */
 	public void notify(UIWindowEvent event);
+
+	/**
+	 * Установка максимального размера окна.
+	 * 
+	 * @param width максимальная ширина.
+	 * @param height максимальная высота.
+	 */
+	public void setMaximumSize(final int width, final int height);
+
+	/**
+	 * Указание, можно ли изменять размер окна.
+	 * 
+	 * @param rezisable можно ли изменять размер окна.
+	 */
+	public void setRezisable(boolean rezisable);
+
+	/**
+	 * @return текущая координата X окна.
+	 */
+	public double getX();
+
+	/**
+	 * @return текущая координата Y окна.
+	 */
+	public double getY();
 }

@@ -129,8 +129,6 @@ public class AbstractUIWindow implements UIWindow {
 			}
 		});
 
-		width.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> System.out.println("new root width value " + newValue));
-
 		final DoubleProperty height = rootNode.prefHeightProperty();
 		height.bind(stage.heightProperty());
 		height.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
@@ -260,6 +258,17 @@ public class AbstractUIWindow implements UIWindow {
 	public void setMinimalSize(final int width, final int height) {
 		stage.setMinHeight(height);
 		stage.setMinWidth(width);
+	}
+
+	@Override
+	public void setMaximumSize(final int width, final int height) {
+		stage.setMaxWidth(width);
+		stage.setMaxHeight(height);
+	}
+
+	@Override
+	public void setRezisable(boolean rezisable) {
+		stage.setResizable(rezisable);
 	}
 
 	@Override
@@ -409,5 +418,15 @@ public class AbstractUIWindow implements UIWindow {
 		final SwitchPageUIWindowEvent event = new SwitchPageUIWindowEvent(this, eventTarget, SwitchPageUIWindowEvent.EVENT_TYPE);
 
 		notify(event);
+	}
+
+	@Override
+	public double getX() {
+		return stage.getX();
+	}
+
+	@Override
+	public double getY() {
+		return stage.getY();
 	}
 }

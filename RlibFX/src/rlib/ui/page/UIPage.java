@@ -30,4 +30,11 @@ public interface UIPage {
 	 * @return рутовый узел {@link UIPage}.
 	 */
 	public Pane getRootNode();
+
+	/**
+	 * Получение окна, в котором находится страница.
+	 * 
+	 * @return окно страницы.
+	 */
+	public UIWindow getWindow();
 }

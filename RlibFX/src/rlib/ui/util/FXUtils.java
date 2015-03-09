@@ -100,4 +100,8 @@ public class FXUtils {
 		region.minHeightProperty().bind(height);
 		region.maxHeightProperty().bind(height);
 	}
+
+	public static void addClassTo(Node node, String className) {
+		node.getStyleClass().add(className);
+	}
 }

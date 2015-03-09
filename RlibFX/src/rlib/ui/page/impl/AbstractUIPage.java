@@ -15,6 +15,9 @@ public class AbstractUIPage implements UIPage {
 	/** рутовый узел {@link UIPage} */
 	private final Pane rootNode;
 
+	/** окно в котором находится страница */
+	private UIWindow window;
+
 	public AbstractUIPage() {
 		this.rootNode = createRoot();
 	}
@@ -25,8 +28,11 @@ public class AbstractUIPage implements UIPage {
 
 	@Override
 	public Pane init(final UIWindow window) {
+		this.window = window;
+
 		final Pane rootNode = getRootNode();
 		initImpl(window, rootNode);
+
 		return rootNode;
 	}
 
@@ -64,5 +70,10 @@ public class AbstractUIPage implements UIPage {
 
 	@Override
 	public void windowClosed(final UIWindow window) {
+	}
+
+	@Override
+	public UIWindow getWindow() {
+		return window;
 	}
 }
