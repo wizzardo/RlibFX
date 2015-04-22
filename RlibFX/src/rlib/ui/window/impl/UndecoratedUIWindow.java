@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import rlib.ui.hanlder.WindowDragHandler;
 import rlib.ui.page.UIPage;
 import rlib.ui.util.FXUtils;
 import rlib.util.array.Array;
@@ -24,7 +25,7 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
 	}
 
 	@Override
-	protected Stage configureStage(Stage stage) {
+	protected Stage configureStage(final Stage stage) {
 		stage.initStyle(StageStyle.UNDECORATED);
 		return super.configureStage(stage);
 	}
@@ -32,28 +33,38 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
 	@Override
 	protected Pane createRoot() {
 
-		VBox root = new VBox();
+		final VBox root = new VBox();
+		final HBox header = createHeader();
 
-		HBox header = createHeader();
+		final Button closeButton = createCloseButton();
+		final Button miniminizeButton = createMiniminizeButton();
 
-		Button closeButton = createCloseButton();
-		Button miniminizeButton = createMiniminizeButton();
+		if(miniminizeButton != null) {
+			FXUtils.addToPane(miniminizeButton, header);
+		}
 
-		FXUtils.addToPane(miniminizeButton, header);
-		FXUtils.addToPane(closeButton, header);
+		if(closeButton != null) {
+			FXUtils.addToPane(closeButton, header);
+		}
+
 		FXUtils.addToPane(header, root);
 
-		applyMarginToCloseButton(closeButton);
-		applyMarginToMiniminizeButton(miniminizeButton);
+		if(miniminizeButton != null) {
+			applyMarginToMiniminizeButton(miniminizeButton);
+		}
+
+		if(closeButton != null) {
+			applyMarginToCloseButton(closeButton);
+		}
 
 		return root;
 	}
 
-	protected void applyMarginToMiniminizeButton(Button miniminizeButton) {
+	protected void applyMarginToMiniminizeButton(final Button miniminizeButton) {
 		HBox.setMargin(miniminizeButton, new Insets(4, 4, 0, 0));
 	}
 
-	protected void applyMarginToCloseButton(Button closeButton) {
+	protected void applyMarginToCloseButton(final Button closeButton) {
 		HBox.setMargin(closeButton, new Insets(4, 4, 0, 0));
 	}
 
@@ -78,6 +89,8 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
 
 		final HBox header = new HBox();
 		header.setAlignment(CENTER_RIGHT);
+
+		WindowDragHandler.install(header);
 
 		return header;
 	}

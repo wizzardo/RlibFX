@@ -24,8 +24,8 @@ import rlib.ui.window.event.target.impl.SwitchPageEventTarget;
 import rlib.util.ClassUtils;
 import rlib.util.array.Array;
 import rlib.util.array.ArrayFactory;
-import rlib.util.table.Table;
-import rlib.util.table.TableFactory;
+import rlib.util.dictionary.DictionaryFactory;
+import rlib.util.dictionary.ObjectDictionary;
 
 /**
  * Базовая реализация {@link UIWindow}.
@@ -36,16 +36,16 @@ public class AbstractUIWindow implements UIWindow {
 
 	protected static final Logger LOGGER = LoggerManager.getLogger(UIWindow.class);
 
-	/** таблица обработчиков событий */
-	private final Table<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers;
+	/** словарь обработчиков событий */
+	private final ObjectDictionary<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers;
 
 	/** список доступных {@link UIPage} в рамках этого {@link UIWindow} */
 	private final Array<Class<? extends UIPage>> availablePages;
-	/** таблица созданных {@link UIPage} */
-	private final Table<Class<? extends UIPage>, UIPage> pages;
+	/** словарь созданных {@link UIPage} */
+	private final ObjectDictionary<Class<? extends UIPage>, UIPage> pages;
 
-	/** таблица рутовых узлов {@link UIPage} */
-	private final Table<UIPage, Pane> pageRoots;
+	/** словарь рутовых узлов {@link UIPage} */
+	private final ObjectDictionary<UIPage, Pane> pageRoots;
 
 	/** {@link Stage} в рамках которой рисуется {@link UIWindow} */
 	private final Stage stage;
@@ -60,11 +60,11 @@ public class AbstractUIWindow implements UIWindow {
 	private volatile UIPage currentPage;
 
 	public AbstractUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
-		this.eventHandlers = TableFactory.newObjectTable();
+		this.eventHandlers = DictionaryFactory.newObjectDictionary();
 		this.availablePages = ArrayFactory.newArray(Class.class);
 		this.availablePages.addAll(availablePages);
-		this.pages = TableFactory.newObjectTable();
-		this.pageRoots = TableFactory.newObjectTable();
+		this.pages = DictionaryFactory.newObjectDictionary();
+		this.pageRoots = DictionaryFactory.newObjectDictionary();
 		this.stage = configureStage(stage);
 		this.rootNode = createRoot();
 		this.scene = createdScene();
@@ -82,7 +82,7 @@ public class AbstractUIWindow implements UIWindow {
 	@Override
 	public void addEventHandler(final EventType<? extends Event> eventType, final EventHandler<? super Event> eventHandler) {
 
-		final Table<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers = getEventHandlers();
+		final ObjectDictionary<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers = getEventHandlers();
 
 		Array<EventHandler<? super Event>> handlers = eventHandlers.get(eventType);
 
@@ -161,23 +161,23 @@ public class AbstractUIWindow implements UIWindow {
 	}
 
 	/**
-	 * @return таблица обработчиков событий.
+	 * @return словарь обработчиков событий.
 	 */
-	protected Table<EventType<? extends Event>, Array<EventHandler<? super Event>>> getEventHandlers() {
+	protected ObjectDictionary<EventType<? extends Event>, Array<EventHandler<? super Event>>> getEventHandlers() {
 		return eventHandlers;
 	}
 
 	/**
-	 * @return таблица рутовых узлов {@link UIPage}. scene.
+	 * @return словарь рутовых узлов {@link UIPage}. scene.
 	 */
-	protected Table<UIPage, Pane> getPageRoots() {
+	protected ObjectDictionary<UIPage, Pane> getPageRoots() {
 		return pageRoots;
 	}
 
 	/**
-	 * @return таблица созданных {@link UIPage}.
+	 * @return словарь созданных {@link UIPage}.
 	 */
-	protected Table<Class<? extends UIPage>, UIPage> getPages() {
+	protected ObjectDictionary<Class<? extends UIPage>, UIPage> getPages() {
 		return pages;
 	}
 
@@ -228,7 +228,7 @@ public class AbstractUIWindow implements UIWindow {
 	@Override
 	public void notify(final UIWindowEvent event) {
 
-		final Table<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers = getEventHandlers();
+		final ObjectDictionary<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers = getEventHandlers();
 
 		for(EventType<? extends Event> eventType = event.getEventType(); eventType != null; eventType = eventType.getSuperType()) {
 
@@ -306,8 +306,8 @@ public class AbstractUIWindow implements UIWindow {
 	@Override
 	public void showPage(final Class<? extends UIPage> pageClass) {
 
-		final Table<Class<? extends UIPage>, UIPage> pages = getPages();
-		final Table<UIPage, Pane> pageRoots = getPageRoots();
+		final ObjectDictionary<Class<? extends UIPage>, UIPage> pages = getPages();
+		final ObjectDictionary<UIPage, Pane> pageRoots = getPageRoots();
 
 		final Pane rootPageNode = getRootPageNode();
 

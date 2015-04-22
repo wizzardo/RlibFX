@@ -17,16 +17,33 @@ import javafx.scene.layout.Region;
  */
 public class FXUtils {
 
+	/**
+	 * Добавление узла к дочерним элементам панели.
+	 * 
+	 * @param node добавляемый узел.
+	 * @param parent панель, в которой добавляется узел.
+	 */
 	public static void addToPane(final Node node, final Pane parent) {
 		final ObservableList<Node> children = parent.getChildren();
 		children.add(node);
 	}
 
+	/**
+	 * Удаление узла из дочерних элементов панели.
+	 * 
+	 * @param node удаляемый узел.
+	 * @param parent панель у которой удаляется узел.
+	 */
 	public static void removeToPane(final Node node, final Pane parent) {
 		final ObservableList<Node> children = parent.getChildren();
 		children.remove(node);
 	}
 
+	/**
+	 * Добавление для дебага бордера узлу, что бы дебажить лаяутинг.
+	 * 
+	 * @param node узел для которого добавляется бордер.
+	 */
 	public static void addDebugBorderTo(final Node node) {
 		node.setStyle("-fx-border-color: rgb(49, 89, 23); -fx-border-radius: 5;");
 	}
@@ -43,6 +60,12 @@ public class FXUtils {
 		node.setStyle("-fx-background-color: " + color + ";");
 	}
 
+	/**
+	 * Установка виксированной высоты для компонента.
+	 * 
+	 * @param region компонент, котророму устанавливается фиксированная высота.
+	 * @param height значение фиксированной высоты.
+	 */
 	public static void setFixedHeight(final Region region, final double height) {
 		region.setMaxHeight(height);
 		region.setMinHeight(height);
