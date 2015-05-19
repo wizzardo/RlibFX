@@ -45,7 +45,7 @@ public class FXUtils {
 	 * @param node узел для которого добавляется бордер.
 	 */
 	public static void addDebugBorderTo(final Node node) {
-		node.setStyle("-fx-border-color: rgb(49, 89, 23); -fx-border-radius: 5;");
+		node.setStyle("-fx-border-color: red; -fx-border-width: 3px;");
 	}
 
 	/**

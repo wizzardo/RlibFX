@@ -355,10 +355,22 @@ public class AbstractUIWindow implements UIWindow {
 					currentPage.prePageHide(this);
 					try {
 
-						final DoubleProperty width = currentRoot.prefWidthProperty();
+						DoubleProperty width = currentRoot.prefWidthProperty();
 						width.unbind();
 
-						final DoubleProperty heigh = currentRoot.prefHeightProperty();
+						width = currentRoot.minWidthProperty();
+						width.unbind();
+
+						width = currentRoot.maxWidthProperty();
+						width.unbind();
+
+						DoubleProperty heigh = currentRoot.prefHeightProperty();
+						heigh.unbind();
+
+						heigh = currentRoot.minHeightProperty();
+						heigh.unbind();
+
+						heigh = currentRoot.maxHeightProperty();
 						heigh.unbind();
 
 						FXUtils.removeToPane(currentRoot, rootPageNode);
@@ -380,7 +392,7 @@ public class AbstractUIWindow implements UIWindow {
 		page.prePageShow(this);
 		try {
 
-			final DoubleProperty height = plane.prefHeightProperty();
+			DoubleProperty height = plane.prefHeightProperty();
 
 			if(created) {
 				height.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
@@ -392,7 +404,13 @@ public class AbstractUIWindow implements UIWindow {
 
 			height.bind(rootPageNode.heightProperty());
 
-			final DoubleProperty width = plane.prefWidthProperty();
+			height = plane.minHeightProperty();
+			height.bind(rootPageNode.heightProperty());
+
+			height = plane.maxHeightProperty();
+			height.bind(rootPageNode.heightProperty());
+
+			DoubleProperty width = plane.prefWidthProperty();
 
 			if(created) {
 				width.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
@@ -402,6 +420,10 @@ public class AbstractUIWindow implements UIWindow {
 				});
 			}
 
+			width = plane.minWidthProperty();
+			width.bind(rootPageNode.widthProperty());
+
+			width = plane.maxWidthProperty();
 			width.bind(rootPageNode.widthProperty());
 
 			FXUtils.addToPane(plane, rootPageNode);
@@ -428,5 +450,10 @@ public class AbstractUIWindow implements UIWindow {
 	@Override
 	public double getY() {
 		return stage.getY();
+	}
+
+	@Override
+	public Stage getOwner() {
+		return stage;
 	}
 }

@@ -6,6 +6,7 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import rlib.ui.page.UIPage;
 import rlib.ui.window.event.UIWindowEvent;
 
@@ -147,4 +148,9 @@ public interface UIWindow {
 	 * @return текущая координата Y окна.
 	 */
 	public double getY();
+
+	/**
+	 * @return владелец окна.
+	 */
+	public Stage getOwner();
 }

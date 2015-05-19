@@ -1,13 +1,13 @@
 package rlib.ui.window.impl;
 
 import static javafx.geometry.Pos.CENTER_RIGHT;
+import static javafx.stage.StageStyle.UNDECORATED;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import rlib.ui.hanlder.WindowDragHandler;
 import rlib.ui.page.UIPage;
 import rlib.ui.util.FXUtils;
@@ -26,7 +26,7 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
 
 	@Override
 	protected Stage configureStage(final Stage stage) {
-		stage.initStyle(StageStyle.UNDECORATED);
+		stage.initStyle(UNDECORATED);
 		return super.configureStage(stage);
 	}
 
@@ -34,7 +34,7 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
 	protected Pane createRoot() {
 
 		final VBox root = new VBox();
-		final HBox header = createHeader();
+		final Pane header = createHeader();
 
 		final Button closeButton = createCloseButton();
 		final Button miniminizeButton = createMiniminizeButton();
@@ -85,7 +85,7 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
 		return button;
 	}
 
-	protected HBox createHeader() {
+	protected Pane createHeader() {
 
 		final HBox header = new HBox();
 		header.setAlignment(CENTER_RIGHT);
