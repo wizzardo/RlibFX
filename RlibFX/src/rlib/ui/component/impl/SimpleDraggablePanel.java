@@ -8,38 +8,38 @@ import javafx.scene.layout.Pane;
 
 /**
  * Реализация простой панельки с еремещаемым контентом.
- * 
+ *
  * @author Ronn
  */
 public class SimpleDraggablePanel extends Pane {
 
-	public SimpleDraggablePanel() {
-		setOnDragDetected(event -> processStartDragAndDrop(event));
-		setOnDragDone(event -> processFinishDragAndDrop(event));
-	}
+    public SimpleDraggablePanel() {
+        setOnDragDetected(event -> processStartDragAndDrop(event));
+        setOnDragDone(event -> processFinishDragAndDrop(event));
+    }
 
-	/**
-	 * Процесс завершения перемещения объекта.
-	 */
-	protected void processFinishDragAndDrop(final DragEvent event) {
-		event.consume();
-	}
+    protected TransferMode[] getTransferMode() {
+        return TransferMode.COPY_OR_MOVE;
+    }
 
-	/**
-	 * Процесс старта перемещения объекта.
-	 */
-	protected void processStartDragAndDrop(final MouseEvent event) {
-		prepareData(startDragAndDrop(getTransferMode()));
-		event.consume();
-	}
+    /**
+     * Процесс внесения данных в буффер перемещения.
+     */
+    protected void prepareData(final Dragboard dragboard) {
+    }
 
-	/**
-	 * Процесс внесения данных в буффер перемещения.
-	 */
-	protected void prepareData(final Dragboard dragboard) {
-	}
+    /**
+     * Процесс завершения перемещения объекта.
+     */
+    protected void processFinishDragAndDrop(final DragEvent event) {
+        event.consume();
+    }
 
-	protected TransferMode[] getTransferMode() {
-		return TransferMode.COPY_OR_MOVE;
-	}
+    /**
+     * Процесс старта перемещения объекта.
+     */
+    protected void processStartDragAndDrop(final MouseEvent event) {
+        prepareData(startDragAndDrop(getTransferMode()));
+        event.consume();
+    }
 }

@@ -6,104 +6,111 @@ import javafx.scene.layout.Pane;
 
 /**
  * Реализация перемещаемой панели.
- * 
+ *
  * @author Ronn
  */
 public class DraggablePanel extends Pane {
 
-	/** положение перед началом перемещения по X */
-	private double initX;
-	/** положение перед началом перемещения по Y */
-	private double initY;
+    /**
+     * Положение перед началом перемещения по X.
+     */
+    private double initX;
 
-	/** место в котором был клик перед началом перемещения */
-	private Point2D dragOffset;
+    /**
+     * Положение перед началом перемещения по Y.
+     */
+    private double initY;
 
-	public DraggablePanel() {
-		setOnMousePressed(event -> processStartDrag(event));
-		setOnMouseDragged(event -> processMove(event));
-		setOnMouseReleased(event -> processStopDrag(event));
-	}
+    /**
+     * Место в котором был клик перед началом перемещения.
+     */
+    private Point2D dragOffset;
 
-	/**
-	 * Процесс перемещения.
-	 */
-	protected void processMove(final MouseEvent event) {
+    public DraggablePanel() {
+        setOnMousePressed(event -> processStartDrag(event));
+        setOnMouseDragged(event -> processMove(event));
+        setOnMouseReleased(event -> processStopDrag(event));
+    }
 
-		final Point2D dragOffset = getDragOffset();
+    /**
+     * @return место в котором был клик перед началом перемещения.
+     */
+    protected Point2D getDragOffset() {
+        return dragOffset;
+    }
 
-		if(dragOffset == null) {
-			return;
-		}
+    /**
+     * @param dragOffset место в котором был клик перед началом перемещения.
+     */
+    public void setDragOffset(final Point2D dragOffset) {
+        this.dragOffset = dragOffset;
+    }
 
-		final double dragX = event.getSceneX() - dragOffset.getX();
-		final double dragY = event.getSceneY() - getDragOffset().getY();
+    /**
+     * @return положение перед началом перемещения по X.
+     */
+    protected double getInitX() {
+        return initX;
+    }
 
-		final double newXPosition = initX + dragX;
-		final double newYPosition = initY + dragY;
+    /**
+     * @param initX положение перед началом перемещения по X.
+     */
+    public void setInitX(final double initX) {
+        this.initX = initX;
+    }
 
-		setTranslateX(newXPosition);
-		setTranslateY(newYPosition);
-	}
+    /**
+     * @return положение перед началом перемещения по Y.
+     */
+    protected double getInitY() {
+        return initY;
+    }
 
-	/**
-	 * Подготовка к началу перемещения.
-	 */
-	protected void processStartDrag(final MouseEvent event) {
-		setInitX(getTranslateX());
-		setInitY(getTranslateY());
-		setDragOffset(new Point2D(event.getSceneX(), event.getSceneY()));
-		toFront();
-	}
+    /**
+     * @param initY положение перед началом перемещения по Y.
+     */
+    public void setInitY(final double initY) {
+        this.initY = initY;
+    }
 
-	/**
-	 * Процесс завершения перемещения.
-	 */
-	protected void processStopDrag(final MouseEvent event) {
-		setInitX(0);
-		setInitY(0);
-		setDragOffset(null);
-	}
+    /**
+     * Процесс перемещения.
+     */
+    protected void processMove(final MouseEvent event) {
 
-	/**
-	 * @return положение перед началом перемещения по X.
-	 */
-	protected double getInitX() {
-		return initX;
-	}
+        final Point2D dragOffset = getDragOffset();
 
-	/**
-	 * @return положение перед началом перемещения по Y.
-	 */
-	protected double getInitY() {
-		return initY;
-	}
+        if (dragOffset == null) {
+            return;
+        }
 
-	/**
-	 * @return место в котором был клик перед началом перемещения.
-	 */
-	protected Point2D getDragOffset() {
-		return dragOffset;
-	}
+        final double dragX = event.getSceneX() - dragOffset.getX();
+        final double dragY = event.getSceneY() - getDragOffset().getY();
 
-	/**
-	 * @param initX положение перед началом перемещения по X.
-	 */
-	public void setInitX(final double initX) {
-		this.initX = initX;
-	}
+        final double newXPosition = initX + dragX;
+        final double newYPosition = initY + dragY;
 
-	/**
-	 * @param initY положение перед началом перемещения по Y.
-	 */
-	public void setInitY(final double initY) {
-		this.initY = initY;
-	}
+        setTranslateX(newXPosition);
+        setTranslateY(newYPosition);
+    }
 
-	/**
-	 * @param dragOffset место в котором был клик перед началом перемещения.
-	 */
-	public void setDragOffset(final Point2D dragOffset) {
-		this.dragOffset = dragOffset;
-	}
+    /**
+     * Подготовка к началу перемещения.
+     */
+    protected void processStartDrag(final MouseEvent event) {
+        setInitX(getTranslateX());
+        setInitY(getTranslateY());
+        setDragOffset(new Point2D(event.getSceneX(), event.getSceneY()));
+        toFront();
+    }
+
+    /**
+     * Процесс завершения перемещения.
+     */
+    protected void processStopDrag(final MouseEvent event) {
+        setInitX(0);
+        setInitY(0);
+        setDragOffset(null);
+    }
 }

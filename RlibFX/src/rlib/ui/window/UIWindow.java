@@ -1,7 +1,5 @@
 package rlib.ui.window;
 
-import java.awt.Point;
-
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -10,147 +8,149 @@ import javafx.stage.Stage;
 import rlib.ui.page.UIPage;
 import rlib.ui.window.event.UIWindowEvent;
 
+import java.awt.*;
+
 /**
  * Интерфейс для реализации UI окна.
- * 
+ *
  * @author Ronn
  */
 public interface UIWindow {
 
-	/**
-	 * Закрыть окно.
-	 */
-	public void close();
+    /**
+     * Добавление обработчиков событий окна.
+     *
+     * @param eventType    тип события.
+     * @param eventHandler обработчик события.
+     */
+    public void addEventHandler(EventType<? extends Event> eventType, EventHandler<? super Event> eventHandler);
 
-	/**
-	 * @return текущая {@link UIPage} у {@link UIWindow}.
-	 */
-	public UIPage getCurrentPage();
+    /**
+     * Закрыть окно.
+     */
+    public void close();
 
-	/**
-	 * @return текущая позиция окна.
-	 */
-	public Point getPosition();
+    /**
+     * @return текущая {@link UIPage} у {@link UIWindow}.
+     */
+    public UIPage getCurrentPage();
 
-	/**
-	 * Получение текущего титула окна.
-	 * 
-	 * @return текущий титул окна.
-	 */
-	public String getTitle();
+    /**
+     * @param currentPage текущая {@link UIPage} у {@link UIWindow}.
+     */
+    public void setCurrentPage(UIPage currentPage);
 
-	/**
-	 * Спрятать окно.
-	 */
-	public void hide();
+    /**
+     * @return владелец окна.
+     */
+    public Stage getOwner();
 
-	/**
-	 * Переместить окно в центр экрана.
-	 */
-	public void moveToCenter();
+    /**
+     * @return текущая позиция окна.
+     */
+    public Point getPosition();
 
-	/**
-	 * @param currentPage текущая {@link UIPage} у {@link UIWindow}.
-	 */
-	public void setCurrentPage(UIPage currentPage);
+    /**
+     * @return рутовый контейнер окна.
+     */
+    public Pane getRootNode();
 
-	/**
-	 * Установка новой позиции окна.
-	 * 
-	 * @param x новая позиция по X.
-	 * @param y новая позиция по Y.
-	 */
-	public void setPosition(int x, int y);
+    /**
+     * Получение текущего титула окна.
+     *
+     * @return текущий титул окна.
+     */
+    public String getTitle();
 
-	/**
-	 * Установка нового размера окна.
-	 * 
-	 * @param width новая ширина окна.
-	 * @param height новая высота окна.
-	 */
-	public void setSize(int width, int height);
+    /**
+     * Установка нового титула окна.
+     *
+     * @param title титул окна.
+     */
+    public void setTitle(String title);
 
-	/**
-	 * Установка нового титула окна.
-	 * 
-	 * @param title титул окна.
-	 */
-	public void setTitle(String title);
+    /**
+     * @return текущая координата X окна.
+     */
+    public double getX();
 
-	/**
-	 * Отобразить окно.
-	 */
-	public void show();
+    /**
+     * @return текущая координата Y окна.
+     */
+    public double getY();
 
-	/**
-	 * Отобразить UI страницу в окне указанного класса.
-	 * 
-	 * @param pageClass класс нужной страницы.
-	 */
-	public void showPage(Class<? extends UIPage> pageClass);
+    /**
+     * Спрятать окно.
+     */
+    public void hide();
 
-	/**
-	 * Загрука и приминение CSS.
-	 * 
-	 * @param path путь к файлу CSS.
-	 */
-	public void loadStylesheets(String path);
+    /**
+     * Загрука и приминение CSS.
+     *
+     * @param path путь к файлу CSS.
+     */
+    public void loadStylesheets(String path);
 
-	/**
-	 * @return рутовый контейнер окна.
-	 */
-	public Pane getRootNode();
+    /**
+     * Переместить окно в центр экрана.
+     */
+    public void moveToCenter();
 
-	/**
-	 * Установка минимального размера окна.
-	 * 
-	 * @param width ширина окна.
-	 * @param height высота окна.
-	 */
-	public void setMinimalSize(int width, int height);
+    /**
+     * Уведомление всех обработчиков о указнном событии.
+     *
+     * @param event отправленное событие.
+     */
+    public void notify(UIWindowEvent event);
 
-	/**
-	 * Добавление обработчиков событий окна.
-	 * 
-	 * @param eventType тип события.
-	 * @param eventHandler обработчик события.
-	 */
-	public void addEventHandler(EventType<? extends Event> eventType, EventHandler<? super Event> eventHandler);
+    /**
+     * Установка максимального размера окна.
+     *
+     * @param width  максимальная ширина.
+     * @param height максимальная высота.
+     */
+    public void setMaximumSize(final int width, final int height);
 
-	/**
-	 * Уведомление всех обработчиков о указнном событии.
-	 * 
-	 * @param event отправленное событие.
-	 */
-	public void notify(UIWindowEvent event);
+    /**
+     * Установка минимального размера окна.
+     *
+     * @param width  ширина окна.
+     * @param height высота окна.
+     */
+    public void setMinimalSize(int width, int height);
 
-	/**
-	 * Установка максимального размера окна.
-	 * 
-	 * @param width максимальная ширина.
-	 * @param height максимальная высота.
-	 */
-	public void setMaximumSize(final int width, final int height);
+    /**
+     * Установка новой позиции окна.
+     *
+     * @param x новая позиция по X.
+     * @param y новая позиция по Y.
+     */
+    public void setPosition(int x, int y);
 
-	/**
-	 * Указание, можно ли изменять размер окна.
-	 * 
-	 * @param rezisable можно ли изменять размер окна.
-	 */
-	public void setRezisable(boolean rezisable);
+    /**
+     * Указание, можно ли изменять размер окна.
+     *
+     * @param resizable можно ли изменять размер окна.
+     */
+    public void setResizable(boolean resizable);
 
-	/**
-	 * @return текущая координата X окна.
-	 */
-	public double getX();
+    /**
+     * Установка нового размера окна.
+     *
+     * @param width  новая ширина окна.
+     * @param height новая высота окна.
+     */
+    public void setSize(int width, int height);
 
-	/**
-	 * @return текущая координата Y окна.
-	 */
-	public double getY();
+    /**
+     * Отобразить окно.
+     */
+    public void show();
 
-	/**
-	 * @return владелец окна.
-	 */
-	public Stage getOwner();
+    /**
+     * Отобразить UI страницу в окне указанного класса.
+     *
+     * @param pageClass класс нужной страницы.
+     */
+    public void showPage(Class<? extends UIPage> pageClass);
 }

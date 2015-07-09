@@ -1,7 +1,5 @@
 package rlib.ui.window.impl;
 
-import static javafx.geometry.Pos.CENTER_RIGHT;
-import static javafx.stage.StageStyle.UNDECORATED;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -13,85 +11,88 @@ import rlib.ui.page.UIPage;
 import rlib.ui.util.FXUtils;
 import rlib.util.array.Array;
 
+import static javafx.geometry.Pos.CENTER_RIGHT;
+import static javafx.stage.StageStyle.UNDECORATED;
+
 /**
  * Реализация окна без стандратной декорации.
- * 
+ *
  * @author Ronn
  */
 public class UndecoratedUIWindow extends DefaultUIWindow {
 
-	public UndecoratedUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
-		super(stage, availablePages);
-	}
+    public UndecoratedUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
+        super(stage, availablePages);
+    }
 
-	@Override
-	protected Stage configureStage(final Stage stage) {
-		stage.initStyle(UNDECORATED);
-		return super.configureStage(stage);
-	}
+    protected void applyMarginToCloseButton(final Button closeButton) {
+        HBox.setMargin(closeButton, new Insets(4, 4, 0, 0));
+    }
 
-	@Override
-	protected Pane createRoot() {
+    protected void applyMarginToMinimiseButton(final Button minimiseButton) {
+        HBox.setMargin(minimiseButton, new Insets(4, 4, 0, 0));
+    }
 
-		final VBox root = new VBox();
-		final Pane header = createHeader();
+    @Override
+    protected Stage configureStage(final Stage stage) {
+        stage.initStyle(UNDECORATED);
+        return super.configureStage(stage);
+    }
 
-		final Button closeButton = createCloseButton();
-		final Button miniminizeButton = createMiniminizeButton();
+    protected Button createCloseButton() {
 
-		if(miniminizeButton != null) {
-			FXUtils.addToPane(miniminizeButton, header);
-		}
+        final Button button = new Button();
+        button.setText("Close");
+        button.setOnAction(event -> close());
 
-		if(closeButton != null) {
-			FXUtils.addToPane(closeButton, header);
-		}
+        return button;
+    }
 
-		FXUtils.addToPane(header, root);
+    protected Pane createHeader() {
 
-		if(miniminizeButton != null) {
-			applyMarginToMiniminizeButton(miniminizeButton);
-		}
+        final HBox header = new HBox();
+        header.setAlignment(CENTER_RIGHT);
 
-		if(closeButton != null) {
-			applyMarginToCloseButton(closeButton);
-		}
+        WindowDragHandler.install(header);
 
-		return root;
-	}
+        return header;
+    }
 
-	protected void applyMarginToMiniminizeButton(final Button miniminizeButton) {
-		HBox.setMargin(miniminizeButton, new Insets(4, 4, 0, 0));
-	}
+    protected Button createMinimiseButton() {
 
-	protected void applyMarginToCloseButton(final Button closeButton) {
-		HBox.setMargin(closeButton, new Insets(4, 4, 0, 0));
-	}
+        final Button button = new Button();
+        button.setText("Minimise");
 
-	protected Button createCloseButton() {
+        return button;
+    }
 
-		final Button button = new Button();
-		button.setText("Close");
-		button.setOnAction(event -> close());
+    @Override
+    protected Pane createRoot() {
 
-		return button;
-	}
+        final VBox root = new VBox();
+        final Pane header = createHeader();
 
-	protected Button createMiniminizeButton() {
+        final Button closeButton = createCloseButton();
+        final Button minimiseButton = createMinimiseButton();
 
-		final Button button = new Button();
-		button.setText("Miniminize");
+        if (minimiseButton != null) {
+            FXUtils.addToPane(minimiseButton, header);
+        }
 
-		return button;
-	}
+        if (closeButton != null) {
+            FXUtils.addToPane(closeButton, header);
+        }
 
-	protected Pane createHeader() {
+        FXUtils.addToPane(header, root);
 
-		final HBox header = new HBox();
-		header.setAlignment(CENTER_RIGHT);
+        if (minimiseButton != null) {
+            applyMarginToMinimiseButton(minimiseButton);
+        }
 
-		WindowDragHandler.install(header);
+        if (closeButton != null) {
+            applyMarginToCloseButton(closeButton);
+        }
 
-		return header;
-	}
+        return root;
+    }
 }

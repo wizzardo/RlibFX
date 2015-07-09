@@ -6,58 +6,58 @@ import javafx.scene.layout.Pane;
 
 /**
  * Реализация простой панельки для принятия drag элементов.
- * 
+ *
  * @author Ronn
  */
 public class SimpleDroppedPanel extends Pane {
 
-	public SimpleDroppedPanel() {
-		setOnDragOver(event -> processOnDragOver(event));
-		setOnDragEntered(event -> processOnDragEntered(event));
-		setOnDragExited(event -> processOnDragExited(event));
-		setOnDragDropped(event -> processOnDragDropped(event));
-	}
+    public SimpleDroppedPanel() {
+        setOnDragOver(event -> processOnDragOver(event));
+        setOnDragEntered(event -> processOnDragEntered(event));
+        setOnDragExited(event -> processOnDragExited(event));
+        setOnDragDropped(event -> processOnDragDropped(event));
+    }
 
-	/**
-	 * Обработка завершения перемещения объекта на этот элемент.
-	 */
-	protected void processOnDragDropped(final DragEvent event) {
-		event.setDropCompleted(true);
-		event.consume();
-	}
+    /**
+     * Принятие режима трансфера перемещаемого объекта.
+     */
+    protected void acceptTransfersMode(final DragEvent event) {
+        event.acceptTransferModes(TransferMode.COPY);
+    }
 
-	/**
-	 * Обработка вхождения перемещаемого объекта в зону этого объекта.
-	 */
-	protected void processOnDragEntered(final DragEvent event) {
-		event.consume();
-	}
+    /**
+     * Обработка завершения перемещения объекта на этот элемент.
+     */
+    protected void processOnDragDropped(final DragEvent event) {
+        event.setDropCompleted(true);
+        event.consume();
+    }
 
-	/**
-	 * Обработка выхода перемещаемого объекта из зоны этого.
-	 */
-	protected void processOnDragExited(final DragEvent event) {
-		event.consume();
-	}
+    /**
+     * Обработка вхождения перемещаемого объекта в зону этого объекта.
+     */
+    protected void processOnDragEntered(final DragEvent event) {
+        event.consume();
+    }
 
-	/**
-	 * Обработка нахождения перемещаемого объекта над этим.
-	 */
-	protected void processOnDragOver(final DragEvent event) {
+    /**
+     * Обработка выхода перемещаемого объекта из зоны этого.
+     */
+    protected void processOnDragExited(final DragEvent event) {
+        event.consume();
+    }
 
-		final Object source = event.getGestureSource();
+    /**
+     * Обработка нахождения перемещаемого объекта над этим.
+     */
+    protected void processOnDragOver(final DragEvent event) {
 
-		if(source != this) {
-			acceptTransfersMode(event);
-		}
+        final Object source = event.getGestureSource();
 
-		event.consume();
-	}
+        if (source != this) {
+            acceptTransfersMode(event);
+        }
 
-	/**
-	 * Принятие режима трансфера перемещаемого объекта.
-	 */
-	protected void acceptTransfersMode(final DragEvent event) {
-		event.acceptTransferModes(TransferMode.COPY);
-	}
+        event.consume();
+    }
 }

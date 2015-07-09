@@ -7,16 +7,16 @@ import rlib.util.array.Array;
 
 /**
  * Фабрика {@link UIWindow}.
- * 
+ *
  * @author Ronn
  */
 public final class UIWindowFactory {
 
-	private UIWindowFactory() {
-		throw new RuntimeException();
-	}
+    public static final UIWindow create(final Stage stage, final Array<Class<? extends UIPage>> pages) {
+        return new DefaultUIWindow(stage, pages);
+    }
 
-	public static final UIWindow create(final Stage stage, final Array<Class<? extends UIPage>> pages) {
-		return new DefaultUIWindow(stage, pages);
-	}
+    private UIWindowFactory() {
+        throw new RuntimeException();
+    }
 }

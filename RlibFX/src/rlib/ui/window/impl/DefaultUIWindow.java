@@ -6,13 +6,13 @@ import rlib.util.array.Array;
 
 /**
  * Стандартная реализация окна JavaFX.
- * 
+ *
  * @author Ronn
  */
 public class DefaultUIWindow extends AbstractUIWindow {
 
-	public DefaultUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
-		super(stage, availablePages);
-	}
+    public DefaultUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
+        super(stage, availablePages);
+    }
 
 }

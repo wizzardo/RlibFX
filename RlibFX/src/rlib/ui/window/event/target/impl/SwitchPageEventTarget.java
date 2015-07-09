@@ -9,37 +9,42 @@ import rlib.ui.window.event.UIWindowEvent;
 /**
  * Реализация таргета для {@link UIWindowEvent} перекулючения {@link UIPage} в
  * {@link UIWindow}.
- * 
+ *
  * @author Ronn
  */
 public class SwitchPageEventTarget implements EventTarget {
 
-	/** предыдущая страница */
-	private final UIPage prevPage;
-	/** новая страница */
-	private final UIPage newPage;
+    /**
+     * Предыдущая страница.
+     */
+    private final UIPage prevPage;
 
-	public SwitchPageEventTarget(final UIPage prevPage, final UIPage newPage) {
-		this.prevPage = prevPage;
-		this.newPage = newPage;
-	}
+    /**
+     * Новая страница.
+     */
+    private final UIPage newPage;
 
-	@Override
-	public EventDispatchChain buildEventDispatchChain(final EventDispatchChain tail) {
-		return null;
-	}
+    public SwitchPageEventTarget(final UIPage prevPage, final UIPage newPage) {
+        this.prevPage = prevPage;
+        this.newPage = newPage;
+    }
 
-	/**
-	 * @return предыдущая страница.
-	 */
-	public UIPage getPrevPage() {
-		return prevPage;
-	}
+    @Override
+    public EventDispatchChain buildEventDispatchChain(final EventDispatchChain tail) {
+        return null;
+    }
 
-	/**
-	 * @return новая страница.
-	 */
-	public UIPage getNewPage() {
-		return newPage;
-	}
+    /**
+     * @return новая страница.
+     */
+    public UIPage getNewPage() {
+        return newPage;
+    }
+
+    /**
+     * @return предыдущая страница.
+     */
+    public UIPage getPrevPage() {
+        return prevPage;
+    }
 }
