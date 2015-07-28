@@ -29,7 +29,7 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
         HBox.setMargin(closeButton, new Insets(4, 4, 0, 0));
     }
 
-    protected void applyMarginToMinimiseButton(final Button minimiseButton) {
+    protected void applyMarginToMinimizeButton(final Button minimiseButton) {
         HBox.setMargin(minimiseButton, new Insets(4, 4, 0, 0));
     }
 
@@ -58,7 +58,7 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
         return header;
     }
 
-    protected Button createMinimiseButton() {
+    protected Button createMinimizeButton() {
 
         final Button button = new Button();
         button.setText("Minimise");
@@ -73,10 +73,10 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
         final Pane header = createHeader();
 
         final Button closeButton = createCloseButton();
-        final Button minimiseButton = createMinimiseButton();
+        final Button minimizeButton = createMinimizeButton();
 
-        if (minimiseButton != null) {
-            FXUtils.addToPane(minimiseButton, header);
+        if (minimizeButton != null) {
+            FXUtils.addToPane(minimizeButton, header);
         }
 
         if (closeButton != null) {
@@ -85,8 +85,8 @@ public class UndecoratedUIWindow extends DefaultUIWindow {
 
         FXUtils.addToPane(header, root);
 
-        if (minimiseButton != null) {
-            applyMarginToMinimiseButton(minimiseButton);
+        if (minimizeButton != null) {
+            applyMarginToMinimizeButton(minimizeButton);
         }
 
         if (closeButton != null) {
