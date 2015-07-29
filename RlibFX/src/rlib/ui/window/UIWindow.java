@@ -153,4 +153,11 @@ public interface UIWindow {
      * @param pageClass класс нужной страницы.
      */
     public void showPage(Class<? extends UIPage> pageClass);
+
+    /**
+     * Получение класса предыдущей страницы окна.
+     *
+     * @return класс предыдущей страницы окна либо null.
+     */
+    public Class<? extends UIPage> getPrevPage();
 }

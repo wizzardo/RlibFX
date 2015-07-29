@@ -1,7 +1,6 @@
 package rlib.ui.window.impl;
 
 import javafx.beans.property.DoubleProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -80,6 +79,11 @@ public class AbstractUIWindow implements UIWindow {
      * Текущая {@link UIPage} у {@link UIWindow}.
      */
     private volatile UIPage currentPage;
+
+    /**
+     * Предыдущая страница окна.
+     */
+    private volatile UIPage prevPage;
 
     public AbstractUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
         this.eventHandlers = DictionaryFactory.newObjectDictionary();
@@ -328,6 +332,10 @@ public class AbstractUIWindow implements UIWindow {
         }
     }
 
+    private void setPrevPage(final UIPage prevPage) {
+        this.prevPage = prevPage;
+    }
+
     @Override
     public void showPage(final Class<? extends UIPage> pageClass) {
 
@@ -368,43 +376,39 @@ public class AbstractUIWindow implements UIWindow {
         }
 
         final UIPage currentPage = getCurrentPage();
+        final Pane currentRoot = currentPage == null? null : pageRoots.get(currentPage);
 
-        if (currentPage != null) {
+        if (currentPage != null && currentRoot != null) {
 
             try {
 
-                final Pane currentRoot = pageRoots.get(currentPage);
+                currentPage.prePageHide(this);
+                try {
 
-                if (currentRoot != null) {
+                    DoubleProperty width = currentRoot.prefWidthProperty();
+                    width.unbind();
 
-                    currentPage.prePageHide(this);
-                    try {
+                    width = currentRoot.minWidthProperty();
+                    width.unbind();
 
-                        DoubleProperty width = currentRoot.prefWidthProperty();
-                        width.unbind();
+                    width = currentRoot.maxWidthProperty();
+                    width.unbind();
 
-                        width = currentRoot.minWidthProperty();
-                        width.unbind();
+                    DoubleProperty height = currentRoot.prefHeightProperty();
+                    height.unbind();
 
-                        width = currentRoot.maxWidthProperty();
-                        width.unbind();
+                    height = currentRoot.minHeightProperty();
+                    height.unbind();
 
-                        DoubleProperty heigh = currentRoot.prefHeightProperty();
-                        heigh.unbind();
+                    height = currentRoot.maxHeightProperty();
+                    height.unbind();
 
-                        heigh = currentRoot.minHeightProperty();
-                        heigh.unbind();
+                    FXUtils.removeToPane(currentRoot, rootPageNode);
 
-                        heigh = currentRoot.maxHeightProperty();
-                        heigh.unbind();
-
-                        FXUtils.removeToPane(currentRoot, rootPageNode);
-
-                    } catch (final Exception e) {
-                        LOGGER.warning(this, e);
-                    } finally {
-                        currentPage.postPageHide(this);
-                    }
+                } catch (final Exception e) {
+                    LOGGER.warning(this, e);
+                } finally {
+                    currentPage.postPageHide(this);
                 }
 
             } catch (final Exception e) {
@@ -412,6 +416,8 @@ public class AbstractUIWindow implements UIWindow {
             } finally {
                 setCurrentPage(null);
             }
+
+            setPrevPage(currentPage);
         }
 
         page.prePageShow(this);
@@ -420,7 +426,7 @@ public class AbstractUIWindow implements UIWindow {
             DoubleProperty height = plane.prefHeightProperty();
 
             if (created) {
-                height.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
+                height.addListener((observable, oldValue, newValue) -> {
                     if (LOGGER.isEnabledDebug()) {
                         LOGGER.debug("new page height value " + newValue);
                     }
@@ -438,7 +444,7 @@ public class AbstractUIWindow implements UIWindow {
             DoubleProperty width = plane.prefWidthProperty();
 
             if (created) {
-                width.addListener((ChangeListener<Number>) (observable, oldValue, newValue) -> {
+                width.addListener((observable, oldValue, newValue) -> {
                     if (LOGGER.isEnabledDebug()) {
                         LOGGER.debug("new page width value " + newValue);
                     }
@@ -465,5 +471,10 @@ public class AbstractUIWindow implements UIWindow {
         final SwitchPageUIWindowEvent event = new SwitchPageUIWindowEvent(this, eventTarget, SwitchPageUIWindowEvent.EVENT_TYPE);
 
         notify(event);
+    }
+
+    @Override
+    public Class<? extends UIPage> getPrevPage() {
+        return prevPage == null? null : prevPage.getClass();
     }
 }
