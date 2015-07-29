@@ -5,6 +5,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
+import rlib.logging.Logger;
+import rlib.logging.LoggerManager;
 
 /**
  * Реализация обработчика перемещения окна черзе какой-то узел в нем.
@@ -12,6 +14,8 @@ import javafx.stage.Window;
  * @author Ronn
  */
 public class WindowDragHandler {
+
+    private static final Logger LOGGER = LoggerManager.getLogger(WindowDragHandler.class);
 
     public static final void install(Node node) {
         new WindowDragHandler(node);
@@ -95,11 +99,19 @@ public class WindowDragHandler {
      */
     protected void processMove(final MouseEvent event) {
 
+        if(LOGGER.isEnabledDebug()) {
+            LOGGER.debug("processMove -> " + event);
+        }
+
         final Node node = getNode();
         final Scene scene = node.getScene();
         final Window window = scene.getWindow();
 
         final Point2D dragOffset = getDragOffset();
+
+        if(LOGGER.isEnabledDebug()) {
+            LOGGER.debug("processMove -> dragOffset -> " + dragOffset);
+        }
 
         if (dragOffset == null) {
             return;
@@ -108,8 +120,16 @@ public class WindowDragHandler {
         final double dragX = event.getScreenX() - dragOffset.getX();
         final double dragY = event.getScreenY() - getDragOffset().getY();
 
+        if(LOGGER.isEnabledDebug()) {
+            LOGGER.debug("processMove -> dragXY -> " + dragX + ", " + dragY);
+        }
+
         final double newXPosition = initX + dragX;
         final double newYPosition = initY + dragY;
+
+        if(LOGGER.isEnabledDebug()) {
+            LOGGER.debug("processMove -> newXY -> " + newXPosition + ", " + newYPosition);
+        }
 
         window.setX(newXPosition);
         window.setY(newYPosition);
@@ -120,19 +140,37 @@ public class WindowDragHandler {
      */
     protected void processStartDrag(final MouseEvent event) {
 
+        if(LOGGER.isEnabledDebug()) {
+            LOGGER.debug("processStartDrag -> " + event);
+        }
+
         final Node node = getNode();
         final Scene scene = node.getScene();
         final Window window = scene.getWindow();
 
         setInitX(window.getX());
         setInitY(window.getY());
+
+        if(LOGGER.isEnabledDebug()) {
+            LOGGER.debug("processStartDrag -> initXY -> " + getInitX() + ", " + getInitY());
+        }
+
         setDragOffset(new Point2D(event.getScreenX(), event.getScreenY()));
+
+        if(LOGGER.isEnabledDebug()) {
+            LOGGER.debug("processStartDrag -> dragOffset -> " + getDragOffset());
+        }
     }
 
     /**
      * Процесс завершения перемещения.
      */
     protected void processStopDrag(final MouseEvent event) {
+
+        if(LOGGER.isEnabledDebug()) {
+            LOGGER.debug("processStopDrag -> " + event);
+        }
+
         setInitX(0);
         setInitY(0);
         setDragOffset(null);
