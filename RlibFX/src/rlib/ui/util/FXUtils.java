@@ -1,14 +1,15 @@
 package rlib.ui.util;
 
+import java.awt.*;
+import java.util.Random;
+
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.css.Styleable;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-
-import java.awt.*;
-import java.util.Random;
 
 /**
  * Набор утильных методов для работы с JavaFX.
@@ -25,6 +26,16 @@ public class FXUtils {
      */
     public static void addClassTo(Node node, String className) {
         node.getStyleClass().add(className);
+    }
+
+    /**
+     * Добавление к узлу CSS класса.
+     *
+     * @param styleable      узел к которому добавляем CSS класс.
+     * @param className название CSS класса.
+     */
+    public static void addClassTo(Styleable styleable, String className) {
+        styleable.getStyleClass().add(className);
     }
 
     /**

@@ -12,10 +12,10 @@ import javafx.scene.layout.Pane;
 public class SimpleDroppedPanel extends Pane {
 
     public SimpleDroppedPanel() {
-        setOnDragOver(event -> processOnDragOver(event));
-        setOnDragEntered(event -> processOnDragEntered(event));
-        setOnDragExited(event -> processOnDragExited(event));
-        setOnDragDropped(event -> processOnDragDropped(event));
+        setOnDragOver(this::processOnDragOver);
+        setOnDragEntered(this::processOnDragEntered);
+        setOnDragExited(this::processOnDragExited);
+        setOnDragDropped(this::processOnDragDropped);
     }
 
     /**

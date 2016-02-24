@@ -7,15 +7,15 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 
 /**
- * Реализация простой панельки с еремещаемым контентом.
+ * Реализация простой панельки с перемещаемым контентом.
  *
  * @author Ronn
  */
 public class SimpleDraggablePanel extends Pane {
 
     public SimpleDraggablePanel() {
-        setOnDragDetected(event -> processStartDragAndDrop(event));
-        setOnDragDone(event -> processFinishDragAndDrop(event));
+        setOnDragDetected(this::processStartDragAndDrop);
+        setOnDragDone(this::processFinishDragAndDrop);
     }
 
     protected TransferMode[] getTransferMode() {
