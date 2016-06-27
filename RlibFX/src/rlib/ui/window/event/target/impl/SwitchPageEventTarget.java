@@ -7,8 +7,7 @@ import rlib.ui.window.UIWindow;
 import rlib.ui.window.event.UIWindowEvent;
 
 /**
- * Реализация таргета для {@link UIWindowEvent} перекулючения {@link UIPage} в
- * {@link UIWindow}.
+ * Реализация таргета для {@link UIWindowEvent} перекулючения {@link UIPage} в {@link UIWindow}.
  *
  * @author Ronn
  */

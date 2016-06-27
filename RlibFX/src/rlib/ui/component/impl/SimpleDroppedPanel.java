@@ -53,10 +53,7 @@ public class SimpleDroppedPanel extends Pane {
     protected void processOnDragOver(final DragEvent event) {
 
         final Object source = event.getGestureSource();
-
-        if (source != this) {
-            acceptTransfersMode(event);
-        }
+        if (source != this) acceptTransfersMode(event);
 
         event.consume();
     }

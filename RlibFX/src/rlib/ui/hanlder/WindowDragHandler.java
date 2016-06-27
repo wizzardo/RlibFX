@@ -17,7 +17,7 @@ public class WindowDragHandler {
 
     private static final Logger LOGGER = LoggerManager.getLogger(WindowDragHandler.class);
 
-    public static final void install(Node node) {
+    public static void install(Node node) {
         new WindowDragHandler(node);
     }
 
@@ -41,11 +41,11 @@ public class WindowDragHandler {
      */
     private Point2D dragOffset;
 
-    public WindowDragHandler(Node node) {
+    public WindowDragHandler(final Node node) {
         this.node = node;
-        this.node.setOnMousePressed(event -> processStartDrag(event));
-        this.node.setOnMouseDragged(event -> processMove(event));
-        this.node.setOnMouseReleased(event -> processStopDrag(event));
+        this.node.setOnMousePressed(this::processStartDrag);
+        this.node.setOnMouseDragged(this::processMove);
+        this.node.setOnMouseReleased(this::processStopDrag);
     }
 
     /**
@@ -99,7 +99,7 @@ public class WindowDragHandler {
      */
     protected void processMove(final MouseEvent event) {
 
-        if(LOGGER.isEnabledDebug()) {
+        if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processMove -> " + event);
         }
 
@@ -109,25 +109,23 @@ public class WindowDragHandler {
 
         final Point2D dragOffset = getDragOffset();
 
-        if(LOGGER.isEnabledDebug()) {
+        if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processMove -> dragOffset -> " + dragOffset);
         }
 
-        if (dragOffset == null) {
-            return;
-        }
+        if (dragOffset == null) return;
 
         final double dragX = event.getScreenX() - dragOffset.getX();
         final double dragY = event.getScreenY() - getDragOffset().getY();
 
-        if(LOGGER.isEnabledDebug()) {
+        if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processMove -> dragXY -> " + dragX + ", " + dragY);
         }
 
         final double newXPosition = initX + dragX;
         final double newYPosition = initY + dragY;
 
-        if(LOGGER.isEnabledDebug()) {
+        if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processMove -> newXY -> " + newXPosition + ", " + newYPosition);
         }
 
@@ -140,7 +138,7 @@ public class WindowDragHandler {
      */
     protected void processStartDrag(final MouseEvent event) {
 
-        if(LOGGER.isEnabledDebug()) {
+        if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processStartDrag -> " + event);
         }
 
@@ -151,13 +149,13 @@ public class WindowDragHandler {
         setInitX(window.getX());
         setInitY(window.getY());
 
-        if(LOGGER.isEnabledDebug()) {
+        if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processStartDrag -> initXY -> " + getInitX() + ", " + getInitY());
         }
 
         setDragOffset(new Point2D(event.getScreenX(), event.getScreenY()));
 
-        if(LOGGER.isEnabledDebug()) {
+        if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processStartDrag -> dragOffset -> " + getDragOffset());
         }
     }
@@ -167,7 +165,7 @@ public class WindowDragHandler {
      */
     protected void processStopDrag(final MouseEvent event) {
 
-        if(LOGGER.isEnabledDebug()) {
+        if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processStopDrag -> " + event);
         }
 

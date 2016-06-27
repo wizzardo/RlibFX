@@ -15,15 +15,16 @@ import javafx.stage.Window;
 import javafx.util.Duration;
 
 /**
- * Реализация альтернативного поведения Tooltip, с активацией по правому клику
- * мышки.
+ * Реализация альтернативного поведения Tooltip, с активацией по правому клику мышки.
  *
  * @author Ronn
  */
 public class AltTooltipBehavior {
 
     private static final AltTooltipBehavior INSTANCE = new AltTooltipBehavior(new Duration(10000));
+
     private static String TOOLTIP_PROP_KEY = "javafx.scene.control.Tooltip";
+
     private static int TOOLTIP_XOFFSET = 10;
     private static int TOOLTIP_YOFFSET = 7;
 
@@ -33,7 +34,7 @@ public class AltTooltipBehavior {
      * @param node    элемент которому надо добавить подсказку.
      * @param tooltip добавляемая подсказка.
      */
-    public static final void addTooltip(final Node node, final Tooltip tooltip) {
+    public static void addTooltip(final Node node, final Tooltip tooltip) {
         INSTANCE.install(node, tooltip);
     }
 
@@ -43,7 +44,7 @@ public class AltTooltipBehavior {
      * @param node    элемент которому добавляем подсказку.
      * @param tooltip добавляемая подсказка.
      */
-    public static final void addTooltipWithStandard(final Node node, final Tooltip tooltip) {
+    public static void addTooltipWithStandard(final Node node, final Tooltip tooltip) {
         INSTANCE.install(node, tooltip);
         Tooltip.install(node, tooltip);
     }
@@ -54,7 +55,7 @@ public class AltTooltipBehavior {
      * @param node интересуемый элемент.
      * @return подсказка у этого элемента либо <code>null</code> если ее у него нету.
      */
-    public static final Tooltip getToolTip(final Node node) {
+    public static Tooltip getToolTip(final Node node) {
         final ObservableMap<Object, Object> properties = node.getProperties();
         return (Tooltip) properties.get(TOOLTIP_PROP_KEY);
     }
@@ -92,35 +93,33 @@ public class AltTooltipBehavior {
 
         return tooltip;
     }
+
     /**
      * таймер закрытия тултипа
      */
     private final Timeline hideTimer = new Timeline();
     /**
-     * The Node with a tooltip over which the mouse is hovering. There can only
-     * be one of these at a time.
+     * The Node with a tooltip over which the mouse is hovering. There can only be one of these at a
+     * time.
      */
     private Node hoveredNode;
     /**
-     * The tooltip that is currently activated. There can only be one of these
-     * at a time.
+     * The tooltip that is currently activated. There can only be one of these at a time.
      */
     private Tooltip activatedTooltip;
     /**
-     * The tooltip that is currently visible. There can only be one of these at
-     * a time.
+     * The tooltip that is currently visible. There can only be one of these at a time.
      */
     private Tooltip visibleTooltip;
     /**
-     * Registers for mouse exit events. If the ACTIVATION_TIMER is running then
-     * this will simply stop it. If the HIDE_TIMER is running then this will
-     * stop the HIDE_TIMER, hide the tooltip, and start the LEFT_TIMER.
+     * Registers for mouse exit events. If the ACTIVATION_TIMER is running then this will simply
+     * stop it. If the HIDE_TIMER is running then this will stop the HIDE_TIMER, hide the tooltip,
+     * and start the LEFT_TIMER.
      */
     private final EventHandler<MouseEvent> leavingHandler = event -> processLeaving();
     /**
-     * Registers for mouse click, press, release, drag events. If any of these
-     * occur, then the tooltip is hidden (if it is visible), it is deactivated,
-     * and any and all timers are stopped.
+     * Registers for mouse click, press, release, drag events. If any of these occur, then the
+     * tooltip is hidden (if it is visible), it is deactivated, and any and all timers are stopped.
      */
     private final EventHandler<MouseEvent> killHandler = event -> proccessKill(event);
     /**
@@ -131,15 +130,14 @@ public class AltTooltipBehavior {
     /**
      * обработчик активации тултипа при клилке правой кнопкой мыши
      */
-    private final EventHandler<? super MouseEvent> activationHandler = event -> processActivate(event);
+    private final EventHandler<? super MouseEvent> activationHandler = this::processActivate;
     /**
-     * Registers for mouse move events only. When the mouse is moved, this
-     * handler will detect it and decide whether to start the ACTIVATION_TIMER
-     * (if the ACTIVATION_TIMER is not started), restart the ACTIVATION_TIMER
-     * (if ACTIVATION_TIMER is running), or skip the ACTIVATION_TIMER and just
-     * show the tooltip (if the LEFT_TIMER is running).
+     * Registers for mouse move events only. When the mouse is moved, this handler will detect it
+     * and decide whether to start the ACTIVATION_TIMER (if the ACTIVATION_TIMER is not started),
+     * restart the ACTIVATION_TIMER (if ACTIVATION_TIMER is running), or skip the ACTIVATION_TIMER
+     * and just show the tooltip (if the LEFT_TIMER is running).
      */
-    private final EventHandler<MouseEvent> moveHandler = event -> processMove(event);
+    private final EventHandler<MouseEvent> moveHandler = this::processMove;
 
     public AltTooltipBehavior(final Duration visibleDuration) {
         hideTimer.getKeyFrames().add(new KeyFrame(visibleDuration));

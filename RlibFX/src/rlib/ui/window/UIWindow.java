@@ -1,5 +1,7 @@
 package rlib.ui.window;
 
+import java.awt.*;
+
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
@@ -7,8 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import rlib.ui.page.UIPage;
 import rlib.ui.window.event.UIWindowEvent;
-
-import java.awt.*;
 
 /**
  * Интерфейс для реализации UI окна.

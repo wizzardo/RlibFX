@@ -14,5 +14,4 @@ public class DefaultUIWindow extends AbstractUIWindow {
     public DefaultUIWindow(final Stage stage, final Array<Class<? extends UIPage>> availablePages) {
         super(stage, availablePages);
     }
-
 }

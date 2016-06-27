@@ -1,5 +1,7 @@
 package rlib.ui.window.popup.dialog;
 
+import java.awt.*;
+
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -10,8 +12,6 @@ import javafx.stage.Stage;
 import rlib.ui.page.UIPage;
 import rlib.ui.util.FXUtils;
 import rlib.ui.window.UIWindow;
-
-import java.awt.*;
 
 import static javafx.geometry.Pos.CENTER;
 

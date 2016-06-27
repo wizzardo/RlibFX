@@ -1,9 +1,9 @@
 package rlib.ui.scene.input;
 
+import java.util.HashMap;
+
 import javafx.scene.input.DataFormat;
 import rlib.util.ref.Reference;
-
-import java.util.HashMap;
 
 /**
  * Реализация внутреннего контента для хранения данных перемещаемых объектов.

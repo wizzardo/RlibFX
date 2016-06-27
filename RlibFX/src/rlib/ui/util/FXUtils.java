@@ -31,7 +31,7 @@ public class FXUtils {
     /**
      * Добавление к узлу CSS класса.
      *
-     * @param styleable      узел к которому добавляем CSS класс.
+     * @param styleable узел к которому добавляем CSS класс.
      * @param className название CSS класса.
      */
     public static void addClassTo(Styleable styleable, String className) {

@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="rlibFX">
     <output-path>$PROJECT_DIR$/RlibFX/build</output-path>
-    <root id="archive" name="rlibFX.jar">
+    <root id="archive" name="rlibFX-2.0.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/RlibFX/META-INF/MANIFEST.MF" />
       </element>

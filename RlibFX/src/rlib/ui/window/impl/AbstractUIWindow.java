@@ -1,5 +1,7 @@
 package rlib.ui.window.impl;
 
+import java.awt.*;
+
 import javafx.beans.property.DoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -23,8 +25,6 @@ import rlib.util.array.Array;
 import rlib.util.array.ArrayFactory;
 import rlib.util.dictionary.DictionaryFactory;
 import rlib.util.dictionary.ObjectDictionary;
-
-import java.awt.*;
 
 /**
  * Базовая реализация {@link UIWindow}.
@@ -105,14 +105,7 @@ public class AbstractUIWindow implements UIWindow {
     public void addEventHandler(final EventType<? extends Event> eventType, final EventHandler<? super Event> eventHandler) {
 
         final ObjectDictionary<EventType<? extends Event>, Array<EventHandler<? super Event>>> eventHandlers = getEventHandlers();
-
-        Array<EventHandler<? super Event>> handlers = eventHandlers.get(eventType);
-
-        if (handlers == null) {
-            handlers = ArrayFactory.newArray(EventHandler.class);
-            eventHandlers.put(eventType, handlers);
-        }
-
+        final Array<EventHandler<? super Event>> handlers = eventHandlers.get(eventType, () -> ArrayFactory.newArray(EventHandler.class));
         handlers.add(eventHandler);
     }
 
@@ -121,10 +114,7 @@ public class AbstractUIWindow implements UIWindow {
         stage.close();
 
         final UIPage currentPage = getCurrentPage();
-
-        if (currentPage != null) {
-            currentPage.windowClosed(this);
-        }
+        if (currentPage != null) currentPage.windowClosed(this);
     }
 
     /**
@@ -161,8 +151,7 @@ public class AbstractUIWindow implements UIWindow {
      * Создание и определение сцены {@link UIWindow}.
      */
     protected Scene createdScene() {
-        final Scene scene = new Scene(rootNode, 400, 400, Color.WHITE);
-        return scene;
+        return new Scene(rootNode, 400, 400, Color.WHITE);
     }
 
     @Override
@@ -251,10 +240,7 @@ public class AbstractUIWindow implements UIWindow {
         stage.hide();
 
         final UIPage currentPage = getCurrentPage();
-
-        if (currentPage != null) {
-            currentPage.windowHided(this);
-        }
+        if (currentPage != null) currentPage.windowHided(this);
     }
 
     @Override
@@ -276,17 +262,10 @@ public class AbstractUIWindow implements UIWindow {
         for (EventType<? extends Event> eventType = event.getEventType(); eventType != null; eventType = (EventType<? extends Event>) eventType.getSuperType()) {
 
             final Array<EventHandler<? super Event>> handlers = eventHandlers.get(eventType);
-
-            if (handlers == null || handlers.isEmpty()) {
-                continue;
-            }
+            if (handlers == null || handlers.isEmpty()) continue;
 
             for (final EventHandler<? super Event> handler : handlers.array()) {
-
-                if (handler == null) {
-                    break;
-                }
-
+                if (handler == null) break;
                 handler.handle(event);
             }
         }
@@ -326,10 +305,7 @@ public class AbstractUIWindow implements UIWindow {
         stage.show();
 
         final UIPage currentPage = getCurrentPage();
-
-        if (currentPage != null) {
-            currentPage.windowShowed(this);
-        }
+        if (currentPage != null) currentPage.windowShowed(this);
     }
 
     private void setPrevPage(final UIPage prevPage) {
@@ -376,7 +352,7 @@ public class AbstractUIWindow implements UIWindow {
         }
 
         final UIPage currentPage = getCurrentPage();
-        final Pane currentRoot = currentPage == null? null : pageRoots.get(currentPage);
+        final Pane currentRoot = currentPage == null ? null : pageRoots.get(currentPage);
 
         if (currentPage != null && currentRoot != null) {
 
@@ -475,6 +451,6 @@ public class AbstractUIWindow implements UIWindow {
 
     @Override
     public Class<? extends UIPage> getPrevPage() {
-        return prevPage == null? null : prevPage.getClass();
+        return prevPage == null ? null : prevPage.getClass();
     }
 }

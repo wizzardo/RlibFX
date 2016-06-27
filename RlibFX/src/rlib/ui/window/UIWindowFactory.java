@@ -12,7 +12,7 @@ import rlib.util.array.Array;
  */
 public final class UIWindowFactory {
 
-    public static final UIWindow create(final Stage stage, final Array<Class<? extends UIPage>> pages) {
+    public static UIWindow create(final Stage stage, final Array<Class<? extends UIPage>> pages) {
         return new DefaultUIWindow(stage, pages);
     }
 
