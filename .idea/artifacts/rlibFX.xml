@@ -6,6 +6,7 @@
         <element id="file-copy" path="$PROJECT_DIR$/RlibFX/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="RlibFX" />
+      <element id="file-copy" path="$PROJECT_DIR$/LICENSE" />
     </root>
   </artifact>
 </component>
