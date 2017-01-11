@@ -1,6 +1,8 @@
 package rlib.ui.util;
 
-import java.awt.*;
+import com.sun.istack.internal.NotNull;
+
+import java.awt.Point;
 import java.util.Random;
 
 import javafx.beans.property.ReadOnlyProperty;
@@ -12,94 +14,95 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 /**
- * Набор утильных методов для работы с JavaFX.
+ * The utility class.
  *
- * @author Ronn
+ * @author JavaSaBr
  */
 public class FXUtils {
 
     /**
-     * Добавление к узлу CSS класса.
+     * Add a css class to a node.
      *
-     * @param node      узел к которому добавляем CSS класс.
-     * @param className название CSS класса.
+     * @param node      the node.
+     * @param className the css class.
      */
-    public static void addClassTo(Node node, String className) {
+    public static void addClassTo(@NotNull final Node node, @NotNull final String className) {
         node.getStyleClass().add(className);
     }
 
     /**
-     * Добавление к узлу CSS класса.
+     * Add a css class to a styleable.
      *
-     * @param styleable узел к которому добавляем CSS класс.
-     * @param className название CSS класса.
+     * @param styleable the styleable.
+     * @param className the css class.
      */
-    public static void addClassTo(Styleable styleable, String className) {
+    public static void addClassTo(@NotNull final Styleable styleable, @NotNull final String className) {
         styleable.getStyleClass().add(className);
     }
 
     /**
-     * Добавление случайного цвета фона для отладки.
+     * Add a random color to background.
+     *
+     * @param node the node.
      */
-    public static void addDebugBackgroundColor(final Node node) {
-
+    public static void addDebugBackgroundColor(@NotNull final Node node) {
         final Random random = new Random();
-
         final String color = "rgb(" + random.nextInt(255) + "," + random.nextInt(255) + ", " + random.nextInt(255) + ")";
-
         node.setStyle("-fx-background-color: " + color + ";");
     }
 
     /**
-     * Добавление для дебага бордера узлу, что бы дебажить лаяутинг.
+     * Add a debug border to a node..
      *
-     * @param node узел для которого добавляется бордер.
+     * @param node the node.
      */
-    public static void addDebugBorderTo(final Node node) {
+    public static void addDebugBorderTo(@NotNull final Node node) {
         node.setStyle("-fx-border-color: red; -fx-border-width: 3px;");
     }
 
     /**
-     * Добавление узла к дочерним элементам панели.
+     * Add a node to a parent.
      *
-     * @param node   добавляемый узел.
-     * @param parent панель, в которой добавляется узел.
+     * @param node   the node.
+     * @param parent the parent.
      */
-    public static void addToPane(final Node node, final Pane parent) {
+    public static void addToPane(@NotNull final Node node, @NotNull final Pane parent) {
         final ObservableList<Node> children = parent.getChildren();
         children.add(node);
     }
 
     /**
-     * Привязка высоты компонента к внешнему свойству.
+     * Bind fixed height of region to height property.
      *
-     * @param region         компонент, чью высоту нужно привязать к свойству.
-     * @param heightProperty свойство с высотой.
+     * @param region         the region.
+     * @param heightProperty the height property.
      */
-    public static void bindFixedHeight(final Region region, final ReadOnlyProperty<Double> heightProperty) {
+    public static void bindFixedHeight(@NotNull final Region region, @NotNull final ReadOnlyProperty<Double> heightProperty) {
         region.minHeightProperty().bind(heightProperty);
         region.maxHeightProperty().bind(heightProperty);
     }
 
+
     /**
-     * Привязка высоты компонента к внешнему свойству.
+     * Bind fixed height of region to height value.
      *
-     * @param region компонент, чью высоту нужно привязать к свойству.
-     * @param height свойство с высотой.
+     * @param region the region.
+     * @param height the height value.
      */
-    public static void bindFixedHeight(final Region region, final ObservableValue<? extends Number> height) {
+    public static void bindFixedHeight(@NotNull final Region region, @NotNull final ObservableValue<? extends Number> height) {
         region.minHeightProperty().bind(height);
         region.maxHeightProperty().bind(height);
     }
 
     /**
-     * Привязка размера компонента к внешним свойствам ширины и высоты.
+     * Bind fixed size of region to a height and width properties.
      *
-     * @param region         компонент, чей размер нужно привязать к внешним свойствам.
-     * @param widthProperty  свойство с шириной.
-     * @param heightProperty свойство с высотой.
+     * @param region         the region.
+     * @param widthProperty  the width property.
+     * @param heightProperty the height property.
      */
-    public static void bindFixedSize(final Region region, final ReadOnlyProperty<Double> widthProperty, final ReadOnlyProperty<Double> heightProperty) {
+    public static void bindFixedSize(@NotNull final Region region, @NotNull final ReadOnlyProperty<Double> widthProperty,
+                                     @NotNull final ReadOnlyProperty<Double> heightProperty) {
         region.minWidthProperty().bind(widthProperty);
         region.maxWidthProperty().bind(widthProperty);
         region.minHeightProperty().bind(heightProperty);
@@ -107,13 +110,14 @@ public class FXUtils {
     }
 
     /**
-     * Привязка размера компонента к внешним свойствам ширины и высоты.
+     * Bind fixed size of region to a height and width properties.
      *
-     * @param region компонент, чей размер нужно привязать к внешним свойствам.
-     * @param width  свойство с шириной.
-     * @param height свойство с высотой.
+     * @param region the region.
+     * @param width  the width value.
+     * @param height the height value.
      */
-    public static void bindFixedSize(final Region region, final ObservableValue<? extends Number> width, final ObservableValue<? extends Number> height) {
+    public static void bindFixedSize(@NotNull final Region region, @NotNull final ObservableValue<? extends Number> width,
+                                     @NotNull final ObservableValue<? extends Number> height) {
         region.minWidthProperty().bind(width);
         region.maxWidthProperty().bind(width);
         region.minHeightProperty().bind(height);
@@ -121,57 +125,57 @@ public class FXUtils {
     }
 
     /**
-     * Привязка ширины компонента к внешнему свойству.
+     * Bind fixed height of region to width property.
      *
-     * @param region        компонент, чью ширину нужно привязать к свойству.
-     * @param widthProperty свойство с шириной.
+     * @param region        the region.
+     * @param widthProperty the height property.
      */
-    public static void bindFixedWidth(final Region region, final ReadOnlyProperty<Double> widthProperty) {
+    public static void bindFixedWidth(@NotNull final Region region, @NotNull final ReadOnlyProperty<Double> widthProperty) {
         region.minWidthProperty().bind(widthProperty);
         region.maxWidthProperty().bind(widthProperty);
     }
 
     /**
-     * Привязка ширины компонента к внешнему свойству.
+     * Bind fixed height of region to width value.
      *
-     * @param region компонент, чью ширину нужно привязать к свойству.
-     * @param width  свойство с шириной.
+     * @param region the region.
+     * @param width  the height value.
      */
-    public static void bindFixedWidth(final Region region, final ObservableValue<? extends Number> width) {
+    public static void bindFixedWidth(@NotNull final Region region, @NotNull final ObservableValue<? extends Number> width) {
         region.minWidthProperty().bind(width);
         region.maxWidthProperty().bind(width);
     }
 
     /**
-     * Удаление узла из дочерних элементов панели.
+     * Remove a node from a parent.
      *
-     * @param node   удаляемый узел.
-     * @param parent панель у которой удаляется узел.
+     * @param node   the node.
+     * @param parent the parent.
      */
-    public static void removeToPane(final Node node, final Pane parent) {
+    public static void removeFromParent(@NotNull final Node node, @NotNull final Pane parent) {
         final ObservableList<Node> children = parent.getChildren();
         children.remove(node);
     }
 
     /**
-     * Установка виксированной высоты для компонента.
+     * Set fixed height to a region.
      *
-     * @param region компонент, котророму устанавливается фиксированная высота.
-     * @param height значение фиксированной высоты.
+     * @param region the region.
+     * @param height the height.
      */
-    public static void setFixedHeight(final Region region, final double height) {
+    public static void setFixedHeight(@NotNull final Region region, final double height) {
         region.setMaxHeight(height);
         region.setMinHeight(height);
     }
 
     /**
-     * Установка фиксированного размера для компонента.
+     * Set fixed size to a region.
      *
-     * @param region компонент, которому надо установить фиксированный размер.
-     * @param width  значение фиксированной ширины.
-     * @param height значение фиксированной высоты.
+     * @param region the region.
+     * @param width  the width.
+     * @param height the height.
      */
-    public static void setFixedSize(final Region region, final double width, final double height) {
+    public static void setFixedSize(@NotNull final Region region, final double width, final double height) {
         region.setMaxHeight(height);
         region.setMinHeight(height);
         region.setMaxWidth(width);
@@ -179,12 +183,12 @@ public class FXUtils {
     }
 
     /**
-     * Установка фиксированного размера для компонента.
+     * Set fixed size to a region.
      *
-     * @param region компонент, которому надо установить фиксированный размер.
-     * @param size   значение фиксированного размера.
+     * @param region the region.
+     * @param size   the size.
      */
-    public static void setFixedSize(final Region region, final Point size) {
+    public static void setFixedSize(@NotNull final Region region, @NotNull final Point size) {
         region.setMaxHeight(size.getY());
         region.setMinHeight(size.getY());
         region.setMaxWidth(size.getX());
@@ -192,12 +196,12 @@ public class FXUtils {
     }
 
     /**
-     * Установка фиксированной широты для компонента.
+     * Set fixed width to a region.
      *
-     * @param region компонент, которому надо зафиксировать ширину.
-     * @param width  значение фиксированной ширины.
+     * @param region the region.
+     * @param width  the width.
      */
-    public static void setFixedWidth(final Region region, final double width) {
+    public static void setFixedWidth(@NotNull final Region region, final double width) {
         region.setMaxWidth(width);
         region.setMinWidth(width);
     }

@@ -1,30 +1,34 @@
 package rlib.ui.component.impl;
 
+import com.sun.istack.internal.NotNull;
+import com.sun.istack.internal.Nullable;
+
 import javafx.geometry.Point2D;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 
 /**
- * Реализация перемещаемой панели.
+ * The implementation of a draggable panel.
  *
- * @author Ronn
+ * @author JavaSaBr
  */
-public class DraggablePanel extends Pane {
+public class DraggablePanel extends VBox {
 
     /**
-     * Положение перед началом перемещения по X.
+     * The drag offset.
+     */
+    @Nullable
+    private Point2D dragOffset;
+
+    /**
+     * Started x coord.
      */
     private double initX;
 
     /**
-     * Положение перед началом перемещения по Y.
+     * Started y coord.
      */
     private double initY;
-
-    /**
-     * Место в котором был клик перед началом перемещения.
-     */
-    private Point2D dragOffset;
 
     public DraggablePanel() {
         setOnMousePressed(this::processStartDrag);
@@ -33,51 +37,52 @@ public class DraggablePanel extends Pane {
     }
 
     /**
-     * @return место в котором был клик перед началом перемещения.
+     * @return the drag offset.
      */
+    @Nullable
     protected Point2D getDragOffset() {
         return dragOffset;
     }
 
     /**
-     * @param dragOffset место в котором был клик перед началом перемещения.
+     * @param dragOffset the drag offset.
      */
-    public void setDragOffset(final Point2D dragOffset) {
+    public void setDragOffset(@Nullable final Point2D dragOffset) {
         this.dragOffset = dragOffset;
     }
 
     /**
-     * @return положение перед началом перемещения по X.
+     * @return started x coord.
      */
     protected double getInitX() {
         return initX;
     }
 
     /**
-     * @param initX положение перед началом перемещения по X.
+     * @param initX started x coord.
      */
     public void setInitX(final double initX) {
         this.initX = initX;
     }
 
     /**
-     * @return положение перед началом перемещения по Y.
+     * @return started y coord.
      */
     protected double getInitY() {
         return initY;
     }
 
     /**
-     * @param initY положение перед началом перемещения по Y.
+     * @param initY started y coord.
      */
     public void setInitY(final double initY) {
         this.initY = initY;
     }
 
     /**
-     * Процесс перемещения.
+     * Handle moving.
      */
-    protected void processMove(final MouseEvent event) {
+    protected void processMove(@NotNull final MouseEvent event) {
 
         final Point2D dragOffset = getDragOffset();
         if (dragOffset == null) return;
@@ -93,9 +98,9 @@ public class DraggablePanel extends Pane {
     }
 
     /**
-     * Подготовка к началу перемещения.
+     * Handle starting dragging.
      */
-    protected void processStartDrag(final MouseEvent event) {
+    protected void processStartDrag(@NotNull final MouseEvent event) {
         setInitX(getTranslateX());
         setInitY(getTranslateY());
         setDragOffset(new Point2D(event.getSceneX(), event.getSceneY()));
@@ -103,9 +108,9 @@ public class DraggablePanel extends Pane {
     }
 
     /**
-     * Процесс завершения перемещения.
+     * Handle finishing dragging.
      */
-    protected void processStopDrag(final MouseEvent event) {
+    protected void processStopDrag(@NotNull final MouseEvent event) {
         setInitX(0);
         setInitY(0);
         setDragOffset(null);

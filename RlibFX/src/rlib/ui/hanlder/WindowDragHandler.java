@@ -1,5 +1,7 @@
 package rlib.ui.hanlder;
 
+import com.sun.istack.internal.NotNull;
+
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -9,39 +11,39 @@ import rlib.logging.Logger;
 import rlib.logging.LoggerManager;
 
 /**
- * Реализация обработчика перемещения окна черзе какой-то узел в нем.
+ * The implementation of a handler to processing windows dragging.
  *
- * @author Ronn
+ * @author JavaSaBr
  */
 public class WindowDragHandler {
 
     private static final Logger LOGGER = LoggerManager.getLogger(WindowDragHandler.class);
 
-    public static void install(Node node) {
+    public static void install(@NotNull final Node node) {
         new WindowDragHandler(node);
     }
 
     /**
-     * Узел через который осуществляется перемещение.
+     * The node.
      */
     private final Node node;
 
     /**
-     * Положение перед началом перемещения по X.
+     * The started x coord.
      */
     private double initX;
 
     /**
-     * Положение перед началом перемещения по Y.
+     * The started y coord.
      */
     private double initY;
 
     /**
-     * Место в котором был клик перед началом перемещения.
+     * The drag offset.
      */
     private Point2D dragOffset;
 
-    public WindowDragHandler(final Node node) {
+    public WindowDragHandler(@NotNull final Node node) {
         this.node = node;
         this.node.setOnMousePressed(this::processStartDrag);
         this.node.setOnMouseDragged(this::processMove);
@@ -49,55 +51,60 @@ public class WindowDragHandler {
     }
 
     /**
-     * @return место в котором был клик перед началом перемещения.
+     * @return the drag offset.
      */
+    @NotNull
     protected Point2D getDragOffset() {
         return dragOffset;
     }
 
     /**
-     * @param dragOffset место в котором был клик перед началом перемещения.
+     * @param dragOffset the drag offset.
      */
-    public void setDragOffset(final Point2D dragOffset) {
+    public void setDragOffset(@NotNull final Point2D dragOffset) {
         this.dragOffset = dragOffset;
     }
 
     /**
-     * @return положение перед началом перемещения по X.
+     * @return the started x coord.
      */
     protected double getInitX() {
         return initX;
     }
 
     /**
-     * @param initX положение перед началом перемещения по X.
+     * @param initX the started x coord.
      */
     public void setInitX(final double initX) {
         this.initX = initX;
     }
 
     /**
-     * @return положение перед началом перемещения по Y.
+     * @return the started y coord.
      */
     protected double getInitY() {
         return initY;
     }
 
     /**
-     * @param initY положение перед началом перемещения по Y.
+     * @param initY the started y coord.
      */
     public void setInitY(final double initY) {
         this.initY = initY;
     }
 
+    /**
+     * @return the node.
+     */
+    @NotNull
     public Node getNode() {
         return node;
     }
 
     /**
-     * Процесс перемещения.
+     * Handle moving.
      */
-    protected void processMove(final MouseEvent event) {
+    protected void processMove(@NotNull final MouseEvent event) {
 
         if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processMove -> " + event);
@@ -134,9 +141,9 @@ public class WindowDragHandler {
     }
 
     /**
-     * Подготовка к началу перемещения.
+     * Handle starting moving.
      */
-    protected void processStartDrag(final MouseEvent event) {
+    protected void processStartDrag(@NotNull final MouseEvent event) {
 
         if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processStartDrag -> " + event);
@@ -161,9 +168,9 @@ public class WindowDragHandler {
     }
 
     /**
-     * Процесс завершения перемещения.
+     * Handle finishing moving.
      */
-    protected void processStopDrag(final MouseEvent event) {
+    protected void processStopDrag(@NotNull final MouseEvent event) {
 
         if (LOGGER.isEnabledDebug()) {
             LOGGER.debug("processStopDrag -> " + event);

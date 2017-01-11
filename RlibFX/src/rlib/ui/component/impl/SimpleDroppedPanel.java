@@ -1,13 +1,15 @@
 package rlib.ui.component.impl;
 
+import com.sun.istack.internal.NotNull;
+
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
 
 /**
- * Реализация простой панельки для принятия drag элементов.
+ * The simple implementation of droppable element.
  *
- * @author Ronn
+ * @author JavaSaBr
  */
 public class SimpleDroppedPanel extends Pane {
 
@@ -19,38 +21,38 @@ public class SimpleDroppedPanel extends Pane {
     }
 
     /**
-     * Принятие режима трансфера перемещаемого объекта.
+     * Accept a transfer mode.
      */
-    protected void acceptTransfersMode(final DragEvent event) {
+    protected void acceptTransfersMode(@NotNull final DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
 
     /**
-     * Обработка завершения перемещения объекта на этот элемент.
+     * Handle finishing dropping.
      */
-    protected void processOnDragDropped(final DragEvent event) {
+    protected void processOnDragDropped(@NotNull final DragEvent event) {
         event.setDropCompleted(true);
         event.consume();
     }
 
     /**
-     * Обработка вхождения перемещаемого объекта в зону этого объекта.
+     * Handle entering to a drop area.
      */
-    protected void processOnDragEntered(final DragEvent event) {
+    protected void processOnDragEntered(@NotNull final DragEvent event) {
         event.consume();
     }
 
     /**
-     * Обработка выхода перемещаемого объекта из зоны этого.
+     * Handle exiting from a drop area.
      */
-    protected void processOnDragExited(final DragEvent event) {
+    protected void processOnDragExited(@NotNull final DragEvent event) {
         event.consume();
     }
 
     /**
-     * Обработка нахождения перемещаемого объекта над этим.
+     * Handle dragging over element.
      */
-    protected void processOnDragOver(final DragEvent event) {
+    protected void processOnDragOver(@NotNull final DragEvent event) {
 
         final Object source = event.getGestureSource();
         if (source != this) acceptTransfersMode(event);
