@@ -1,6 +1,6 @@
 package rlib.ui.component.impl;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
