@@ -56,9 +56,9 @@ public final class IntegerTextField extends TextField {
         final int value = getValue();
 
         long longValue = (long) (value * 1000);
-        longValue += event.getDeltaY() * getScrollPower();
+        longValue += event.getDeltaY() * (getScrollPower() * (event.isShiftDown() ? 0.5F : 1F));
 
-        final int resultValue = (int) (longValue / 1000);
+        final int resultValue = (int) (longValue / 1000F);
         final String stringValue = String.valueOf(resultValue);
 
         final TextFormatter<?> textFormatter = getTextFormatter();
