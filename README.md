@@ -37,6 +37,6 @@ dependencies {
     <dependency>
         <groupId>com.github.JavaSaBr</groupId>
         <artifactId>RlibFX</artifactId>
-        <version>6.0.0-SNAPSHOT</version>
+        <version>4.0.0-SNAPSHOT</version>
     </dependency>
 ```
