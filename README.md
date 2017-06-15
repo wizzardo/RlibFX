@@ -13,7 +13,7 @@ Please see the file called LICENSE.
 	}`
 	
 	dependencies {
-        compile 'com.github.JavaSaBr:RLib:6.0.0-SNAPSHOT'
+        compile 'com.github.JavaSaBr:RlibFX:6.0.0-SNAPSHOT'
     }`
     
 ####Maven
@@ -27,6 +27,6 @@ Please see the file called LICENSE.
 	
 	`<dependency>
     	    <groupId>com.github.JavaSaBr</groupId>
-    	    <artifactId>RLib</artifactId>
+    	    <artifactId>RlibFX</artifactId>
     	    <version>6.0.0-SNAPSHOT</version>
     	</dependency>`
