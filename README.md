@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.JavaSaBr:RlibFX:6.0.0-SNAPSHOT'
+    compile 'com.github.JavaSaBr:RlibFX:4.0.0-SNAPSHOT'
 }
 ```
 
