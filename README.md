@@ -16,7 +16,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.github.JavaSaBr:RlibFX:4.0.0-SNAPSHOT'
+    compile 'com.github.JavaSaBr:RlibFX:4.0.0'
 }
 ```
 
@@ -37,6 +37,6 @@ dependencies {
     <dependency>
         <groupId>com.github.JavaSaBr</groupId>
         <artifactId>RlibFX</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0</version>
     </dependency>
 ```

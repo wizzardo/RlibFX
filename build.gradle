@@ -13,9 +13,9 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.JavaSaBr:RLib:6.0.0-SNAPSHOT'
+    compile 'com.github.JavaSaBr:RLib:6.0.0'
     // https://mvnrepository.com/artifact/org.jetbrains/annotations
-    compile group: 'org.jetbrains', name: 'annotations', version: '13.0'
+    compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
 
     // https://mvnrepository.com/artifact/junit/junit
     testCompile group: 'junit', name: 'junit', version: '4.12'
