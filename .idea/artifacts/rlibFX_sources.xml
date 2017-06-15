@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="rlibFX-sources">
-    <output-path>$PROJECT_DIR$/RlibFX/build</output-path>
-    <root id="archive" name="rlibFX-sources-3.0.jar">
-      <element id="dir-copy" path="$PROJECT_DIR$/RlibFX/src" />
-    </root>
-  </artifact>
-</component>
