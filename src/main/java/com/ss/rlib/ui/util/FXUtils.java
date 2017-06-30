@@ -22,13 +22,50 @@ import java.util.function.Consumer;
 public class FXUtils {
 
     /**
-     * Add a css class to a node.
+     * Add a css class to nodes.
      *
-     * @param node      the node.
+     * @param first     the first styleable.
+     * @param second    the second styleable.
      * @param className the css class.
      */
-    public static void addClassTo(@NotNull final Node node, @NotNull final String className) {
-        node.getStyleClass().add(className);
+    public static void addClassTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                  @NotNull final String className) {
+        first.getStyleClass().add(className);
+        second.getStyleClass().add(className);
+    }
+
+
+    /**
+     * Add a css class to nodes.
+     *
+     * @param first     the first styleable.
+     * @param second    the second styleable.
+     * @param third     the third styleable.
+     * @param className the css class.
+     */
+    public static void addClassTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                  @NotNull final Styleable third, @NotNull final String className) {
+        first.getStyleClass().add(className);
+        second.getStyleClass().add(className);
+        third.getStyleClass().add(className);
+    }
+
+    /**
+     * Add a css class to nodes.
+     *
+     * @param first     the first styleable.
+     * @param second    the second styleable.
+     * @param third     the third styleable.
+     * @param fourth    the fourth styleable.
+     * @param className the css class.
+     */
+    public static void addClassTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                  @NotNull final Styleable third, @NotNull final Styleable fourth,
+                                  @NotNull final String className) {
+        first.getStyleClass().add(className);
+        second.getStyleClass().add(className);
+        third.getStyleClass().add(className);
+        fourth.getStyleClass().add(className);
     }
 
     /**
@@ -73,6 +110,53 @@ public class FXUtils {
     public static void addToPane(@NotNull final Node node, @NotNull final Pane parent) {
         final ObservableList<Node> children = parent.getChildren();
         children.add(node);
+    }
+
+    /**
+     * Add nodes to a parent.
+     *
+     * @param first  the first node.
+     * @param second the second node.
+     * @param parent the parent.
+     */
+    public static void addToPane(@NotNull final Node first, @NotNull final Node second, @NotNull final Pane parent) {
+        final ObservableList<Node> children = parent.getChildren();
+        children.add(first);
+        children.add(second);
+    }
+
+    /**
+     * Add nodes to a parent.
+     *
+     * @param first  the first node.
+     * @param second the second node.
+     * @param third  the third node.
+     * @param parent the parent.
+     */
+    public static void addToPane(@NotNull final Node first, @NotNull final Node second, @NotNull final Node third,
+                                 @NotNull final Pane parent) {
+        final ObservableList<Node> children = parent.getChildren();
+        children.add(first);
+        children.add(second);
+        children.add(third);
+    }
+
+    /**
+     * Add nodes to a parent.
+     *
+     * @param first  the first node.
+     * @param second the second node.
+     * @param third  the third node.
+     * @param fourth the fourth node.
+     * @param parent the parent.
+     */
+    public static void addToPane(@NotNull final Node first, @NotNull final Node second, @NotNull final Node third,
+                                 @NotNull final Node fourth, @NotNull final Pane parent) {
+        final ObservableList<Node> children = parent.getChildren();
+        children.add(first);
+        children.add(second);
+        children.add(third);
+        children.add(fourth);
     }
 
     /**
