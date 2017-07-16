@@ -34,6 +34,19 @@ public class FXUtils {
         second.getStyleClass().add(className);
     }
 
+    /**
+     * Add a css classes to nodes.
+     *
+     * @param first      the first styleable.
+     * @param second     the second styleable.
+     * @param classNames the css classes.
+     */
+    public static void addClassesTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                    @NotNull final String... classNames) {
+        first.getStyleClass().addAll(classNames);
+        second.getStyleClass().addAll(classNames);
+    }
+
 
     /**
      * Add a css class to nodes.
@@ -48,6 +61,21 @@ public class FXUtils {
         first.getStyleClass().add(className);
         second.getStyleClass().add(className);
         third.getStyleClass().add(className);
+    }
+
+    /**
+     * Add a css classes to nodes.
+     *
+     * @param first      the first styleable.
+     * @param second     the second styleable.
+     * @param third      the third styleable.
+     * @param classNames the css classes.
+     */
+    public static void addClassesTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                    @NotNull final Styleable third, @NotNull final String... classNames) {
+        first.getStyleClass().addAll(classNames);
+        second.getStyleClass().addAll(classNames);
+        third.getStyleClass().addAll(classNames);
     }
 
     /**
@@ -69,6 +97,110 @@ public class FXUtils {
     }
 
     /**
+     * Add a css classes to nodes.
+     *
+     * @param first      the first styleable.
+     * @param second     the second styleable.
+     * @param third      the third styleable.
+     * @param fourth     the fourth styleable.
+     * @param classNames the css classes.
+     */
+    public static void addClassesTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                    @NotNull final Styleable third, @NotNull final Styleable fourth,
+                                    @NotNull final String... classNames) {
+        first.getStyleClass().addAll(classNames);
+        second.getStyleClass().addAll(classNames);
+        third.getStyleClass().addAll(classNames);
+        fourth.getStyleClass().addAll(classNames);
+    }
+
+    /**
+     * Add a css class to nodes.
+     *
+     * @param first     the first styleable.
+     * @param second    the second styleable.
+     * @param third     the third styleable.
+     * @param fourth    the fourth styleable.
+     * @param fifth     the fifth styleable.
+     * @param className the css class.
+     */
+    public static void addClassTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                  @NotNull final Styleable third, @NotNull final Styleable fourth,
+                                  @NotNull final Styleable fifth, @NotNull final String className) {
+        first.getStyleClass().add(className);
+        second.getStyleClass().add(className);
+        third.getStyleClass().add(className);
+        fourth.getStyleClass().add(className);
+        fifth.getStyleClass().add(className);
+    }
+
+    /**
+     * Add a css classes to nodes.
+     *
+     * @param first      the first styleable.
+     * @param second     the second styleable.
+     * @param third      the third styleable.
+     * @param fourth     the fourth styleable.
+     * @param fifth      the fifth styleable.
+     * @param classNames the css classes.
+     */
+    public static void addClassesTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                    @NotNull final Styleable third, @NotNull final Styleable fourth,
+                                    @NotNull final Styleable fifth, @NotNull final String... classNames) {
+        first.getStyleClass().addAll(classNames);
+        second.getStyleClass().addAll(classNames);
+        third.getStyleClass().addAll(classNames);
+        fourth.getStyleClass().addAll(classNames);
+        fifth.getStyleClass().addAll(classNames);
+    }
+
+    /**
+     * Add a css class to nodes.
+     *
+     * @param first     the first styleable.
+     * @param second    the second styleable.
+     * @param third     the third styleable.
+     * @param fourth    the fourth styleable.
+     * @param fifth     the fifth styleable.
+     * @param sixth     the sixth styleable.
+     * @param className the css class.
+     */
+    public static void addClassTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                  @NotNull final Styleable third, @NotNull final Styleable fourth,
+                                  @NotNull final Styleable fifth, @NotNull final Styleable sixth,
+                                  @NotNull final String className) {
+        first.getStyleClass().add(className);
+        second.getStyleClass().add(className);
+        third.getStyleClass().add(className);
+        fourth.getStyleClass().add(className);
+        fifth.getStyleClass().add(className);
+        sixth.getStyleClass().add(className);
+    }
+
+    /**
+     * Add a css classes to nodes.
+     *
+     * @param first      the first styleable.
+     * @param second     the second styleable.
+     * @param third      the third styleable.
+     * @param fourth     the fourth styleable.
+     * @param fifth      the fifth styleable.
+     * @param sixth      the sixth styleable.
+     * @param classNames the css classes.
+     */
+    public static void addClassesTo(@NotNull final Styleable first, @NotNull final Styleable second,
+                                    @NotNull final Styleable third, @NotNull final Styleable fourth,
+                                    @NotNull final Styleable fifth, @NotNull final Styleable sixth,
+                                    @NotNull final String... classNames) {
+        first.getStyleClass().addAll(classNames);
+        second.getStyleClass().addAll(classNames);
+        third.getStyleClass().addAll(classNames);
+        fourth.getStyleClass().addAll(classNames);
+        fifth.getStyleClass().addAll(classNames);
+        sixth.getStyleClass().addAll(classNames);
+    }
+
+    /**
      * Add a css class to a styleable.
      *
      * @param styleable the styleable.
@@ -79,6 +211,38 @@ public class FXUtils {
     }
 
     /**
+     * Add a css classes to a styleable.
+     *
+     * @param styleable  the styleable.
+     * @param classNames the css classes.
+     */
+    public static void addClassesTo(@NotNull final Styleable styleable, @NotNull final String... classNames) {
+        styleable.getStyleClass().addAll(classNames);
+    }
+
+    /**
+     * Add css classes to a styleables.
+     *
+     * @param args the list of styleables and class names.
+     */
+    public static void addClassesTo(@NotNull final Object... args) {
+        for (final Object object : args) {
+
+            if (!(object instanceof Styleable)) {
+                continue;
+            }
+
+            final ObservableList<String> classes = ((Styleable) object).getStyleClass();
+
+            for (final Object arg : args) {
+                if (arg instanceof String) {
+                    classes.add((String) arg);
+                }
+            }
+        }
+    }
+
+    /**
      * Add a random color to background.
      *
      * @param node the node.
@@ -86,8 +250,8 @@ public class FXUtils {
     public static void addDebugBackgroundColor(@NotNull final Node node) {
 
         final Random random = new Random();
-        final String color = "rgb(" + random.nextInt(255) + "," +
-                random.nextInt(255) + ", " + random.nextInt(255) + ")";
+        final String color =
+                "rgb(" + random.nextInt(255) + "," + random.nextInt(255) + ", " + random.nextInt(255) + ")";
 
         node.setStyle("-fx-background-color: " + color + ";");
     }
