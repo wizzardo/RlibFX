@@ -25,7 +25,7 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
      * Instantiates a new Limited float string converter.
      */
     public LimitedFloatStringConverter() {
-        this.maxValue = Integer.MAX_VALUE;
+        this.maxValue = Float.MAX_VALUE;
         this.minValue = Integer.MIN_VALUE;
     }
 
