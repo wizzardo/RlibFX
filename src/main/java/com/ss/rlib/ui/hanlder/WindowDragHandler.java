@@ -131,9 +131,7 @@ public class WindowDragHandler {
      */
     protected void processMove(@NotNull final MouseEvent event) {
 
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processMove -> " + event);
-        }
+        LOGGER.debug(event, mouseEvent -> "processMove -> " + mouseEvent);
 
         final Node node = getNode();
         final Scene scene = node.getScene();
