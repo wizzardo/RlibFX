@@ -6,17 +6,15 @@ Please see the file called LICENSE.
 #### Gradle
 
 
-```
-#!groovy
-
+```groovy
 allprojects {
     repositories {
-        maven { url 'https://jitpack.io' }
+        url  "https://dl.bintray.com/javasabr/maven" 
     }
 }
 
 dependencies {
-    compile 'com.github.JavaSaBr:RlibFX:4.1.3'
+    compile 'com.spaceshift:rlib.fx:4.2.1-Final'
 }
 ```
 
@@ -24,19 +22,21 @@ dependencies {
 #### Maven
 
 
-```
-#!xml
-
+```xml
 <repositories>
-        <repository>
-            <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
-        </repository>
-    </repositories>
+    <repository>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <id>bintray-javasabr-maven</id>
+        <name>bintray</name>
+        <url>https://dl.bintray.com/javasabr/maven</url>
+    </repository>
+</repositories>
 
-    <dependency>
-        <groupId>com.github.JavaSaBr</groupId>
-        <artifactId>RlibFX</artifactId>
-        <version>4.1.3</version>
-    </dependency>
+<dependency>
+    <groupId>com.spaceshift</groupId>
+    <artifactId>rlib.fx</artifactId>
+    <version>4.2.1-Final</version>
+</dependency>
 ```
