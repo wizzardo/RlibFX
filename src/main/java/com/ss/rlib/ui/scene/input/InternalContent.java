@@ -42,48 +42,44 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     public static final DataFormat DATA_REFERENCE = new DataFormat("internal/reference");
 
     /**
-     * Gets number.
+     * Get a number.
      *
      * @return the number or null.
      */
-    @Nullable
-    public Number getNumber() {
+    public @Nullable Number getNumber() {
         return (Number) get(DATA_NUMBER);
     }
 
     /**
-     * Gets object.
+     * Get an object.
      *
-     * @param <T> the type parameter
+     * @param <T> the object's type.
      * @return the object or null.
      */
-    @Nullable
-    public <T> T getObject() {
+    public <T> @Nullable T getObject() {
         return unsafeCast(get(DATA_OBJECT));
     }
 
     /**
-     * Gets reference.
+     * Get a reference.
      *
      * @return the reference or null.
      */
-    @Nullable
-    public Reference getReference() {
+    public @Nullable Reference getReference() {
         return (Reference) get(DATA_REFERENCE);
     }
 
     /**
-     * Gets string.
+     * Get a string.
      *
      * @return the string or null.
      */
-    @Nullable
-    public String getString() {
+    public @Nullable String getString() {
         return (String) get(DATA_STRING);
     }
 
     /**
-     * Put number.
+     * Put a number.
      *
      * @param number the number or null.
      */
@@ -92,7 +88,7 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     }
 
     /**
-     * Put object.
+     * Put an object.
      *
      * @param object the object or null.
      */
@@ -101,7 +97,7 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     }
 
     /**
-     * Put reference.
+     * Put a reference.
      *
      * @param reference the reference or null.
      */
@@ -110,7 +106,7 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     }
 
     /**
-     * Put string.
+     * Put a string.
      *
      * @param string the string or null.
      */

@@ -53,6 +53,40 @@ repositories {
     }
 }
 
+publishing {
+    publications {
+        RlibFXArtifact(MavenPublication) {
+            from components.java
+            groupId group
+            artifactId 'rlib.fx'
+            version bintrayVersion
+            artifact sourcesJar
+            artifact javadocJar
+        }
+    }
+}
+
+bintray {
+    user = System.getProperty('bintrayUser')
+    key = System.getProperty('bintrayKey')
+    publications = ['RlibFXArtifact']
+    pkg {
+        repo = 'maven'
+        name = 'com.spaceshift.rlib.fx'
+        licenses = ['Apache-2.0']
+        websiteUrl = 'https://github.com/JavaSaBr/RlibFX'
+        vcsUrl = 'https://github.com/JavaSaBr/RlibFX.git'
+        issueTrackerUrl = 'https://github.com/JavaSaBr/RlibFX/issues'
+        githubRepo = 'JavaSaBr/RlibFX'
+        githubReleaseNotesFile = 'README.md'
+        version {
+            name = bintrayVersion
+            desc = bintrayVersion
+            released  = new Date()
+        }
+    }
+}
+
 dependencies {
     compile 'com.spaceshift:rlib:6.8.3-Final'
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'

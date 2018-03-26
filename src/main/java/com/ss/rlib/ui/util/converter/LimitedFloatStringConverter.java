@@ -21,18 +21,17 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
      */
     private float maxValue;
 
-    /**
-     * Instantiates a new Limited float string converter.
-     */
     public LimitedFloatStringConverter() {
         this.maxValue = Float.MAX_VALUE;
         this.minValue = Integer.MIN_VALUE;
     }
 
-    @Nullable
     @Override
-    public Float fromString(@Nullable final String value) {
-        if (StringUtils.isEmpty(value)) return null;
+    public @Nullable Float fromString(@Nullable final String value) {
+
+        if (StringUtils.isEmpty(value)) {
+            return null;
+        }
 
         final Float result = Float.valueOf(value);
 
@@ -46,7 +45,7 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
     }
 
     /**
-     * Gets max value.
+     * Get the max value.
      *
      * @return the max value.
      */
@@ -55,7 +54,7 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
     }
 
     /**
-     * Sets max value.
+     * Set the max value.
      *
      * @param maxValue the max value.
      */
@@ -64,7 +63,7 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
     }
 
     /**
-     * Gets min value.
+     * Get the min value.
      *
      * @return the min value.
      */
@@ -73,7 +72,7 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
     }
 
     /**
-     * Sets min value.
+     * Set the min value.
      *
      * @param minValue the min value.
      */
@@ -81,9 +80,9 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
         this.minValue = minValue;
     }
 
-    @Nullable
+
     @Override
-    public String toString(@Nullable final Float value) {
+    public @Nullable String toString(@Nullable final Float value) {
         if (value == null) return StringUtils.EMPTY;
         return Float.toString(value.floatValue());
     }
