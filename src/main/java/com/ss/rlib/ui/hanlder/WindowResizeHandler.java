@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class WindowResizeHandler implements EventHandler<MouseEvent> {
 
     /**
-     * Install.
+     * Install the resize handler.
      *
      * @param stage the stage
      */

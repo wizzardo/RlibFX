@@ -21,18 +21,17 @@ public class LimitedIntegerStringConverter extends StringConverter<Integer> {
      */
     private int maxValue;
 
-    /**
-     * Instantiates a new Limited integer string converter.
-     */
     public LimitedIntegerStringConverter() {
         this.maxValue = Integer.MAX_VALUE;
         this.minValue = Integer.MIN_VALUE;
     }
 
-    @Nullable
     @Override
-    public Integer fromString(@Nullable final String value) {
-        if (StringUtils.isEmpty(value)) return null;
+    public @Nullable Integer fromString(@Nullable final String value) {
+
+        if (StringUtils.isEmpty(value)) {
+            return null;
+        }
 
         final Integer result = Integer.valueOf(value);
 
@@ -46,7 +45,7 @@ public class LimitedIntegerStringConverter extends StringConverter<Integer> {
     }
 
     /**
-     * Gets max value.
+     * Get the max value.
      *
      * @return the max value.
      */
@@ -55,7 +54,7 @@ public class LimitedIntegerStringConverter extends StringConverter<Integer> {
     }
 
     /**
-     * Sets max value.
+     * Set the max value.
      *
      * @param maxValue the max value.
      */
@@ -64,7 +63,7 @@ public class LimitedIntegerStringConverter extends StringConverter<Integer> {
     }
 
     /**
-     * Gets min value.
+     * Get the min value.
      *
      * @return the min value.
      */
@@ -73,7 +72,7 @@ public class LimitedIntegerStringConverter extends StringConverter<Integer> {
     }
 
     /**
-     * Sets min value.
+     * Set the min value.
      *
      * @param minValue the min value.
      */
@@ -81,9 +80,8 @@ public class LimitedIntegerStringConverter extends StringConverter<Integer> {
         this.minValue = minValue;
     }
 
-    @Nullable
     @Override
-    public String toString(@Nullable final Integer value) {
+    public @Nullable String toString(@Nullable final Integer value) {
         if (value == null) return StringUtils.EMPTY;
         return Integer.toString(value.intValue());
     }

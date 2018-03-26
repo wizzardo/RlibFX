@@ -21,26 +21,18 @@ public final class IntegerTextField extends TextField {
      */
     private int scrollPower;
 
-    /**
-     * Instantiates a new Integer text field.
-     */
     public IntegerTextField() {
         setTextFormatter(new TextFormatter<>(new LimitedIntegerStringConverter()));
         setOnScroll(this::processScroll);
         setScrollPower(30);
     }
 
-    /**
-     * Instantiates a new Integer text field.
-     *
-     * @param text the text
-     */
     public IntegerTextField(@NotNull final String text) {
         super(text);
     }
 
     /**
-     * Sets scroll power.
+     * Set the scroll power.
      *
      * @param scrollPower the scroll power.
      */
@@ -49,7 +41,7 @@ public final class IntegerTextField extends TextField {
     }
 
     /**
-     * Gets scroll power.
+     * Get the scroll power.
      *
      * @return the scroll power.
      */
@@ -61,7 +53,10 @@ public final class IntegerTextField extends TextField {
      * Process of scrolling.
      */
     private void processScroll(final ScrollEvent event) {
-        if (!event.isControlDown()) return;
+
+        if (!event.isControlDown()) {
+            return;
+        }
 
         final int value = getValue();
 

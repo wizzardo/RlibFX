@@ -14,45 +14,41 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SimpleDraggableElement extends VBox {
 
-    /**
-     * Instantiates a new Simple draggable element.
-     */
     public SimpleDraggableElement() {
         setOnDragDetected(this::processStartDragAndDrop);
         setOnDragDone(this::processFinishDragAndDrop);
     }
 
     /**
-     * Get transfer mode transfer mode [ ].
+     * Get transfer modes.
      *
      * @return transfer modes.
      */
-    @NotNull
-    protected TransferMode[] getTransferMode() {
+    protected @NotNull TransferMode[] getTransferMode() {
         return TransferMode.COPY_OR_MOVE;
     }
 
     /**
-     * Prepare data to dragboard.
+     * Prepare data to the dragboard.
      *
-     * @param dragboard the dragboard
+     * @param dragboard the dragboard.
      */
     protected void prepareData(@NotNull final Dragboard dragboard) {
     }
 
     /**
-     * Handle finishing dragging.
+     * Handle finishing of dragging.
      *
-     * @param event the event
+     * @param event the mouse event.
      */
     protected void processFinishDragAndDrop(@NotNull final DragEvent event) {
         event.consume();
     }
 
     /**
-     * Handle starting dragging.
+     * Handle starting of dragging.
      *
-     * @param event the event
+     * @param event the mouse event.
      */
     protected void processStartDragAndDrop(@NotNull final MouseEvent event) {
         prepareData(startDragAndDrop(getTransferMode()));

@@ -20,18 +20,15 @@ public class DraggablePanel extends VBox {
     private Point2D dragOffset;
 
     /**
-     * Started x coord.
+     * The start X coord.
      */
-    private double initX;
+    private double startX;
 
     /**
-     * Started y coord.
+     * The start Y coord.
      */
-    private double initY;
+    private double startY;
 
-    /**
-     * Instantiates a new Draggable panel.
-     */
     public DraggablePanel() {
         setOnMousePressed(this::processStartDrag);
         setOnMouseDragged(this::processMove);
@@ -39,17 +36,16 @@ public class DraggablePanel extends VBox {
     }
 
     /**
-     * Gets drag offset.
+     * Get the drag offset.
      *
      * @return the drag offset.
      */
-    @Nullable
-    protected Point2D getDragOffset() {
+    protected @Nullable Point2D getDragOffset() {
         return dragOffset;
     }
 
     /**
-     * Sets drag offset.
+     * Set the drag offset.
      *
      * @param dragOffset the drag offset.
      */
@@ -58,81 +54,83 @@ public class DraggablePanel extends VBox {
     }
 
     /**
-     * Gets init x.
+     * Get the start X coord.
      *
-     * @return started x coord.
+     * @return the start X coord.
      */
-    protected double getInitX() {
-        return initX;
+    protected double getStartX() {
+        return startX;
     }
 
     /**
-     * Sets init x.
+     * Set the start X coord.
      *
-     * @param initX started x coord.
+     * @param startX the start X coord.
      */
-    public void setInitX(final double initX) {
-        this.initX = initX;
+    public void setStartX(final double startX) {
+        this.startX = startX;
     }
 
     /**
-     * Gets init y.
+     * Get the start Y coord.
      *
-     * @return started y coord.
+     * @return the start Y coord.
      */
-    protected double getInitY() {
-        return initY;
+    protected double getStartY() {
+        return startY;
     }
 
     /**
-     * Sets init y.
+     * Set the start Y coord.
      *
-     * @param initY started y coord.
+     * @param startY the start Y coord.
      */
-    public void setInitY(final double initY) {
-        this.initY = initY;
+    public void setStartY(final double startY) {
+        this.startY = startY;
     }
 
     /**
      * Handle moving.
      *
-     * @param event the event
+     * @param event the mouse event.
      */
     protected void processMove(@NotNull final MouseEvent event) {
 
         final Point2D dragOffset = getDragOffset();
-        if (dragOffset == null) return;
+        if (dragOffset == null) {
+            return;
+        }
 
         final double dragX = event.getSceneX() - dragOffset.getX();
         final double dragY = event.getSceneY() - getDragOffset().getY();
 
-        final double newXPosition = initX + dragX;
-        final double newYPosition = initY + dragY;
+        final double newXPosition = startX + dragX;
+        final double newYPosition = startY + dragY;
 
         setTranslateX(newXPosition);
         setTranslateY(newYPosition);
     }
 
     /**
-     * Handle starting dragging.
+     * Handle starting of dragging.
      *
-     * @param event the event
+     * @param event the mouse event.
      */
     protected void processStartDrag(@NotNull final MouseEvent event) {
-        setInitX(getTranslateX());
-        setInitY(getTranslateY());
+        setStartX(getTranslateX());
+        setStartY(getTranslateY());
         setDragOffset(new Point2D(event.getSceneX(), event.getSceneY()));
         toFront();
     }
 
     /**
-     * Handle finishing dragging.
+     * Handle finishing of dragging.
      *
-     * @param event the event
+     * @param event the mouse event.
      */
     protected void processStopDrag(@NotNull final MouseEvent event) {
-        setInitX(0);
-        setInitY(0);
+        setStartX(0);
+        setStartY(0);
         setDragOffset(null);
     }
 }

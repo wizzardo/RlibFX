@@ -1,27 +1,30 @@
 package com.ss.rlib.ui.hanlder;
 
 import com.ss.rlib.logging.Logger;
+import com.ss.rlib.logging.LoggerLevel;
 import com.ss.rlib.logging.LoggerManager;
+import com.ss.rlib.ui.RLib;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Window;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
- * The implementation of a handler to processing windows dragging.
+ * The implementation of a handler to process windows dragging.
  *
  * @author JavaSaBr
  */
 public class WindowDragHandler {
 
-    private static final Logger LOGGER = LoggerManager.getLogger(WindowDragHandler.class);
+    private static final Logger LOGGER = LoggerManager.getLogger(RLib.class);
 
     /**
-     * Install.
+     * Install the handler to the node.
      *
-     * @param node the node
+     * @param node the node.
      */
     public static void install(@NotNull final Node node) {
         new WindowDragHandler(node);
@@ -30,28 +33,25 @@ public class WindowDragHandler {
     /**
      * The node.
      */
+    @NotNull
     private final Node node;
 
     /**
-     * The started x coord.
+     * The started X coord.
      */
-    private double initX;
+    private double startX;
 
     /**
-     * The started y coord.
+     * The started Y coord.
      */
-    private double initY;
+    private double startY;
 
     /**
      * The drag offset.
      */
+    @Nullable
     private Point2D dragOffset;
 
-    /**
-     * Instantiates a new Window drag handler.
-     *
-     * @param node the node
-     */
     public WindowDragHandler(@NotNull final Node node) {
         this.node = node;
         this.node.setOnMousePressed(this::processStartDrag);
@@ -60,67 +60,65 @@ public class WindowDragHandler {
     }
 
     /**
-     * Gets drag offset.
+     * Get the drag offset.
      *
      * @return the drag offset.
      */
-    @NotNull
-    protected Point2D getDragOffset() {
+    protected @Nullable Point2D getDragOffset() {
         return dragOffset;
     }
 
     /**
-     * Sets drag offset.
+     * Set the drag offset.
      *
      * @param dragOffset the drag offset.
      */
-    public void setDragOffset(@NotNull final Point2D dragOffset) {
+    public void setDragOffset(@Nullable final Point2D dragOffset) {
         this.dragOffset = dragOffset;
     }
 
     /**
-     * Gets init x.
+     * Get the start X coord.
      *
-     * @return the started x coord.
+     * @return the start X coord.
      */
-    protected double getInitX() {
-        return initX;
+    protected double getStartX() {
+        return startX;
     }
 
     /**
-     * Sets init x.
+     * Set the start X coord.
      *
-     * @param initX the started x coord.
+     * @param startX the start X coord.
      */
-    public void setInitX(final double initX) {
-        this.initX = initX;
+    public void setStartX(final double startX) {
+        this.startX = startX;
     }
 
     /**
-     * Gets init y.
+     * Get start Y coord.
      *
-     * @return the started y coord.
+     * @return the start Y coord.
      */
-    protected double getInitY() {
-        return initY;
+    protected double getStartY() {
+        return startY;
     }
 
     /**
-     * Sets init y.
+     * Set the start Y coord.
      *
-     * @param initY the started y coord.
+     * @param startY the start Y coord.
      */
-    public void setInitY(final double initY) {
-        this.initY = initY;
+    public void setStartY(final double startY) {
+        this.startY = startY;
     }
 
     /**
-     * Gets node.
+     * Get the handled node.
      *
-     * @return the node.
+     * @return the handled node.
      */
-    @NotNull
-    public Node getNode() {
+    public @NotNull Node getNode() {
         return node;
     }
 
@@ -131,67 +129,61 @@ public class WindowDragHandler {
      */
     protected void processMove(@NotNull final MouseEvent event) {
 
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processMove -> " + event);
-        }
+        LOGGER.debug(this, event, ev -> "processMove -> " + ev);
 
         final Node node = getNode();
         final Scene scene = node.getScene();
         final Window window = scene.getWindow();
 
         final Point2D dragOffset = getDragOffset();
-
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processMove -> dragOffset -> " + dragOffset);
+        if (dragOffset == null) {
+            LOGGER.debug(this, "processMove -> dragOffset -> null");
+            return;
         }
 
-        if (dragOffset == null) return;
+        LOGGER.debug(this, dragOffset, offset -> "processMove -> dragOffset -> " + offset);
 
         final double dragX = event.getScreenX() - dragOffset.getX();
-        final double dragY = event.getScreenY() - getDragOffset().getY();
+        final double dragY = event.getScreenY() - dragOffset.getY();
 
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processMove -> dragXY -> " + dragX + ", " + dragY);
+        LOGGER.debug(this, dragOffset, event, (offset, ev) ->
+                "processMove -> dragXY -> " + (ev.getScreenX() - offset.getX()) + "-" + (ev.getScreenY() - offset.getY()));
+
+        final double newXPos = startX + dragX;
+        final double newYPos = startY + dragY;
+
+        if (LOGGER.isEnabled(LoggerLevel.DEBUG)) {
+            LOGGER.debug(this, "processMove -> newXY -> " + newXPos + ", " + newYPos);
         }
 
-        final double newXPosition = initX + dragX;
-        final double newYPosition = initY + dragY;
-
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processMove -> newXY -> " + newXPosition + ", " + newYPosition);
-        }
-
-        window.setX(newXPosition);
-        window.setY(newYPosition);
+        window.setX(newXPos);
+        window.setY(newYPos);
     }
 
     /**
      * Handle starting moving.
      *
-     * @param event the event
+     * @param event the event.
      */
     protected void processStartDrag(@NotNull final MouseEvent event) {
 
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processStartDrag -> " + event);
-        }
+        LOGGER.debug(this, event, ev -> "processStartDrag -> " + ev);
 
         final Node node = getNode();
         final Scene scene = node.getScene();
         final Window window = scene.getWindow();
 
-        setInitX(window.getX());
-        setInitY(window.getY());
+        setStartX(window.getX());
+        setStartY(window.getY());
 
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processStartDrag -> initXY -> " + getInitX() + ", " + getInitY());
-        }
+        LOGGER.debug(this, this, handler ->
+                "processStartDrag -> initXY -> " + handler.getStartX() + ", " + handler.getStartY());
 
-        setDragOffset(new Point2D(event.getScreenX(), event.getScreenY()));
+        final Point2D dragOffset = new Point2D(event.getScreenX(), event.getScreenY());
 
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processStartDrag -> dragOffset -> " + getDragOffset());
-        }
+        LOGGER.debug(this, dragOffset, offset -> "processStartDrag -> dragOffset -> " + offset);
+
+        setDragOffset(dragOffset);
     }
 
     /**
@@ -200,13 +192,9 @@ public class WindowDragHandler {
      * @param event the event
      */
     protected void processStopDrag(@NotNull final MouseEvent event) {
-
-        if (LOGGER.isEnabledDebug()) {
-            LOGGER.debug("processStopDrag -> " + event);
-        }
-
-        setInitX(0);
-        setInitY(0);
+        LOGGER.debug(this, event, ev -> "processStopDrag -> " + ev);
+        setStartX(0);
+        setStartY(0);
         setDragOffset(null);
     }
 }

@@ -6,15 +6,12 @@ import javafx.scene.layout.Pane;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * The simple implementation of droppable element.
+ * The simple implementation of droppable panel.
  *
  * @author JavaSaBr
  */
 public class SimpleDroppedPanel extends Pane {
 
-    /**
-     * Instantiates a new Simple dropped panel.
-     */
     public SimpleDroppedPanel() {
         setOnDragOver(this::processOnDragOver);
         setOnDragEntered(this::processOnDragEntered);
@@ -25,16 +22,16 @@ public class SimpleDroppedPanel extends Pane {
     /**
      * Accept a transfer mode.
      *
-     * @param event the event
+     * @param event the drag event.
      */
     protected void acceptTransfersMode(@NotNull final DragEvent event) {
         event.acceptTransferModes(TransferMode.COPY);
     }
 
     /**
-     * Handle finishing dropping.
+     * Handle finishing of dropping.
      *
-     * @param event the event
+     * @param event the drag event.
      */
     protected void processOnDragDropped(@NotNull final DragEvent event) {
         event.setDropCompleted(true);
@@ -44,7 +41,7 @@ public class SimpleDroppedPanel extends Pane {
     /**
      * Handle entering to a drop area.
      *
-     * @param event the event
+     * @param event the drag event.
      */
     protected void processOnDragEntered(@NotNull final DragEvent event) {
         event.consume();
@@ -53,7 +50,7 @@ public class SimpleDroppedPanel extends Pane {
     /**
      * Handle exiting from a drop area.
      *
-     * @param event the event
+     * @param event the drag event.
      */
     protected void processOnDragExited(@NotNull final DragEvent event) {
         event.consume();
@@ -62,12 +59,14 @@ public class SimpleDroppedPanel extends Pane {
     /**
      * Handle dragging over element.
      *
-     * @param event the event
+     * @param event the drag event.
      */
     protected void processOnDragOver(@NotNull final DragEvent event) {
 
         final Object source = event.getGestureSource();
-        if (source != this) acceptTransfersMode(event);
+        if (source != this) {
+            acceptTransfersMode(event);
+        }
 
         event.consume();
     }

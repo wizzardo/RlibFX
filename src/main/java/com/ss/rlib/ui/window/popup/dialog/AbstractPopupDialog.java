@@ -1,18 +1,16 @@
 package com.ss.rlib.ui.window.popup.dialog;
 
 import static javafx.geometry.Pos.CENTER;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
+import com.ss.rlib.ui.util.FXUtils;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import com.ss.rlib.ui.util.FXUtils;
 
 import java.awt.*;
 
 /**
- * The implementation of dialog base on popup.
+ * The implementation of a dialog which is based on a popup.
  *
  * @author JavaSaBr
  */
@@ -30,19 +28,12 @@ public abstract class AbstractPopupDialog extends Popup {
     @Nullable
     private AbstractPopupDialog ownerDialog;
 
-    /**
-     * Instantiates a new Abstract popup dialog.
-     */
     public AbstractPopupDialog() {
-
         container = new VBox();
         container.setAlignment(CENTER);
-
         createControls(container);
         configureSize(container);
-
-        final ObservableList<Node> content = getContent();
-        content.add(container);
+        getContent().add(container);
     }
 
     /**
@@ -57,47 +48,44 @@ public abstract class AbstractPopupDialog extends Popup {
     /**
      * Create content of this dialog.
      *
-     * @param root the root
+     * @param root the root.
      */
     protected void createControls(@NotNull final VBox root) {
     }
 
     /**
-     * Gets container.
+     * Get the content container.
      *
-     * @return The content container.
+     * @return the content container.
      */
-    @NotNull
-    protected VBox getContainer() {
+    protected @NotNull VBox getContainer() {
         return container;
     }
 
     /**
-     * Gets owner dialog.
+     * Get the owner dialog.
      *
-     * @return the owner.
+     * @return the owner dialog.
      */
-    @Nullable
-    protected AbstractPopupDialog getOwnerDialog() {
+    protected @Nullable AbstractPopupDialog getOwnerDialog() {
         return ownerDialog;
     }
 
     /**
-     * Sets owner dialog.
+     * Set the owner dialog.
      *
-     * @param ownerDialog the owner.
+     * @param ownerDialog the owner dialog.
      */
     protected void setOwnerDialog(@Nullable final AbstractPopupDialog ownerDialog) {
         this.ownerDialog = ownerDialog;
     }
 
     /**
-     * Gets size.
+     * Get the dialog size.
      *
      * @return the dialog size.
      */
-    @NotNull
-    protected Point getSize() {
+    protected @NotNull Point getSize() {
         return new Point(500, 500);
     }
 
@@ -105,10 +93,10 @@ public abstract class AbstractPopupDialog extends Popup {
     public void hide() {
         super.hide();
 
-        final AbstractPopupDialog ownerDialog = getOwnerDialog();
+        final AbstractPopupDialog dialog = getOwnerDialog();
 
-        if (ownerDialog != null) {
-            final VBox container = ownerDialog.getContainer();
+        if (dialog != null) {
+            final VBox container = dialog.getContainer();
             container.setDisable(false);
         }
 

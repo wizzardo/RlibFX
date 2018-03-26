@@ -21,26 +21,18 @@ public final class FloatTextField extends TextField {
      */
     private float scrollPower;
 
-    /**
-     * Instantiates a new Float text field.
-     */
     public FloatTextField() {
         setTextFormatter(new TextFormatter<>(new LimitedFloatStringConverter()));
         setOnScroll(this::processScroll);
         setScrollPower(30);
     }
 
-    /**
-     * Instantiates a new Float text field.
-     *
-     * @param text the text
-     */
     public FloatTextField(@NotNull final String text) {
         super(text);
     }
 
     /**
-     * Sets scroll power.
+     * Set the scroll power.
      *
      * @param scrollPower the scroll power.
      */
@@ -49,7 +41,7 @@ public final class FloatTextField extends TextField {
     }
 
     /**
-     * Gets scroll power.
+     * Get the scroll power.
      *
      * @return the scroll power.
      */
@@ -61,7 +53,11 @@ public final class FloatTextField extends TextField {
      * Process of scrolling.
      */
     private void processScroll(final ScrollEvent event) {
-        if (!event.isControlDown()) return;
+
+        if (!event.isControlDown()) {
+            return;
+        }
+
         event.consume();
 
         final float value = getValue();
