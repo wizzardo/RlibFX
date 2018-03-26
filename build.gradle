@@ -17,7 +17,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 group = 'com.spaceshift'
-version = '4.2.0'
+version = '4.2.1'
 
 sourceCompatibility = 1.9
 targetCompatibility = 1.9
