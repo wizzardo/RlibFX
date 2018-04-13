@@ -19,6 +19,7 @@ import java.util.function.Consumer;
  *
  * @author JavaSaBr
  */
+@Deprecated
 public class FXUtils {
 
     /**

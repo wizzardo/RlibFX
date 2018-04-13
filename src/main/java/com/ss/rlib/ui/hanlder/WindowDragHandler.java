@@ -3,7 +3,7 @@ package com.ss.rlib.ui.hanlder;
 import com.ss.rlib.logging.Logger;
 import com.ss.rlib.logging.LoggerLevel;
 import com.ss.rlib.logging.LoggerManager;
-import com.ss.rlib.ui.RLib;
+import com.ss.rlib.ui.RLibFx;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class WindowDragHandler {
 
-    private static final Logger LOGGER = LoggerManager.getLogger(RLib.class);
+    private static final Logger LOGGER = LoggerManager.getLogger(RLibFx.class);
 
     /**
      * Install the handler to the node.
