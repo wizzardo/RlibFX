@@ -1,4 +1,4 @@
-package com.ss.rlib.ui.util;
+package com.ss.rlib.fx.util;
 
 import javafx.beans.property.ReadOnlyProperty;
 import javafx.beans.value.ObservableValue;

@@ -1,7 +1,7 @@
-package com.ss.rlib.ui.window.popup.dialog;
+package com.ss.rlib.fx.window.popup.dialog;
 
 import static javafx.geometry.Pos.CENTER;
-import com.ss.rlib.ui.util.FXUtils;
+import com.ss.rlib.fx.util.FXUtils;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import org.jetbrains.annotations.NotNull;

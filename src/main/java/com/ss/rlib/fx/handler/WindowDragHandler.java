@@ -1,9 +1,9 @@
-package com.ss.rlib.ui.hanlder;
+package com.ss.rlib.fx.handler;
 
-import com.ss.rlib.logging.Logger;
-import com.ss.rlib.logging.LoggerLevel;
-import com.ss.rlib.logging.LoggerManager;
-import com.ss.rlib.ui.RLibFx;
+import com.ss.rlib.common.logging.Logger;
+import com.ss.rlib.common.logging.LoggerLevel;
+import com.ss.rlib.common.logging.LoggerManager;
+import com.ss.rlib.fx.RLibFx;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;

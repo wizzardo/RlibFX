@@ -1,7 +1,7 @@
-package com.ss.rlib.ui.scene.input;
+package com.ss.rlib.fx.scene.input;
 
-import static com.ss.rlib.util.ClassUtils.unsafeCast;
-import com.ss.rlib.util.ref.Reference;
+import static com.ss.rlib.common.util.ClassUtils.unsafeCast;
+import com.ss.rlib.common.util.ref.Reference;
 import javafx.scene.input.DataFormat;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 
 /**
- * The implementation of a clipboard/dragboard content which will use only internal.
+ * The implementation of a clipboard/dragboard content for internal using.
  *
  * @author JavaSaBr
  */
@@ -42,7 +42,7 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     public static final DataFormat DATA_REFERENCE = new DataFormat("internal/reference");
 
     /**
-     * Get a number.
+     * Gets a number.
      *
      * @return the number or null.
      */
@@ -51,7 +51,7 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     }
 
     /**
-     * Get an object.
+     * Gets an object.
      *
      * @param <T> the object's type.
      * @return the object or null.
@@ -61,7 +61,7 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     }
 
     /**
-     * Get a reference.
+     * Gets a reference.
      *
      * @return the reference or null.
      */
@@ -70,7 +70,7 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     }
 
     /**
-     * Get a string.
+     * Gets a string.
      *
      * @return the string or null.
      */
@@ -79,38 +79,38 @@ public class InternalContent extends HashMap<DataFormat, Object> {
     }
 
     /**
-     * Put a number.
+     * Puts a number.
      *
      * @param number the number or null.
      */
-    public void putNumber(@Nullable final Number number) {
+    public void putNumber(@Nullable Number number) {
         put(DATA_NUMBER, number);
     }
 
     /**
-     * Put an object.
+     * Puts an object.
      *
      * @param object the object or null.
      */
-    public void putObject(@Nullable final Object object) {
+    public void putObject(@Nullable Object object) {
         put(DATA_OBJECT, object);
     }
 
     /**
-     * Put a reference.
+     * Puts a reference.
      *
      * @param reference the reference or null.
      */
-    public void putReference(@Nullable final Reference reference) {
+    public void putReference(@Nullable Reference reference) {
         put(DATA_REFERENCE, reference);
     }
 
     /**
-     * Put a string.
+     * Puts a string.
      *
      * @param string the string or null.
      */
-    public void putString(@Nullable final String string) {
+    public void putString(@Nullable String string) {
         put(DATA_STRING, string);
     }
 }

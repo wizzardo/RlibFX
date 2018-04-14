@@ -1,5 +1,6 @@
-package com.ss.rlib.ui.util;
+package com.ss.rlib.fx.util;
 
+import static com.ss.rlib.common.util.ClassUtils.unsafeCast;
 import javafx.beans.value.ObservableValue;
 import org.jetbrains.annotations.NotNull;
 
@@ -7,8 +8,6 @@ import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-
-import static com.ss.rlib.util.ClassUtils.unsafeCast;
 
 /**
  * The utility class.
@@ -137,6 +136,7 @@ public class ObservableUtils {
      *
      * @param value  the observable value.
      * @param action the action on changes.
+     * @param <T>    the value type.
      * @return the change event appender.
      */
     public static <T> ChangeEventAppender<T> onChange(@NotNull ObservableValue<T> value, @NotNull Runnable action) {

@@ -1,4 +1,4 @@
-package com.ss.rlib.ui.hanlder;
+package com.ss.rlib.fx.handler;
 
 import static javafx.scene.input.MouseEvent.*;
 import javafx.event.EventHandler;

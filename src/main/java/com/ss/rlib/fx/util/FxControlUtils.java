@@ -1,6 +1,6 @@
-package com.ss.rlib.ui.util;
+package com.ss.rlib.fx.util;
 
-import com.ss.rlib.ui.util.ObservableUtils.ChangeEventAppender;
+import com.ss.rlib.fx.util.ObservableUtils.ChangeEventAppender;
 import javafx.scene.control.TextInputControl;
 import org.jetbrains.annotations.NotNull;
 

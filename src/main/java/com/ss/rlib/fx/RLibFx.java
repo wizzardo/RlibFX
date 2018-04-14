@@ -1,4 +1,4 @@
-package com.ss.rlib.ui;
+package com.ss.rlib.fx;
 
 /**
  * @author JavaSaBr
