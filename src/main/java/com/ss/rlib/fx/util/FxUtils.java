@@ -1,16 +1,21 @@
 package com.ss.rlib.fx.util;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.css.Styleable;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Region;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.BiConsumer;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import java.util.stream.IntStream;
 
 /**
  * The utility class.
@@ -125,5 +130,54 @@ public class FxUtils {
     public static @NotNull ChildrenAppender addChild(@NotNull Pane parent, @NotNull Node... nodes) {
         parent.getChildren().addAll(nodes);
         return CHILDREN_APPENDER;
+    }
+
+    /**
+     * Reset pref width property for the region.
+     *
+     * @param region the region.
+     */
+    public static <T extends Region> T resetPrefWidth(@NotNull T region) {
+        region.prefWidthProperty().unbind();
+        region.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        return region;
+    }
+
+    /**
+     * Reset min/max width properties for the region.
+     *
+     * @param region the region.
+     */
+    public static <T extends Region> T resetMinMaxWidth(@NotNull T region) {
+        region.maxWidthProperty().unbind();
+        region.setMaxWidth(Region.USE_COMPUTED_SIZE);
+        region.minWidthProperty().unbind();
+        region.setMinWidth(Region.USE_COMPUTED_SIZE);
+        return region;
+    }
+
+    /**
+     * Rebind pref width property of the region.
+     *
+     * @param region the region.
+     * @param value  the value.
+     * @param <T>    the region's type.
+     * @return the region.
+     */
+    public static <T extends Region> T rebindPrefWidth(
+            @NotNull T region,
+            @NotNull ObservableValue<? extends Number> value
+    ) {
+
+        var width = region.prefWidthProperty();
+
+        if (width.isBound()) {
+            width.unbind();
+        }
+
+        width.bind(value);
+
+
+        return region;
     }
 }

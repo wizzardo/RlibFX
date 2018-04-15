@@ -1,7 +1,12 @@
 package com.ss.rlib.fx.control.input;
 
 import static com.ss.rlib.common.util.ClassUtils.unsafeCast;
+
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
 import javafx.scene.input.ScrollEvent;
@@ -99,5 +104,14 @@ public class TypedTextField<T> extends TextField {
      */
     protected @NotNull TextFormatter<T> getTypedTextFormatter() {
         return unsafeCast(getTextFormatter());
+    }
+
+    /**
+     * Gets the value property.
+     *
+     * @return the value property.
+     */
+    public @NotNull ReadOnlyObjectProperty<T> valueProperty() {
+        return getTypedTextFormatter().valueProperty();
     }
 }
