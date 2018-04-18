@@ -1,21 +1,11 @@
 package com.ss.rlib.fx.util;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.css.Styleable;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Map;
-import java.util.TreeMap;
-import java.util.function.BiConsumer;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
-import java.util.stream.IntStream;
 
 /**
  * The utility class.
@@ -39,6 +29,45 @@ public class FxUtils {
         }
 
         /**
+         * Add the css class to the styleable objects.
+         *
+         * @param first     the first styleable object.
+         * @param second    the second styleable object.
+         * @param className the css class.
+         * @return the css class appender.
+         */
+        public @NotNull CssClassAppender addClass(
+                @NotNull Styleable first,
+                @NotNull Styleable second,
+                @NotNull String className
+        ) {
+            first.getStyleClass().add(className);
+            second.getStyleClass().add(className);
+            return this;
+        }
+
+        /**
+         * Add the css class to the styleable objects.
+         *
+         * @param first     the first styleable object.
+         * @param second    the second styleable object.
+         * @param third     the third styleable object.
+         * @param className the css class.
+         * @return the css class appender.
+         */
+        public @NotNull CssClassAppender addClass(
+                @NotNull Styleable first,
+                @NotNull Styleable second,
+                @NotNull Styleable third,
+                @NotNull String className
+        ) {
+            first.getStyleClass().add(className);
+            second.getStyleClass().add(className);
+            third.getStyleClass().add(className);
+            return this;
+        }
+
+        /**
          * Add css classes to the styleable object.
          *
          * @param styleable  the styleable object.
@@ -47,6 +76,45 @@ public class FxUtils {
          */
         public @NotNull CssClassAppender addClass(@NotNull Styleable styleable, @NotNull String... classNames) {
             styleable.getStyleClass().addAll(classNames);
+            return this;
+        }
+
+        /**
+         * Add css classes to the styleable objects.
+         *
+         * @param first      the first styleable object.
+         * @param second     the second styleable object.
+         * @param classNames the css classes.
+         * @return the css class appender.
+         */
+        public @NotNull CssClassAppender addClass(
+                @NotNull Styleable first,
+                @NotNull Styleable second,
+                @NotNull String... classNames
+        ) {
+            first.getStyleClass().addAll(classNames);
+            second.getStyleClass().addAll(classNames);
+            return this;
+        }
+
+        /**
+         * Add css classes to the styleable objects.
+         *
+         * @param first      the first styleable object.
+         * @param second     the second styleable object.
+         * @param third      the third styleable object.
+         * @param classNames the css classes.
+         * @return the css class appender.
+         */
+        public @NotNull CssClassAppender addClass(
+                @NotNull Styleable first,
+                @NotNull Styleable second,
+                @NotNull Styleable third,
+                @NotNull String... classNames
+        ) {
+            first.getStyleClass().addAll(classNames);
+            second.getStyleClass().addAll(classNames);
+            third.getStyleClass().addAll(classNames);
             return this;
         }
     }
@@ -97,6 +165,45 @@ public class FxUtils {
     }
 
     /**
+     * Add the css class to the styleable objects.
+     *
+     * @param first     the first styleable object.
+     * @param second    the second styleable object.
+     * @param className the css class.
+     * @return the css class appender.
+     */
+    public static @NotNull CssClassAppender addClass(
+            @NotNull Styleable first,
+            @NotNull Styleable second,
+            @NotNull String className
+    ) {
+        first.getStyleClass().add(className);
+        second.getStyleClass().add(className);
+        return CLASS_APPENDER;
+    }
+
+    /**
+     * Add the css class to the styleable objects.
+     *
+     * @param first     the first styleable object.
+     * @param second    the second styleable object.
+     * @param third     the third styleable object.
+     * @param className the css class.
+     * @return the css class appender.
+     */
+    public static @NotNull CssClassAppender addClass(
+            @NotNull Styleable first,
+            @NotNull Styleable second,
+            @NotNull Styleable third,
+            @NotNull String className
+    ) {
+        first.getStyleClass().add(className);
+        second.getStyleClass().add(className);
+        third.getStyleClass().add(className);
+        return CLASS_APPENDER;
+    }
+
+    /**
      * Add css classes to the styleable object.
      *
      * @param styleable  the styleable object.
@@ -107,6 +214,46 @@ public class FxUtils {
         styleable.getStyleClass().addAll(classNames);
         return CLASS_APPENDER;
     }
+
+    /**
+     * Add css classes to the styleable objects.
+     *
+     * @param first      the first styleable object.
+     * @param second     the second styleable object.
+     * @param classNames the css classes.
+     * @return the css class appender.
+     */
+    public static @NotNull CssClassAppender addClass(
+            @NotNull Styleable first,
+            @NotNull Styleable second,
+            @NotNull String... classNames
+    ) {
+        first.getStyleClass().addAll(classNames);
+        second.getStyleClass().addAll(classNames);
+        return CLASS_APPENDER;
+    }
+
+    /**
+     * Add css classes to the styleable objects.
+     *
+     * @param first      the first styleable object.
+     * @param second     the second styleable object.
+     * @param third      the third styleable object.
+     * @param classNames the css classes.
+     * @return the css class appender.
+     */
+    public static @NotNull CssClassAppender addClass(
+            @NotNull Styleable first,
+            @NotNull Styleable second,
+            @NotNull Styleable third,
+            @NotNull String... classNames
+    ) {
+        first.getStyleClass().addAll(classNames);
+        second.getStyleClass().addAll(classNames);
+        third.getStyleClass().addAll(classNames);
+        return CLASS_APPENDER;
+    }
+
 
     /**
      * Add the node to the parent.

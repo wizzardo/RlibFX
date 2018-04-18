@@ -2,8 +2,10 @@ package com.ss.rlib.fx.util;
 
 import com.ss.rlib.fx.control.input.TypedTextField;
 import com.ss.rlib.fx.util.ObservableUtils.ChangeEventAppender;
+import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
@@ -111,6 +113,48 @@ public class FxControlUtils {
     public static <T> ChangeEventAppender<T> onValueChange(
         @NotNull TypedTextField<T> control,
         @NotNull Runnable handler
+    ) {
+        return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+
+    /**
+     * Add handler of focus state changes.
+     *
+     * @param control the any focusable control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Boolean> onFocusChange(
+            @NotNull Node control,
+            @NotNull Consumer<Boolean> handler
+    ) {
+        return ObservableUtils.onChange(control.focusedProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected item changes.
+     *
+     * @param control the combo box control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<T> onSelectedItemChange(
+            @NotNull ComboBox<T> control,
+            @NotNull Runnable handler
+    ) {
+        return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected item changes.
+     *
+     * @param control the combo box control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<T> onSelectedItemChange(
+            @NotNull ComboBox<T> control,
+            @NotNull Consumer<T> handler
     ) {
         return ObservableUtils.onChange(control.valueProperty(), handler);
     }
