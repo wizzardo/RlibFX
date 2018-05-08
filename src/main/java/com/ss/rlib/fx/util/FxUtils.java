@@ -8,6 +8,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -331,6 +332,8 @@ public class FxUtils {
      * Reset pref width property for the region.
      *
      * @param region the region.
+     * @param <T>    the region's type.
+     * @return the region.
      */
     public static <T extends Region> T resetPrefWidth(@NotNull T region) {
         region.prefWidthProperty().unbind();
@@ -341,7 +344,9 @@ public class FxUtils {
     /**
      * Reset min/max width properties for the region.
      *
+     * @param <T>    the region's type.
      * @param region the region.
+     * @return the region.
      */
     public static <T extends Region> T resetMinMaxWidth(@NotNull T region) {
         region.maxWidthProperty().unbind();
@@ -398,4 +403,29 @@ public class FxUtils {
     public static void addDebugBorderTo(@NotNull Node node) {
         node.setStyle("-fx-border-color: red; -fx-border-width: 3px;");
     }
+
+    /**
+     * Set fixed size to a region.
+     *
+     * @param region the region.
+     * @param width  the width.
+     * @param height the height.
+     */
+    public static void setFixedSize(@NotNull Region region, double width, double height) {
+        region.setMaxHeight(height);
+        region.setMinHeight(height);
+        region.setMaxWidth(width);
+        region.setMinWidth(width);
+    }
+
+    /**
+     * Set fixed size to a region.
+     *
+     * @param region the region.
+     * @param size   the size.
+     */
+    public static void setFixedSize(@NotNull Region region, @NotNull Point size) {
+        setFixedSize(region, size.getX(), size.getY());
+    }
+
 }

@@ -94,6 +94,7 @@ public class FxControlUtils {
      *
      * @param control the typed text field control.
      * @param handler the handler.
+     * @param <T>     the value's type.
      * @return the change event appender.
      */
     public static <T> ChangeEventAppender<T> onValueChange(
@@ -108,6 +109,7 @@ public class FxControlUtils {
      *
      * @param control the typed text field control.
      * @param handler the handler.
+     * @param <T>     the value's type.
      * @return the change event appender.
      */
     public static <T> ChangeEventAppender<T> onValueChange(
@@ -136,6 +138,7 @@ public class FxControlUtils {
      *
      * @param control the combo box control.
      * @param handler the handler.
+     * @param <T>     the value's type.
      * @return the change event appender.
      */
     public static <T> ChangeEventAppender<T> onSelectedItemChange(
@@ -150,6 +153,7 @@ public class FxControlUtils {
      *
      * @param control the combo box control.
      * @param handler the handler.
+     * @param <T>     the value's type.
      * @return the change event appender.
      */
     public static <T> ChangeEventAppender<T> onSelectedItemChange(
