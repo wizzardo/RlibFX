@@ -139,7 +139,10 @@ public class ObservableUtils {
      * @param <T>    the value type.
      * @return the change event appender.
      */
-    public static <T> ChangeEventAppender<T> onChange(@NotNull ObservableValue<T> value, @NotNull Runnable action) {
+    public static <T> @NotNull ChangeEventAppender<T> onChange(
+            @NotNull ObservableValue<T> value,
+            @NotNull Runnable action
+    ) {
         value.addListener((observable, oldValue, newValue) -> action.run());
         return getAppender(value);
     }
