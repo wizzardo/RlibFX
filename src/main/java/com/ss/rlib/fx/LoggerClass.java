@@ -3,5 +3,5 @@ package com.ss.rlib.fx;
 /**
  * @author JavaSaBr
  */
-public interface RLibFx {
+public interface LoggerClass {
 }

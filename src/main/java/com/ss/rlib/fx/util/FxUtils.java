@@ -2,10 +2,13 @@ package com.ss.rlib.fx.util;
 
 import javafx.beans.value.ObservableValue;
 import javafx.css.Styleable;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * The utility class.
@@ -134,6 +137,18 @@ public class FxUtils {
         }
 
         /**
+         * Add the node to the parent.
+         *
+         * @param parent the parent.
+         * @param node   the node.
+         * @return the child appender.
+         */
+        public @NotNull ChildrenAppender addChild(@NotNull Group parent, @NotNull Node node) {
+            parent.getChildren().add(node);
+            return this;
+        }
+
+        /**
          * Add the nodes to the parent.
          *
          * @param parent the parent.
@@ -144,12 +159,21 @@ public class FxUtils {
             parent.getChildren().addAll(nodes);
             return this;
         }
+
+        /**
+         * Add the nodes to the parent.
+         *
+         * @param parent the parent.
+         * @param nodes  the nodes.
+         * @return the child appender.
+         */
+        public @NotNull ChildrenAppender addChild(@NotNull Group parent, @NotNull Node... nodes) {
+            parent.getChildren().addAll(nodes);
+            return this;
+        }
     }
 
-    @NotNull
     private static final CssClassAppender CLASS_APPENDER = new CssClassAppender();
-
-    @NotNull
     private static final ChildrenAppender CHILDREN_APPENDER = new ChildrenAppender();
 
     /**
@@ -268,6 +292,18 @@ public class FxUtils {
     }
 
     /**
+     * Add the node to the parent.
+     *
+     * @param parent the parent.
+     * @param node   the node.
+     * @return the child appender.
+     */
+    public static @NotNull ChildrenAppender addChild(@NotNull Group parent, @NotNull Node node) {
+        parent.getChildren().add(node);
+        return CHILDREN_APPENDER;
+    }
+
+    /**
      * Add the nodes to the parent.
      *
      * @param parent the parent.
@@ -275,6 +311,18 @@ public class FxUtils {
      * @return the child appender.
      */
     public static @NotNull ChildrenAppender addChild(@NotNull Pane parent, @NotNull Node... nodes) {
+        parent.getChildren().addAll(nodes);
+        return CHILDREN_APPENDER;
+    }
+
+    /**
+     * Add the nodes to the parent.
+     *
+     * @param parent the parent.
+     * @param nodes  the nodes.
+     * @return the child appender.
+     */
+    public static @NotNull ChildrenAppender addChild(@NotNull Group parent, @NotNull Node... nodes) {
         parent.getChildren().addAll(nodes);
         return CHILDREN_APPENDER;
     }
@@ -326,5 +374,28 @@ public class FxUtils {
 
 
         return region;
+    }
+
+    /**
+     * Add a random color to background.
+     *
+     * @param node the node.
+     */
+    public static void addDebugBackgroundColor(@NotNull Node node) {
+
+        var random = ThreadLocalRandom.current();
+        var color = "rgb(" + random.nextInt(255) + "," +
+                random.nextInt(255) + ", " + random.nextInt(255) + ")";
+
+        node.setStyle("-fx-background-color: " + color + ";");
+    }
+
+    /**
+     * Add a debug border to a node..
+     *
+     * @param node the node.
+     */
+    public static void addDebugBorderTo(@NotNull Node node) {
+        node.setStyle("-fx-border-color: red; -fx-border-width: 3px;");
     }
 }

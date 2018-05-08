@@ -3,7 +3,6 @@ package com.ss.rlib.fx.scene.input;
 import static com.ss.rlib.common.util.ClassUtils.unsafeCast;
 import com.ss.rlib.common.util.ref.Reference;
 import javafx.scene.input.DataFormat;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -17,28 +16,9 @@ public class InternalContent extends HashMap<DataFormat, Object> {
 
     private static final long serialVersionUID = 2133513859087232216L;
 
-    /**
-     * The constant DATA_OBJECT.
-     */
-    @NotNull
     public static final DataFormat DATA_OBJECT = new DataFormat("internal/object");
-
-    /**
-     * The constant DATA_STRING.
-     */
-    @NotNull
     public static final DataFormat DATA_STRING = new DataFormat("internal/string");
-
-    /**
-     * The constant DATA_NUMBER.
-     */
-    @NotNull
     public static final DataFormat DATA_NUMBER = new DataFormat("internal/number");
-
-    /**
-     * The constant DATA_REFERENCE.
-     */
-    @NotNull
     public static final DataFormat DATA_REFERENCE = new DataFormat("internal/reference");
 
     /**
