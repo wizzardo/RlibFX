@@ -1,7 +1,7 @@
-package com.ss.rlib.ui.window.popup.dialog;
+package com.ss.rlib.fx.window.popup.dialog;
 
 import static javafx.geometry.Pos.CENTER;
-import com.ss.rlib.ui.util.FXUtils;
+import com.ss.rlib.fx.util.FxUtils;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import org.jetbrains.annotations.NotNull;
@@ -41,8 +41,8 @@ public abstract class AbstractPopupDialog extends Popup {
      *
      * @param container the root container.
      */
-    protected void configureSize(@NotNull final VBox container) {
-        FXUtils.setFixedSize(container, getSize());
+    protected void configureSize(@NotNull VBox container) {
+        FxUtils.setFixedSize(container, getSize());
     }
 
     /**
@@ -50,7 +50,7 @@ public abstract class AbstractPopupDialog extends Popup {
      *
      * @param root the root.
      */
-    protected void createControls(@NotNull final VBox root) {
+    protected void createControls(@NotNull VBox root) {
     }
 
     /**
@@ -76,7 +76,7 @@ public abstract class AbstractPopupDialog extends Popup {
      *
      * @param ownerDialog the owner dialog.
      */
-    protected void setOwnerDialog(@Nullable final AbstractPopupDialog ownerDialog) {
+    protected void setOwnerDialog(@Nullable AbstractPopupDialog ownerDialog) {
         this.ownerDialog = ownerDialog;
     }
 
@@ -93,11 +93,10 @@ public abstract class AbstractPopupDialog extends Popup {
     public void hide() {
         super.hide();
 
-        final AbstractPopupDialog dialog = getOwnerDialog();
+        var dialog = getOwnerDialog();
 
         if (dialog != null) {
-            final VBox container = dialog.getContainer();
-            container.setDisable(false);
+            dialog.getContainer().setDisable(false);
         }
 
         setOwnerDialog(null);

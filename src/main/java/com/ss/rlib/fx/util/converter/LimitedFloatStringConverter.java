@@ -1,6 +1,6 @@
-package com.ss.rlib.ui.util.converter;
+package com.ss.rlib.fx.util.converter;
 
-import com.ss.rlib.util.StringUtils;
+import com.ss.rlib.common.util.StringUtils;
 import javafx.util.StringConverter;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,13 +27,13 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
     }
 
     @Override
-    public @Nullable Float fromString(@Nullable final String value) {
+    public @Nullable Float fromString(@Nullable String value) {
 
         if (StringUtils.isEmpty(value)) {
             return null;
         }
 
-        final Float result = Float.valueOf(value);
+        var result = Float.valueOf(value);
 
         if (result < minValue) {
             throw new IllegalArgumentException();
@@ -45,7 +45,7 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
     }
 
     /**
-     * Get the max value.
+     * Gets the max value.
      *
      * @return the max value.
      */
@@ -54,16 +54,16 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
     }
 
     /**
-     * Set the max value.
+     * Sets the max value.
      *
      * @param maxValue the max value.
      */
-    public void setMaxValue(final float maxValue) {
+    public void setMaxValue(float maxValue) {
         this.maxValue = maxValue;
     }
 
     /**
-     * Get the min value.
+     * Gets the min value.
      *
      * @return the min value.
      */
@@ -72,18 +72,22 @@ public class LimitedFloatStringConverter extends StringConverter<Float> {
     }
 
     /**
-     * Set the min value.
+     * Sets the min value.
      *
      * @param minValue the min value.
      */
-    public void setMinValue(final float minValue) {
+    public void setMinValue(float minValue) {
         this.minValue = minValue;
     }
 
 
     @Override
-    public @Nullable String toString(@Nullable final Float value) {
-        if (value == null) return StringUtils.EMPTY;
-        return Float.toString(value.floatValue());
+    public @Nullable String toString(@Nullable Float value) {
+
+        if (value == null) {
+            return StringUtils.EMPTY;
+        }
+
+        return Float.toString(value);
     }
 }

@@ -1,0 +1,165 @@
+package com.ss.rlib.fx.util;
+
+import com.ss.rlib.fx.control.input.TypedTextField;
+import com.ss.rlib.fx.util.ObservableUtils.ChangeEventAppender;
+import javafx.scene.Node;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextInputControl;
+import javafx.scene.paint.Color;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Consumer;
+
+/**
+ * The utility class.
+ *
+ * @author JavaSaBr
+ */
+public class FxControlUtils {
+
+    /**
+     * Add handler of text changes.
+     *
+     * @param control the text control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<String> onTextChange(
+            @NotNull TextInputControl control,
+            @NotNull Consumer<String> handler
+    ) {
+        return ObservableUtils.onChange(control.textProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected changes.
+     *
+     * @param control the check box control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Boolean> onSelectedChange(
+            @NotNull CheckBox control,
+            @NotNull Runnable handler
+    ) {
+        return ObservableUtils.onChange(control.selectedProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected changes.
+     *
+     * @param control the check box control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Boolean> onSelectedChange(
+            @NotNull CheckBox control,
+            @NotNull Consumer<Boolean> handler
+    ) {
+        return ObservableUtils.onChange(control.selectedProperty(), handler);
+    }
+
+    /**
+     * Add handler of color changes.
+     *
+     * @param control the color picker control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Color> onColorChange(
+            @NotNull ColorPicker control,
+            @NotNull Consumer<Color> handler
+    ) {
+        return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+
+    /**
+     * Add handler of color changes.
+     *
+     * @param control the color picker control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Color> onColorChange(
+            @NotNull ColorPicker control,
+            @NotNull Runnable handler
+    ) {
+        return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+
+    /**
+     * Add handler of value changes.
+     *
+     * @param control the typed text field control.
+     * @param handler the handler.
+     * @param <T>     the value's type.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<T> onValueChange(
+        @NotNull TypedTextField<T> control,
+        @NotNull Consumer<T> handler
+    ) {
+        return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+
+    /**
+     * Add handler of value changes.
+     *
+     * @param control the typed text field control.
+     * @param handler the handler.
+     * @param <T>     the value's type.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<T> onValueChange(
+        @NotNull TypedTextField<T> control,
+        @NotNull Runnable handler
+    ) {
+        return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+
+    /**
+     * Add handler of focus state changes.
+     *
+     * @param control the any focusable control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Boolean> onFocusChange(
+            @NotNull Node control,
+            @NotNull Consumer<Boolean> handler
+    ) {
+        return ObservableUtils.onChange(control.focusedProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected item changes.
+     *
+     * @param control the combo box control.
+     * @param handler the handler.
+     * @param <T>     the value's type.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<T> onSelectedItemChange(
+            @NotNull ComboBox<T> control,
+            @NotNull Runnable handler
+    ) {
+        return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected item changes.
+     *
+     * @param control the combo box control.
+     * @param handler the handler.
+     * @param <T>     the value's type.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<T> onSelectedItemChange(
+            @NotNull ComboBox<T> control,
+            @NotNull Consumer<T> handler
+    ) {
+        return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+}

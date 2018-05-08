@@ -17,21 +17,21 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 group = 'com.spaceshift'
-version = '4.2.1'
+version = '5.0.0'
 
-sourceCompatibility = 1.9
-targetCompatibility = 1.9
+sourceCompatibility = 1.10
+targetCompatibility = 1.10
 
 compileTestJava {
-    sourceCompatibility = 1.8
-    targetCompatibility = 1.8
+    sourceCompatibility = 1.10
+    targetCompatibility = 1.10
     options.compilerArgs += '-parameters'
 }
 
 ext.junitPlatformVersion = "1.0.0"
 ext.junitJupiterVersion = "5.0.0"
 ext.log4jVersion = '2.6.2'
-ext.bintrayVersion = version + "-Final"
+ext.bintrayVersion = version
 
 junitPlatform {
     filters {
@@ -45,6 +45,7 @@ junitPlatform {
 
 repositories {
     mavenCentral()
+    mavenLocal()
     maven {
         url 'https://jitpack.io'
     }
@@ -88,7 +89,7 @@ bintray {
 }
 
 dependencies {
-    compile 'com.spaceshift:rlib:6.8.3-Final'
+    compile 'com.spaceshift:rlib.common:7.0.0'
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
 
     testRuntime "org.junit.platform:junit-platform-engine:$junitPlatformVersion"

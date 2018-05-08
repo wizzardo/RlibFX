@@ -1,4 +1,4 @@
-package com.ss.rlib.ui.component.impl;
+package com.ss.rlib.fx.component.impl;
 
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
