@@ -98,8 +98,8 @@ public class FxControlUtils {
      * @return the change event appender.
      */
     public static <T> ChangeEventAppender<T> onValueChange(
-        @NotNull TypedTextField<T> control,
-        @NotNull Consumer<T> handler
+            @NotNull TypedTextField<T> control,
+            @NotNull Consumer<T> handler
     ) {
         return ObservableUtils.onChange(control.valueProperty(), handler);
     }
@@ -113,8 +113,8 @@ public class FxControlUtils {
      * @return the change event appender.
      */
     public static <T> ChangeEventAppender<T> onValueChange(
-        @NotNull TypedTextField<T> control,
-        @NotNull Runnable handler
+            @NotNull TypedTextField<T> control,
+            @NotNull Runnable handler
     ) {
         return ObservableUtils.onChange(control.valueProperty(), handler);
     }
