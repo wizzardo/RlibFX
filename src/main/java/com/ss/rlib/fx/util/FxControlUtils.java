@@ -28,6 +28,20 @@ public class FxControlUtils {
      */
     public static ChangeEventAppender<String> onTextChange(
             @NotNull TextInputControl control,
+            @NotNull Runnable handler
+    ) {
+        return ObservableUtils.onChange(control.textProperty(), handler);
+    }
+
+    /**
+     * Add handler of text changes.
+     *
+     * @param control the text control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<String> onTextChange(
+            @NotNull TextInputControl control,
             @NotNull Consumer<String> handler
     ) {
         return ObservableUtils.onChange(control.textProperty(), handler);
