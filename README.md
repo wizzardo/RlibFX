@@ -14,7 +14,7 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.spaceshift:rlib.fx:5.0.2'
+    compile 'com.spaceshift:rlib.fx:5.0.4'
 }
 ```
 
@@ -37,7 +37,7 @@ dependencies {
 <dependency>
     <groupId>com.spaceshift</groupId>
     <artifactId>rlib.fx</artifactId>
-    <version>5.0.2</version>
+    <version>5.0.4</version>
 </dependency>
 ```
 
