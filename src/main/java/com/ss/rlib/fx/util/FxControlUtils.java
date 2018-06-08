@@ -3,10 +3,7 @@ package com.ss.rlib.fx.util;
 import com.ss.rlib.fx.control.input.TypedTextField;
 import com.ss.rlib.fx.util.ObservableUtils.ChangeEventAppender;
 import javafx.scene.Node;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 
@@ -175,5 +172,53 @@ public class FxControlUtils {
             @NotNull Consumer<T> handler
     ) {
         return ObservableUtils.onChange(control.valueProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected item changes.
+     *
+     * @param control the list view control.
+     * @param handler the handler.
+     * @param <T>     the value's type.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<T> onSelectedItemChange(
+            @NotNull ListView<T> control,
+            @NotNull Consumer<T> handler
+    ) {
+        var selectionModel = control.getSelectionModel();
+        return ObservableUtils.onChange(selectionModel.selectedItemProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected item changes.
+     *
+     * @param control the tree view control.
+     * @param handler the handler.
+     * @param <T>     the value's type.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<TreeItem<T>> onSelectedItemChange(
+            @NotNull TreeView<T> control,
+            @NotNull Runnable handler
+    ) {
+        var selectionModel = control.getSelectionModel();
+        return ObservableUtils.onChange(selectionModel.selectedItemProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected item changes.
+     *
+     * @param control the tree view control.
+     * @param handler the handler.
+     * @param <T>     the value's type.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<TreeItem<T>> onSelectedItemChange(
+            @NotNull TreeView<T> control,
+            @NotNull Consumer<TreeItem<T>> handler
+    ) {
+        var selectionModel = control.getSelectionModel();
+        return ObservableUtils.onChange(selectionModel.selectedItemProperty(), handler);
     }
 }
