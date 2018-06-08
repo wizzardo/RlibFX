@@ -174,8 +174,60 @@ public class FxUtils {
         }
     }
 
+    public static class ChildrenRemover {
+
+        /**
+         * Remove the node from the parent.
+         *
+         * @param parent the parent.
+         * @param node   the node.
+         * @return the child appender.
+         */
+        public @NotNull ChildrenRemover removeChild(@NotNull Pane parent, @NotNull Node node) {
+            parent.getChildren().remove(node);
+            return this;
+        }
+
+        /**
+         * Remove the node from the parent.
+         *
+         * @param parent the parent.
+         * @param node   the node.
+         * @return the child appender.
+         */
+        public @NotNull ChildrenRemover removeChild(@NotNull Group parent, @NotNull Node node) {
+            parent.getChildren().remove(node);
+            return this;
+        }
+
+        /**
+         * Remove the nodes from the parent.
+         *
+         * @param parent the parent.
+         * @param nodes  the nodes.
+         * @return the child appender.
+         */
+        public @NotNull ChildrenRemover removeChild(@NotNull Pane parent, @NotNull Node... nodes) {
+            parent.getChildren().removeAll(nodes);
+            return this;
+        }
+
+        /**
+         * Remove the nodes from the parent.
+         *
+         * @param parent the parent.
+         * @param nodes  the nodes.
+         * @return the child appender.
+         */
+        public @NotNull ChildrenRemover removeChild(@NotNull Group parent, @NotNull Node... nodes) {
+            parent.getChildren().removeAll(nodes);
+            return this;
+        }
+    }
+
     private static final CssClassAppender CLASS_APPENDER = new CssClassAppender();
     private static final ChildrenAppender CHILDREN_APPENDER = new ChildrenAppender();
+    private static final ChildrenRemover CHILDREN_REMOVER = new ChildrenRemover();
 
     /**
      * Add the css class to the styleable object.
@@ -326,6 +378,54 @@ public class FxUtils {
     public static @NotNull ChildrenAppender addChild(@NotNull Group parent, @NotNull Node... nodes) {
         parent.getChildren().addAll(nodes);
         return CHILDREN_APPENDER;
+    }
+
+    /**
+     * Remove the node from the parent.
+     *
+     * @param parent the parent.
+     * @param node   the node.
+     * @return the child appender.
+     */
+    public static @NotNull ChildrenRemover removeChild(@NotNull Pane parent, @NotNull Node node) {
+        parent.getChildren().remove(node);
+        return CHILDREN_REMOVER;
+    }
+
+    /**
+     * Remove the node from the parent.
+     *
+     * @param parent the parent.
+     * @param node   the node.
+     * @return the child appender.
+     */
+    public static @NotNull ChildrenRemover removeChild(@NotNull Group parent, @NotNull Node node) {
+        parent.getChildren().remove(node);
+        return CHILDREN_REMOVER;
+    }
+
+    /**
+     * Remove the nodes from the parent.
+     *
+     * @param parent the parent.
+     * @param nodes  the nodes.
+     * @return the child appender.
+     */
+    public static @NotNull ChildrenRemover removeChild(@NotNull Pane parent, @NotNull Node... nodes) {
+        parent.getChildren().removeAll(nodes);
+        return CHILDREN_REMOVER;
+    }
+
+    /**
+     * Remove the nodes from the parent.
+     *
+     * @param parent the parent.
+     * @param nodes  the nodes.
+     * @return the child appender.
+     */
+    public static @NotNull ChildrenRemover removeChild(@NotNull Group parent, @NotNull Node... nodes) {
+        parent.getChildren().removeAll(nodes);
+        return CHILDREN_REMOVER;
     }
 
     /**
