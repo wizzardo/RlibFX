@@ -5,7 +5,6 @@ Please see the file called LICENSE.
 
 #### Gradle
 
-
 ```groovy
 allprojects {
     repositories {
@@ -14,13 +13,11 @@ allprojects {
 }
 
 dependencies {
-    compile 'com.spaceshift:rlib.fx:5.0.4'
+    compile 'com.spaceshift:rlib.fx:5.0.5'
 }
 ```
 
-    
 #### Maven
-
 
 ```xml
 <repositories>
@@ -37,7 +34,7 @@ dependencies {
 <dependency>
     <groupId>com.spaceshift</groupId>
     <artifactId>rlib.fx</artifactId>
-    <version>5.0.4</version>
+    <version>5.0.5</version>
 </dependency>
 ```
 
