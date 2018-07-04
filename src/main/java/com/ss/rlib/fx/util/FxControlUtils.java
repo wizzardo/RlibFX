@@ -73,6 +73,34 @@ public class FxControlUtils {
     }
 
     /**
+     * Add handler of selected changes.
+     *
+     * @param control the check box control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Boolean> onSelectedChange(
+            @NotNull ToggleButton control,
+            @NotNull Runnable handler
+    ) {
+        return ObservableUtils.onChange(control.selectedProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected changes.
+     *
+     * @param control the check box control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Boolean> onSelectedChange(
+            @NotNull ToggleButton control,
+            @NotNull Consumer<Boolean> handler
+    ) {
+        return ObservableUtils.onChange(control.selectedProperty(), handler);
+    }
+
+    /**
      * Add handler of color changes.
      *
      * @param control the color picker control.
