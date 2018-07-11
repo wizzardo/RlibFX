@@ -17,7 +17,7 @@ apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 group = 'com.spaceshift'
-version = '5.0.5'
+version = '5.0.6'
 
 sourceCompatibility = 1.10
 targetCompatibility = 1.10
@@ -89,7 +89,7 @@ bintray {
 }
 
 dependencies {
-    compile 'com.spaceshift:rlib.common:7.0.0'
+    compile 'com.spaceshift:rlib.common:7.3.0'
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
 
     testRuntime "org.junit.platform:junit-platform-engine:$junitPlatformVersion"
