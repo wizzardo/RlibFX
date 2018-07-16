@@ -44,7 +44,7 @@ public abstract class NumberTextField<T extends Number> extends ScrollableTypedT
     /**
      * Set the min value of this field.
      *
-     * @return the min value of this field.
+     * @param value the min value of this field.
      */
     public void setMinValue(@Nullable T value) {
 
@@ -70,7 +70,7 @@ public abstract class NumberTextField<T extends Number> extends ScrollableTypedT
     /**
      * Set the max value of this field.
      *
-     * @return the max value of this field.
+     * @param value the max value of this field.
      */
     public void setMaxValue(@Nullable T value) {
 
