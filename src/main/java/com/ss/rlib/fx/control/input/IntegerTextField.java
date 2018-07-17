@@ -12,6 +12,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class IntegerTextField extends NumberTextField<Integer> {
 
+    public IntegerTextField() {
+        setValue(0);
+    }
+
     @Override
     protected @NotNull LimitedNumberStringConverter<Integer> createValueConverter() {
         return new LimitedIntegerStringConverter();

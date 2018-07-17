@@ -2,6 +2,7 @@ package com.ss.rlib.fx.util;
 
 import com.ss.rlib.fx.control.input.TypedTextField;
 import com.ss.rlib.fx.util.ObservableUtils.ChangeEventAppender;
+import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.paint.Color;
@@ -248,5 +249,15 @@ public class FxControlUtils {
     ) {
         var selectionModel = control.getSelectionModel();
         return ObservableUtils.onChange(selectionModel.selectedItemProperty(), handler);
+    }
+
+    /**
+     * Add handler to handle action events.
+     *
+     * @param control the button control.
+     * @param handler the handler.
+     */
+    public static void onAction(@NotNull ButtonBase control, @NotNull Runnable handler) {
+        control.addEventHandler(ActionEvent.ACTION, event -> handler.run());
     }
 }

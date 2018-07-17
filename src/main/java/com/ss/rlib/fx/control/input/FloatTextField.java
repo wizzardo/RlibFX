@@ -12,6 +12,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public final class FloatTextField extends NumberTextField<Float> {
 
+    public FloatTextField() {
+        setValue(0F);
+    }
+
     @Override
     protected @NotNull LimitedNumberStringConverter<Float> createValueConverter() {
         return new LimitedFloatStringConverter();
