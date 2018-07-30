@@ -1,11 +1,14 @@
 package com.ss.rlib.fx.control.dialog;
 
+import com.ss.rlib.fx.handler.ControlDragHandler;
+import com.ss.rlib.fx.handler.ControlResizeHandler;
 import com.ss.rlib.fx.util.FxUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,19 +24,19 @@ public abstract class ControlDialog<H extends Parent, C extends Parent, A extend
      * The dialog's header.
      */
     @NotNull
-    private final H header;
+    protected final H header;
 
     /**
      * The dialog's content container.
      */
     @NotNull
-    private final C container;
+    protected final C container;
 
     /**
      * The dialog's actions container.
      */
     @NotNull
-    private final A actions;
+    protected final A actions;
 
     /**
      * The owner dialog.
@@ -48,7 +51,7 @@ public abstract class ControlDialog<H extends Parent, C extends Parent, A extend
 
     private final BooleanProperty showing;
 
-    private ControlDialog() {
+    protected ControlDialog() {
         this.showing = new SimpleBooleanProperty(this, "showing", false);
         this.header = createHeader();
         this.container = createContainer();
@@ -113,13 +116,30 @@ public abstract class ControlDialog<H extends Parent, C extends Parent, A extend
      * @param height the new height.
      */
     public void applySize(double width, double height) {
-        FxUtils.setFixedSize(this, width, height);
+        setPrefWidth(width);
+        setPrefHeight(height);
     }
 
     /**
      * Configure this dialog.
      */
     protected void configure() {
+
+        if (getPrefHeight() == USE_COMPUTED_SIZE) {
+            setPrefHeight(100);
+        }
+
+        if (getPrefWidth() == USE_COMPUTED_SIZE) {
+            setPrefWidth(100);
+        }
+
+        header.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> toFront());
+
+        ControlDragHandler.install(this, header);
+        ControlResizeHandler.install(this);
+
+        FxUtils.addChild(this,
+                header, container, actions);
     }
 
     protected void fillHeader(@NotNull H header) {
@@ -134,6 +154,14 @@ public abstract class ControlDialog<H extends Parent, C extends Parent, A extend
 
     }
 
+    public void show(@NotNull Scene scene) {
+
+        var prefHeight = Math.max(getWidth(), getMinWidth()) / 2;
+        var prefWidth = Math.max(getHeight(), getMinHeight()) / 2;
+
+        show(scene, (scene.getWidth() / 2) - prefWidth, (scene.getHeight() / 2) - prefHeight);
+    }
+
     /**
      * Show this dialog on the scene by the coords.
      *
@@ -146,6 +174,8 @@ public abstract class ControlDialog<H extends Parent, C extends Parent, A extend
         if (showing.get()) {
             return;
         }
+
+        postConstruct();
 
         ControlDialogSupport.getDialogsLayer(scene)
                 .getChildren()

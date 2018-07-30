@@ -22,6 +22,12 @@ public class ControlDialogSupport {
     public static void addSupport(@NotNull Scene scene) {
 
         var dialogsLayer = new Pane();
+        dialogsLayer.setPickOnBounds(false);
+        dialogsLayer.prefWidthProperty()
+                .bind(scene.widthProperty());
+        dialogsLayer.prefHeightProperty()
+                .bind(scene.heightProperty());
+
         var wrapper = new StackPane(scene.getRoot(), dialogsLayer);
 
         scene.getProperties()
@@ -36,7 +42,7 @@ public class ControlDialogSupport {
      * @param scene the scene.
      * @return the dialogs layer.
      */
-    protected static @NotNull Pane getDialogsLayer(@NotNull Scene scene) {
+    public static @NotNull Pane getDialogsLayer(@NotNull Scene scene) {
 
         var layer = (Pane) scene.getProperties()
                 .get(DIALOGS_LAYER);
