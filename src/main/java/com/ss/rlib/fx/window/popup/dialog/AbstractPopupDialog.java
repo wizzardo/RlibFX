@@ -1,48 +1,72 @@
 package com.ss.rlib.fx.window.popup.dialog;
 
-import static javafx.geometry.Pos.CENTER;
-import com.ss.rlib.fx.util.FxUtils;
-import javafx.scene.layout.VBox;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.stage.Popup;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.awt.*;
 
 /**
  * The implementation of a dialog which is based on a popup.
  *
  * @author JavaSaBr
  */
-public abstract class AbstractPopupDialog extends Popup {
+public abstract class AbstractPopupDialog<C extends Node> extends Popup {
+
+    protected static final Point2D DEFAULT_DIALOG_SIZE =
+            new Point2D(500, 500);
 
     /**
-     * The content container.
+     * The dialog's root container.
      */
     @NotNull
-    private final VBox container;
+    private final C container;
 
     /**
-     * The owner.
+     * The owner dialog.
      */
     @Nullable
-    private AbstractPopupDialog ownerDialog;
+    private AbstractPopupDialog<?> ownerDialog;
+
+    /**
+     * The flat about that this dialog was full constructed.
+     */
+    private volatile boolean ready;
 
     public AbstractPopupDialog() {
-        container = new VBox();
-        container.setAlignment(CENTER);
-        createControls(container);
-        configureSize(container);
+        container = createRoot();
         getContent().add(container);
     }
 
     /**
-     * Configure the size of this dialog.
+     * Create a root container of this dialog.
+     *
+     * @return the root container of this dialog.
+     */
+    protected abstract @NotNull C createRoot();
+
+    /**
+     * Construct content of this dialog after constructor.
+     */
+    public void postConstruct() {
+
+        if (ready) {
+            return;
+        }
+
+        createControls(container);
+        configureSize(container, getSize());
+
+        ready = true;
+    }
+
+    /**
+     * Configure a size of this dialog.
      *
      * @param container the root container.
+     * @param size      the size.
      */
-    protected void configureSize(@NotNull VBox container) {
-        FxUtils.setFixedSize(container, getSize());
+    protected void configureSize(@NotNull C container, @NotNull Point2D size) {
     }
 
     /**
@@ -50,7 +74,7 @@ public abstract class AbstractPopupDialog extends Popup {
      *
      * @param root the root.
      */
-    protected void createControls(@NotNull VBox root) {
+    protected void createControls(@NotNull C root) {
     }
 
     /**
@@ -58,7 +82,7 @@ public abstract class AbstractPopupDialog extends Popup {
      *
      * @return the content container.
      */
-    protected @NotNull VBox getContainer() {
+    protected @NotNull C getContainer() {
         return container;
     }
 
@@ -67,7 +91,7 @@ public abstract class AbstractPopupDialog extends Popup {
      *
      * @return the owner dialog.
      */
-    protected @Nullable AbstractPopupDialog getOwnerDialog() {
+    protected @Nullable AbstractPopupDialog<?> getOwnerDialog() {
         return ownerDialog;
     }
 
@@ -76,7 +100,7 @@ public abstract class AbstractPopupDialog extends Popup {
      *
      * @param ownerDialog the owner dialog.
      */
-    protected void setOwnerDialog(@Nullable AbstractPopupDialog ownerDialog) {
+    protected void setOwnerDialog(@Nullable AbstractPopupDialog<?> ownerDialog) {
         this.ownerDialog = ownerDialog;
     }
 
@@ -85,8 +109,14 @@ public abstract class AbstractPopupDialog extends Popup {
      *
      * @return the dialog size.
      */
-    protected @NotNull Point getSize() {
-        return new Point(500, 500);
+    protected @NotNull Point2D getSize() {
+        return DEFAULT_DIALOG_SIZE;
+    }
+
+    @Override
+    protected void show() {
+        postConstruct();
+        super.show();
     }
 
     @Override
