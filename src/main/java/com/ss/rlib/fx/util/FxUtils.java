@@ -2,6 +2,7 @@ package com.ss.rlib.fx.util;
 
 import javafx.beans.value.ObservableValue;
 import javafx.css.Styleable;
+import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
@@ -528,4 +529,13 @@ public class FxUtils {
         setFixedSize(region, size.getX(), size.getY());
     }
 
+    /**
+     * Set fixed size to a region.
+     *
+     * @param region the region.
+     * @param size   the size.
+     */
+    public static void setFixedSize(@NotNull Region region, @NotNull Point2D size) {
+        setFixedSize(region, size.getX(), size.getY());
+    }
 }

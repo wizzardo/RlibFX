@@ -1,7 +1,7 @@
 package com.ss.rlib.fx.control.input;
 
 import com.ss.rlib.fx.util.converter.LimitedIntegerStringConverter;
-import javafx.scene.control.TextFormatter;
+import com.ss.rlib.fx.util.converter.LimitedNumberStringConverter;
 import javafx.scene.input.ScrollEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,21 +10,15 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author JavaSaBr
  */
-public final class IntegerTextField extends TypedTextField<Integer> {
-
+public final class IntegerTextField extends NumberTextField<Integer> {
 
     public IntegerTextField() {
-        setScrollPower(30);
-    }
-
-    public IntegerTextField(@NotNull String text) {
-        super(text);
-        setScrollPower(30);
+        setValue(0);
     }
 
     @Override
-    protected @NotNull TextFormatter<Integer> createTextFormatter() {
-        return new TextFormatter<>(new LimitedIntegerStringConverter());
+    protected @NotNull LimitedNumberStringConverter<Integer> createValueConverter() {
+        return new LimitedIntegerStringConverter();
     }
 
     @Override
@@ -52,44 +46,15 @@ public final class IntegerTextField extends TypedTextField<Integer> {
     }
 
     /**
-     * Sets value limits for this field.
+     * Get the current primitive value.
      *
-     * @param min the min value.
-     * @param max thr max value.
+     * @return the current value or 0.
      */
-    public void setMinMax(int min, int max) {
-        var valueConverter = getTypedTextFormatter().getValueConverter();
-        if (valueConverter instanceof LimitedIntegerStringConverter) {
-            var converter = (LimitedIntegerStringConverter) valueConverter;
-            converter.setMaxValue(max);
-            converter.setMinValue(min);
-        }
-    }
+    public int getPrimitiveValue() {
 
-    /**
-     * Gets a current value.
-     *
-     * @return the current value.
-     */
-    public int getValue() {
-
-        var textFormatter = getTypedTextFormatter();
-        var valueConverter = textFormatter.getValueConverter();
-        var value = textFormatter.getValue();
-
-        if (value == null && valueConverter instanceof LimitedIntegerStringConverter) {
-            return ((LimitedIntegerStringConverter) valueConverter).getMinValue();
-        }
+        var value = getTypedTextFormatter()
+                .getValue();
 
         return value == null ? 0 : value;
-    }
-
-    /**
-     * Sets a new value.
-     *
-     * @param value the new value.
-     */
-    public void setValue(final int value) {
-        setText(String.valueOf(value));
     }
 }

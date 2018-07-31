@@ -1,16 +1,13 @@
 package com.ss.rlib.fx.control.input;
 
 import static com.ss.rlib.common.util.ClassUtils.unsafeCast;
-
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ChangeListener;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
-import javafx.scene.input.ScrollEvent;
+import javafx.util.StringConverter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The implementation of a typed text field control.
@@ -19,71 +16,22 @@ import org.jetbrains.annotations.NotNull;
  */
 public class TypedTextField<T> extends TextField {
 
-    /**
-     * The scroll power.
-     */
-    private float scrollPower;
-
     public TypedTextField() {
-        setTextFormatter(createTextFormatter());
-        setOnScroll(this::scrollValue);
+        setTextFormatter(new TextFormatter<>(createValueConverter()));
     }
 
     public TypedTextField(@NotNull String text) {
         super(text);
-        setTextFormatter(createTextFormatter());
-        setOnScroll(this::scrollValue);
+        setTextFormatter(new TextFormatter<>(createValueConverter()));
     }
 
     /**
-     * Creates a new text formatter.
+     * Create a new value converter.
      *
-     * @return the new text formatter.
+     * @return the new value converter.
      */
-    protected @NotNull TextFormatter<T> createTextFormatter() {
+    protected @NotNull StringConverter<T> createValueConverter() {
         throw new UnsupportedOperationException();
-    }
-
-    /**
-     * Sets the scroll power.
-     *
-     * @param scrollPower the scroll power.
-     */
-    public void setScrollPower(float scrollPower) {
-        this.scrollPower = scrollPower;
-    }
-
-    /**
-     * Gets the scroll power.
-     *
-     * @return the scroll power.
-     */
-    public float getScrollPower() {
-        return scrollPower;
-    }
-
-    /**
-     * Scroll the current value.
-     *
-     * @param event the scroll event.
-     */
-    protected void scrollValue(@NotNull ScrollEvent event) {
-
-        if (!event.isControlDown()) {
-            return;
-        }
-
-        event.consume();
-
-        scrollValueImpl(event);
-    }
-
-    /**
-     * Scroll the current value.
-     *
-     * @param event the scroll event.
-     */
-    protected void scrollValueImpl(@NotNull ScrollEvent event) {
     }
 
     /**
@@ -98,7 +46,7 @@ public class TypedTextField<T> extends TextField {
     }
 
     /**
-     * Gets the typed text formatter.
+     * Get the typed text formatter.
      *
      * @return the typed text formatter.
      */
@@ -107,11 +55,29 @@ public class TypedTextField<T> extends TextField {
     }
 
     /**
-     * Gets the value property.
+     * Get the value property.
      *
      * @return the value property.
      */
     public @NotNull ReadOnlyObjectProperty<T> valueProperty() {
         return getTypedTextFormatter().valueProperty();
+    }
+
+    /**
+     * Get a current value.
+     *
+     * @return the current value.
+     */
+    public @Nullable T getValue() {
+        return getTypedTextFormatter().getValue();
+    }
+
+    /**
+     * Set a new value.
+     *
+     * @param value the new value.
+     */
+    public void setValue(@Nullable T value) {
+        getTypedTextFormatter().setValue(value);
     }
 }
