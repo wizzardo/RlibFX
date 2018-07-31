@@ -121,3 +121,48 @@ dependencies {
     // new style
     FxUtils.rebindPrefWidth(control1, control2.widthProperty());
 ```
+
+### ControlDialogs
+```java
+    @Override
+    public void start(@NotNull Stage stage) {
+
+        var root = new VBox();
+        root.setAlignment(Pos.CENTER);
+
+        var scene = new Scene(root);
+        scene.getStylesheets()
+                .add(CssClasses.CSS_FILE);
+
+        var button = new Button("Create a dialog in scene's center");
+        button.setOnAction(event -> openInCenterDialog(scene));
+
+        var button2 = new Button("Create a dialog over this button");
+        button2.setOnAction(event -> openOverNode(button2));
+
+        var emptyPane = new Pane();
+        emptyPane.setMinHeight(300);
+
+        FxUtils.addChild(root, button, emptyPane, button2);
+
+        ControlDialogSupport.addSupport(scene);
+
+        stage.setScene(scene);
+        stage.setWidth(1024);
+        stage.setHeight(768);
+        stage.show();
+    }
+
+    private void openInCenterDialog(@NotNull Scene scene) {
+        var dialog = new TestDialog();
+        dialog.applySize(200, 200);
+        dialog.show(scene);
+    }
+
+    private void openOverNode(@NotNull Node node) {
+        var dialog = new TestDialog();
+        dialog.applySize(200, 200);
+        dialog.show(node);
+    }
+```
+![Control Dialogs](https://i.imgur.com/p59nFhV.png)

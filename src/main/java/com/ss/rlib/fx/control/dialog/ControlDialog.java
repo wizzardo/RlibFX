@@ -1,11 +1,13 @@
 package com.ss.rlib.fx.control.dialog;
 
+import static java.lang.Math.max;
 import com.ss.rlib.fx.handler.ControlDragHandler;
 import com.ss.rlib.fx.handler.ControlResizeHandler;
 import com.ss.rlib.fx.util.FxUtils;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
@@ -58,6 +60,11 @@ public abstract class ControlDialog<H extends Parent, C extends Parent, A extend
         this.actions = createActions();
     }
 
+    /**
+     * Get the showing property.
+     *
+     * @return the showing property.
+     */
     public @NotNull BooleanProperty showingProperty() {
         return showing;
     }
@@ -135,29 +142,91 @@ public abstract class ControlDialog<H extends Parent, C extends Parent, A extend
 
         header.addEventHandler(MouseEvent.MOUSE_PRESSED, event -> toFront());
 
-        ControlDragHandler.install(this, header);
-        ControlResizeHandler.install(this);
+        if (canDrag()) {
+            ControlDragHandler.install(this, header);
+        }
+
+        if (canResize()) {
+            ControlResizeHandler.install(this);
+        }
 
         FxUtils.addChild(this,
                 header, container, actions);
     }
 
+    /**
+     * Return true if this dialog can be resized.
+     *
+     * @return true if this dialog can be resized.
+     */
+    protected boolean canResize() {
+        return true;
+    }
+
+    /**
+     * Return true if this dialog can be dragged.
+     *
+     * @return true if this dialog can be dragged.
+     */
+    protected boolean canDrag() {
+        return true;
+    }
+
+    /**
+     * Fill header of this dialog.
+     *
+     * @param header the header container.
+     */
     protected void fillHeader(@NotNull H header) {
 
     }
 
+    /**
+     * Fill content of this dialog.
+     *
+     * @param content the content's container.
+     */
     protected void fillContent(@NotNull C content) {
 
     }
 
+    /**
+     * Fill actions of this dialog.
+     *
+     * @param actions the actions.
+     */
     protected void fillActions(@NotNull A actions) {
 
     }
 
+    /**
+     * Show this dialog over the node.
+     *
+     * @param node the node.
+     */
+    public void show(@NotNull Node node) {
+
+        var parent = node.getParent();
+        var bounds = node.getBoundsInParent();
+        var scene = node.getScene();
+        var inScene = parent.localToScene(bounds.getMinX() + bounds.getWidth() / 2,
+                bounds.getMinY() + bounds.getHeight() / 2);
+
+        var prefHeight = max(max(getWidth(), getMinWidth()), getPrefHeight()) / 2;
+        var prefWidth = max(max(getHeight(), getMinHeight()), getPrefWidth()) / 2;
+
+        show(scene, inScene.getX() - prefWidth, inScene.getY() - prefHeight);
+    }
+
+    /**
+     * Show this dialog on the scene.
+     *
+     * @param scene the scene.
+     */
     public void show(@NotNull Scene scene) {
 
-        var prefHeight = Math.max(getWidth(), getMinWidth()) / 2;
-        var prefWidth = Math.max(getHeight(), getMinHeight()) / 2;
+        var prefHeight = max(max(getWidth(), getMinWidth()), getPrefHeight()) / 2;
+        var prefWidth = max(max(getHeight(), getMinHeight()), getPrefWidth()) / 2;
 
         show(scene, (scene.getWidth() / 2) - prefWidth, (scene.getHeight() / 2) - prefHeight);
     }

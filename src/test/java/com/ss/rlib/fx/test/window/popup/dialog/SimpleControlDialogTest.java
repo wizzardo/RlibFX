@@ -4,20 +4,17 @@ import com.ss.rlib.fx.CssClasses;
 import com.ss.rlib.fx.control.dialog.ControlDialogSupport;
 import com.ss.rlib.fx.control.dialog.DefaultControlDialog;
 import com.ss.rlib.fx.util.FxUtils;
-import com.ss.rlib.fx.window.popup.dialog.SimplePopupDialog;
 import javafx.application.Application;
-import javafx.collections.ObservableList;
-import javafx.event.EventType;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
-import org.junit.jupiter.api.Assertions;
 
 public class SimpleControlDialogTest extends Application {
 
@@ -52,17 +49,25 @@ public class SimpleControlDialogTest extends Application {
     }
 
     @Override
-    public void start(@NotNull Stage stage) throws Exception {
+    public void start(@NotNull Stage stage) {
 
-        var root = new StackPane();
+        var root = new VBox();
+        root.setAlignment(Pos.CENTER);
+
         var scene = new Scene(root);
         scene.getStylesheets()
                 .add(CssClasses.CSS_FILE);
 
-        var button = new Button("Create a dialog");
-        button.setOnAction(event -> openDialog(scene));
+        var button = new Button("Create a dialog in scene's center");
+        button.setOnAction(event -> openInCenterDialog(scene));
 
-        FxUtils.addChild(root, button);
+        var button2 = new Button("Create a dialog over this button");
+        button2.setOnAction(event -> openOverNode(button2));
+
+        var emptyPane = new Pane();
+        emptyPane.setMinHeight(300);
+
+        FxUtils.addChild(root, button, emptyPane, button2);
 
         ControlDialogSupport.addSupport(scene);
 
@@ -72,9 +77,15 @@ public class SimpleControlDialogTest extends Application {
         stage.show();
     }
 
-    private void openDialog(@NotNull Scene scene) {
+    private void openInCenterDialog(@NotNull Scene scene) {
         var dialog = new TestDialog();
         dialog.applySize(200, 200);
         dialog.show(scene);
+    }
+
+    private void openOverNode(@NotNull Node node) {
+        var dialog = new TestDialog();
+        dialog.applySize(200, 200);
+        dialog.show(node);
     }
 }

@@ -1,19 +1,11 @@
 package com.ss.rlib.fx.handler;
 
+import static javafx.scene.input.MouseEvent.*;
 import javafx.event.EventHandler;
-import javafx.geometry.Point2D;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.stream.IntStream;
-
-import static java.util.stream.Collectors.toList;
-import static javafx.scene.input.MouseEvent.*;
 
 /**
  * The implementation of a control resize handler.
@@ -22,10 +14,21 @@ import static javafx.scene.input.MouseEvent.*;
  */
 public class ControlResizeHandler implements EventHandler<MouseEvent> {
 
+    /**
+     * Install resize handler to the region.
+     *
+     * @param node the region.
+     */
     public static void install(@NotNull Region node) {
         install(node, 4);
     }
 
+    /**
+     * Install resize handler to the region.
+     *
+     * @param node the region.
+     * @param borderWidth the border width.
+     */
     public static void install(@NotNull Region node, int borderWidth) {
 
         var handler = new ControlResizeHandler(node, borderWidth);
@@ -45,9 +48,6 @@ public class ControlResizeHandler implements EventHandler<MouseEvent> {
 
     private double startX;
     private double startY;
-
-    private double lastResizeX;
-    private double lastResizeY;
 
     private int border;
 
@@ -76,102 +76,46 @@ public class ControlResizeHandler implements EventHandler<MouseEvent> {
         } else if (MOUSE_PRESSED.equals(eventType)) {
             startX = nodeWidth - eventX;
             startY = nodeHeight - eventY;
-            lastResizeX = 0;
-            lastResizeY = 0;
         } else if (MOUSE_DRAGGED.equals(eventType)) {
 
             if (Cursor.DEFAULT.equals(cursor)) {
                 return;
-            }
-
-            if (!Cursor.W_RESIZE.equals(cursor) && !Cursor.E_RESIZE.equals(cursor)) {
-                resizeHeight(mouseEvent, eventY);
+            } else if (!Cursor.W_RESIZE.equals(cursor) && !Cursor.E_RESIZE.equals(cursor)) {
+                resizeHeight(eventY);
             }
 
             if (!Cursor.N_RESIZE.equals(cursor) && !Cursor.S_RESIZE.equals(cursor)) {
-                resizeWidth(mouseEvent, eventX);
+                resizeWidth(eventX);
             }
         }
     }
 
-    private void resizeWidth(@NotNull MouseEvent mouseEvent, double eventX) {
+    private void resizeWidth(double eventX) {
 
+        var minWidth = node.getMinWidth() > (border * 2) ? node.getMinWidth() : (border * 2);
+        var newWidth = eventX + startX;
 
-        var strings = IntStream.range(0, 10_000)
-                .filter(value -> value % 2 == 0)
-                .filter(value -> value < 200 && value > 10)
-                .filter(value -> value % 3 == 1)
-                .mapToObj(String::valueOf)
-                .map(key -> key.substring(0, 3))
-                .collect(toList());
-
-        var result = IntStream.range(0, 100)
-                .filter(value -> value % 2 == 0)
-                .flatMap(value -> IntStream.range(value, 500))
-                .mapToObj(String::valueOf)
-                .filter(string -> string.length() > 4)
-                .map(string -> string.substring(0, 2))
-                .mapToInt(Integer::parseInt)
-                .reduce((left, right) -> left + right)
-                .orElse(-1);
-
-        System.out.println(eventX);
-
-        double minWidth = node.getMinWidth() > (border * 2) ? node.getMinWidth() : (border * 2);
-
-        if (Cursor.NW_RESIZE.equals(cursor) || Cursor.W_RESIZE.equals(cursor) || Cursor.SW_RESIZE.equals(cursor)) {
-
-            if (node.getWidth() > minWidth || eventX < 0) {
-                node.resize(node.getWidth(), node.getHeight());
-                //node.setTranslateX(mouseEvent.getScreenX());
-            }
-
-        } else {
-            var newWidth = eventX + startX;
-            System.out.println("new width: " + newWidth);
-            if (node.getWidth() > minWidth || newWidth - node.getWidth() > 0) {
-                node.setPrefWidth(Region.USE_COMPUTED_SIZE);
-                node.setMaxWidth(Region.USE_COMPUTED_SIZE);
-                node.setMinWidth(Region.USE_COMPUTED_SIZE);
-                node.resize(newWidth, node.getHeight());
-            }
+        if (node.getWidth() > minWidth || newWidth - node.getWidth() > 0) {
+            node.setPrefWidth(newWidth);
         }
     }
 
-    private void resizeHeight(@NotNull MouseEvent mouseEvent, double mouseEventY) {
+    private void resizeHeight(double eventY) {
 
-        double minHeight = node.getMinHeight() > (border * 2) ? node.getMinHeight() : (border * 2);
+        var minHeight = node.getMinHeight() > (border * 2) ? node.getMinHeight() : (border * 2);
+        var newHeight = eventY + startY;
 
-        if (Cursor.NW_RESIZE.equals(cursor) || Cursor.N_RESIZE.equals(cursor) || Cursor.NE_RESIZE.equals(cursor)) {
-
-            if (node.getHeight() > minHeight || mouseEventY < 0) {
-                node.resize(node.getWidth(), node.getTranslateY() - mouseEvent.getY() + node.getHeight());
-                node.setTranslateY(mouseEvent.getY());
-            }
-
-        } else {
-            if (node.getHeight() > minHeight || mouseEventY + startY - node.getHeight() > 0) {
-                node.resize(node.getWidth(), mouseEventY + startY);
-            }
+        if (node.getHeight() > minHeight || newHeight - node.getHeight() > 0) {
+            node.setPrefHeight(newHeight);
         }
     }
 
     private void handleMoving(double eventX, double eventY, double nodeWidth, double nodeHeight) {
 
-        if (eventX < border && eventY < border) {
-            cursor = Cursor.NW_RESIZE;
-        } else if (eventX < border && eventY > nodeHeight - border) {
-            cursor = Cursor.SW_RESIZE;
-        } else if (eventX > nodeWidth - border && eventY < border) {
-            cursor = Cursor.NE_RESIZE;
-        } else if (eventX > nodeWidth - border && eventY > nodeHeight - border) {
+        if (eventX > nodeWidth - border && eventY > nodeHeight - border) {
             cursor = Cursor.SE_RESIZE;
-        } else if (eventX < border) {
-            cursor = Cursor.W_RESIZE;
         } else if (eventX > nodeWidth - border) {
             cursor = Cursor.E_RESIZE;
-        } else if (eventY < border) {
-            cursor = Cursor.N_RESIZE;
         } else if (eventY > nodeHeight - border) {
             cursor = Cursor.S_RESIZE;
         } else {

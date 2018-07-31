@@ -42,7 +42,7 @@ public class ControlDialogSupport {
      * @param scene the scene.
      * @return the dialogs layer.
      */
-    public static @NotNull Pane getDialogsLayer(@NotNull Scene scene) {
+    static @NotNull Pane getDialogsLayer(@NotNull Scene scene) {
 
         var layer = (Pane) scene.getProperties()
                 .get(DIALOGS_LAYER);
