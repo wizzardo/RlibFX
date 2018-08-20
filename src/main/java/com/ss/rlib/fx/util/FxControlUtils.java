@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.paint.Color;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -259,5 +260,35 @@ public class FxControlUtils {
      */
     public static void onAction(@NotNull ButtonBase control, @NotNull Runnable handler) {
         control.addEventHandler(ActionEvent.ACTION, event -> handler.run());
+    }
+
+    /**
+     * Add handler of selected tab changes.
+     *
+     * @param control the tab pane control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Tab> onSelectedTabChange(
+            @NotNull TabPane control,
+            @NotNull Consumer<Tab> handler
+    ) {
+        var selectionModel = control.getSelectionModel();
+        return ObservableUtils.onChange(selectionModel.selectedItemProperty(), handler);
+    }
+
+    /**
+     * Add handler of selected tab changes.
+     *
+     * @param control the tab pane control.
+     * @param handler the handler.
+     * @return the change event appender.
+     */
+    public static ChangeEventAppender<Tab> onSelectedTabChange(
+            @NotNull TabPane control,
+            @NotNull BiConsumer<Tab, Tab> handler
+    ) {
+        var selectionModel = control.getSelectionModel();
+        return ObservableUtils.onChange(selectionModel.selectedItemProperty(), handler);
     }
 }

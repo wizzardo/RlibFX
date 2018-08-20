@@ -212,6 +212,17 @@ public class ObservableUtils {
     }
 
     /**
+     * Start building change handlers.
+     *
+     * @param value    the observable value.
+     * @param <T>      the value type.
+     * @return the change event appender.
+     */
+    public static <T> ChangeEventAppender<T> onChanges(@NotNull ObservableValue<T> value) {
+        return getAppender(value);
+    }
+
+    /**
      * Add on change event handler.
      *
      * @param value    the observable value.
