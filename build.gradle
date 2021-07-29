@@ -41,48 +41,20 @@ repositories {
     }
 }
 
-publishing {
-    publications {
-        RlibFXArtifact(MavenPublication) {
-            from components.java
-            groupId group
-            artifactId 'rlib.fx'
-            version bintrayVersion
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
-}
-
-bintray {
-    user = System.getProperty('bintrayUser')
-    key = System.getProperty('bintrayKey')
-    publications = ['RlibFXArtifact']
-    pkg {
-        repo = 'maven'
-        name = 'com.spaceshift.rlib.fx'
-        licenses = ['Apache-2.0']
-        websiteUrl = 'https://github.com/JavaSaBr/RlibFX'
-        vcsUrl = 'https://github.com/JavaSaBr/RlibFX.git'
-        issueTrackerUrl = 'https://github.com/JavaSaBr/RlibFX/issues'
-        githubRepo = 'JavaSaBr/RlibFX'
-        githubReleaseNotesFile = 'README.md'
-        version {
-            name = bintrayVersion
-            desc = bintrayVersion
-            released  = new Date()
-        }
-    }
-}
 
 dependencies {
-    compile 'com.spaceshift:rlib.common:7.3.0'
+    compile 'com.github.wizzardo:RLib:7.3.0'
     compile group: 'org.jetbrains', name: 'annotations', version: '15.0'
 
     testCompile group: 'org.jetbrains', name: 'annotations', version: '15.0'
 
     testCompile "org.junit.jupiter:junit-jupiter-api:$junitJupiterVersion"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:$junitJupiterVersion"
+
+    def javaFx = "13:linux"
+    compile "org.openjfx:javafx-base:$javaFx"
+    compile "org.openjfx:javafx-graphics:$javaFx"
+    compile "org.openjfx:javafx-controls:$javaFx"
 }
 
 test {
@@ -105,8 +77,4 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
-}
-
-task wrapper(type: Wrapper) {
-    gradleVersion = '4.9'
 }
